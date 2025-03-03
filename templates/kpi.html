@@ -184,7 +184,6 @@
             const trendsCtx = document.getElementById('errorTrendsChart').getContext('2d');
             
             // Limit the number of error types shown in the chart to prevent endless scrolling
-            const maxErrorTypes = 5;
             let errorTrendsData = {};
             let shownErrorCount = 0;
             
@@ -197,7 +196,9 @@
             
             // Create datasets from the limited error types
             let datasets = [];
-            for (const [errorType, values] of Object.entries(errorTrendsData)) {
+            // Limit the number of datasets to avoid performance issues
+            const dataEntries = Object.entries(errorTrendsData).slice(0, 5);
+            for (const [errorType, values] of dataEntries) {
                 datasets.push({
                     label: errorType,
                     data: values,
@@ -236,11 +237,11 @@
             });
             
             // Show a message if some error types were omitted
-            if (Object.keys(errorTrendsData).length < {{ error_trends|length }}) {
+            if (Object.keys(errorTrendsData).length < Object.keys({{ error_trends|tojson }}).length) {
                 const chartContainer = document.getElementById('errorTrendsChart').parentNode;
                 const infoDiv = document.createElement('div');
                 infoDiv.className = 'alert alert-info mt-3';
-                infoDiv.innerHTML = `<p class="mb-0">Showing top ${shownErrorCount} error types out of {{ error_trends|length }} total types.</p>`;
+                infoDiv.innerHTML = `<p class="mb-0">Showing top ${shownErrorCount} error types out of ${Object.keys({{ error_trends|tojson }}).length} total types.</p>`;
                 chartContainer.appendChild(infoDiv);
             }
             {% endif %}
