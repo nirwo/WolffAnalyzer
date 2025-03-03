@@ -183,31 +183,24 @@
             {% if dates %}
             const trendsCtx = document.getElementById('errorTrendsChart').getContext('2d');
             
-            // Limit the number of error types shown in the chart to prevent endless scrolling
-            let errorTrendsData = {};
-            let shownErrorCount = 0;
+            // Create datasets directly from limited data to avoid memory issues
+            let datasets = [];
             
+            // Only include top 5 error types
+            {% set counter = 0 %}
             {% for error_type, values in error_trends.items() %}
-                {% if loop.index0 < 5 %}
-                    errorTrendsData['{{ error_type }}'] = [{% for value in values %}{{ value }},{% endfor %}];
-                    shownErrorCount++;
+                {% if counter < 5 %}
+                    datasets.push({
+                        label: "{{ error_type }}",
+                        data: [{% for value in values %}{{ value }},{% endfor %}],
+                        borderColor: getRandomColor(),
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1
+                    });
+                    {% set counter = counter + 1 %}
                 {% endif %}
             {% endfor %}
-            
-            // Create datasets from the limited error types
-            let datasets = [];
-            // Limit the number of datasets to avoid performance issues
-            const dataEntries = Object.entries(errorTrendsData).slice(0, 5);
-            for (const [errorType, values] of dataEntries) {
-                datasets.push({
-                    label: errorType,
-                    data: values,
-                    borderColor: getRandomColor(),
-                    borderWidth: 2,
-                    fill: false,
-                    tension: 0.1
-                });
-            }
             
             const trendsChart = new Chart(trendsCtx, {
                 type: 'line',
@@ -237,13 +230,13 @@
             });
             
             // Show a message if some error types were omitted
-            if (Object.keys(errorTrendsData).length < Object.keys({{ error_trends|tojson }}).length) {
-                const chartContainer = document.getElementById('errorTrendsChart').parentNode;
-                const infoDiv = document.createElement('div');
-                infoDiv.className = 'alert alert-info mt-3';
-                infoDiv.innerHTML = `<p class="mb-0">Showing top ${shownErrorCount} error types out of ${Object.keys({{ error_trends|tojson }}).length} total types.</p>`;
-                chartContainer.appendChild(infoDiv);
-            }
+            {% if error_trends|length > 5 %}
+            const chartContainer = document.getElementById('errorTrendsChart').parentNode;
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'alert alert-info mt-3';
+            infoDiv.innerHTML = '<p class="mb-0">Showing top 5 error types out of {{ error_trends|length }} total types.</p>';
+            chartContainer.appendChild(infoDiv);
+            {% endif %}
             {% endif %}
             
             // Set up Jenkins errors chart
