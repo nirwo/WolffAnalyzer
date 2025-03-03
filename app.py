@@ -1327,7 +1327,28 @@ def analyze_url():
         flash('No URL provided')
         return redirect(url_for('index'))
     
-    log_url = request.form['logurl']
+    log_url = request.form['logurl'].strip()
+    
+    # Check if it's a Jenkins URL but missing /consoleText
+    # Support various Jenkins URL patterns
+    jenkins_patterns = [
+        re.compile(r'https?://[^/]+/[^/]+/job/[^/]+/\d+/?$'),          # Basic Jenkins job URL
+        re.compile(r'https?://[^/]+/jenkins/job/[^/]+/\d+/?$'),        # Jenkins with /jenkins prefix
+        re.compile(r'https?://[^/]+/[^/]+/view/[^/]+/job/[^/]+/\d+/?$'), # Jenkins view URL
+        re.compile(r'https?://[^/]+/job/[^/]+/\d+/?$'),                # Root level job URL
+        # Support multi-level pipeline jobs
+        re.compile(r'https?://[^/]+/(?:[^/]+/)*job/[^/]+/job/[^/]+/\d+/?$')
+    ]
+    
+    is_jenkins_url = any(pattern.match(log_url) for pattern in jenkins_patterns)
+    if is_jenkins_url and 'consoleText' not in log_url:
+        # Add /consoleText if not already present
+        if not log_url.endswith('/'):
+            log_url += '/'
+        if not log_url.endswith('consoleText'):
+            log_url += 'consoleText'
+        logger.info(f"Modified Jenkins URL to: {log_url}")
+        flash(f"Added '/consoleText' to Jenkins URL for log retrieval", "info")
     
     try:
         # Fetch the content from the URL
