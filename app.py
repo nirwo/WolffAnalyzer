@@ -975,7 +975,7 @@ def admin_users():
         with open(app.config['USERS_FILE'], 'r') as f:
             users_data = json.load(f)
         
-        return render_template('admin_users.html', users=users_data['users'])
+        return render_template('admin_users.html', users=users_data['users'], user=session)
     except Exception as e:
         flash(f'Error loading users: {str(e)}')
         return redirect(url_for('index'))

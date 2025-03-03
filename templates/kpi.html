@@ -189,7 +189,7 @@
             let shownErrorCount = 0;
             
             {% for error_type, values in error_trends.items() %}
-                {% if loop.index0 < maxErrorTypes %}
+                {% if loop.index0 < 5 %}
                     errorTrendsData['{{ error_type }}'] = [{% for value in values %}{{ value }},{% endfor %}];
                     shownErrorCount++;
                 {% endif %}
