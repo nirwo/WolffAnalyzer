@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Log View - {{ filename }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Additional styling for line numbers */
+        .log-container {
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            background-color: var(--darker-bg);
+            color: var(--text-light);
+            counter-reset: line;
+            border-radius: 0.5rem;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .log-line {
+            display: flex;
+            line-height: 1.5;
+            white-space: pre;
+            position: relative;
+            padding: 0;
+            transition: background-color 0.2s ease;
+        }
+        
+        .log-line:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .line-number {
+            counter-increment: line;
+            width: 3.5rem;
+            display: inline-block;
+            text-align: right;
+            padding-right: 0.5rem;
+            margin-right: 0.5rem;
+            user-select: none;
+            color: var(--text-muted);
+            border-right: 1px solid var(--dark-border);
+        }
+        
+        .line-number::before {
+            content: counter(line);
+        }
+        
+        .line-content {
+            flex-grow: 1;
+            padding-left: 0.25rem;
+            min-width: 0;
+        }
+        
+        /* Highlight matches */
+        .highlight {
+            background-color: rgba(255, 193, 7, 0.2);
+            font-weight: bold;
+        }
+        
+        /* Error indicator */
+        .error-line {
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+        
+        .error-line .line-number {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        
+        /* Filter toolbar */
+        .filter-toolbar {
+            position: sticky;
+            top: 0;
+            background-color: var(--darker-bg);
+            z-index: 100;
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--dark-border);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Sticky line-number column */
+        .log-wrap {
+            position: relative;
+            overflow-x: auto;
+            max-height: calc(100vh - 200px);
+        }
+        
+        /* Jump to line highlight */
+        .highlight-jump {
+            background-color: rgba(25, 135, 84, 0.2);
+            animation: highlight-fade 3s forwards;
+        }
+        
+        @keyframes highlight-fade {
+            0% { background-color: rgba(25, 135, 84, 0.4); }
+            100% { background-color: transparent; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Log Analyzer</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_logs') }}">Previous Analyses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_patterns') }}">Error Patterns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_kpi') }}">Error KPIs</a>
+                    </li>
+                    {% if user and user.role == 'admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin_users') }}">User Management</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="bi bi-file-text me-2"></i>Raw Log: {{ filename }}</h5>
+                <div>
+                    <button id="btnGoBack" class="btn btn-sm btn-outline-secondary" onclick="window.history.back()">
+                        <i class="bi bi-arrow-left"></i> Back to Analysis
+                    </button>
+                    <button id="btnDownload" class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-download"></i> Download
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="filter-toolbar">
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text">Find</span>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search text...">
+                                <button class="btn btn-outline-secondary" id="prevMatch">
+                                    <i class="bi bi-arrow-up"></i>
+                                </button>
+                                <button class="btn btn-outline-secondary" id="nextMatch">
+                                    <i class="bi bi-arrow-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text">Line</span>
+                                <input type="number" id="gotoLine" class="form-control" min="1" max="{{ line_count }}" placeholder="Go to...">
+                                <button class="btn btn-outline-secondary" id="gotoBtn">Go</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-outline-danger" id="filterErrors">Errors</button>
+                                <button type="button" class="btn btn-outline-warning" id="filterWarnings">Warnings</button>
+                                <button type="button" class="btn btn-reset btn-outline-secondary" id="clearFilters">All</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-end">
+                            <span class="badge bg-secondary">{{ line_count }} lines</span>
+                            <span id="matchStats" class="badge bg-info"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="log-wrap">
+                    <div class="log-container" id="logContainer">
+                        {% for line in log_lines %}
+                        <div class="log-line" id="line-{{ loop.index }}">
+                            <span class="line-number"></span>
+                            <span class="line-content">{{ line }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark py-3 mt-5">
+        <div class="container text-center">
+            <p class="text-muted mb-0">Log Analyzer &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const gotoLine = document.getElementById('gotoLine');
+            const gotoBtn = document.getElementById('gotoBtn');
+            const prevMatchBtn = document.getElementById('prevMatch');
+            const nextMatchBtn = document.getElementById('nextMatch');
+            const filterErrors = document.getElementById('filterErrors');
+            const filterWarnings = document.getElementById('filterWarnings');
+            const clearFilters = document.getElementById('clearFilters');
+            const matchStats = document.getElementById('matchStats');
+            const logContainer = document.getElementById('logContainer');
+            const logLines = document.querySelectorAll('.log-line');
+            const downloadBtn = document.getElementById('btnDownload');
+            
+            let currentMatchIndex = -1;
+            let matches = [];
+            
+            // Auto-detect errors and warnings and mark them
+            const detectErrors = () => {
+                logLines.forEach(line => {
+                    const content = line.querySelector('.line-content').textContent.toLowerCase();
+                    if (content.includes('error') || content.includes('exception') || content.includes('fail') || 
+                        content.includes('fatal') || content.includes('critical')) {
+                        line.classList.add('error-line');
+                    } else if (content.includes('warn') || content.includes('warning')) {
+                        line.classList.add('warning-line');
+                    }
+                });
+            };
+            
+            detectErrors();
+            
+            // Check for line number in URL hash
+            const checkHashForLineNumber = () => {
+                if (window.location.hash) {
+                    const hash = window.location.hash.substring(1);
+                    if (hash.startsWith('L')) {
+                        const lineNumber = parseInt(hash.substring(1), 10);
+                        jumpToLine(lineNumber);
+                    }
+                }
+            };
+            
+            // Jump to line function
+            const jumpToLine = (lineNumber) => {
+                if (lineNumber < 1 || lineNumber > {{ line_count }}) {
+                    return false;
+                }
+                
+                const targetLine = document.getElementById(`line-${lineNumber}`);
+                if (targetLine) {
+                    // Clear any previous highlights
+                    logLines.forEach(line => line.classList.remove('highlight-jump'));
+                    
+                    // Add new highlight and scroll to it
+                    targetLine.classList.add('highlight-jump');
+                    targetLine.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    return true;
+                }
+                
+                return false;
+            };
+            
+            // Search functionality
+            const performSearch = () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                if (!searchTerm) {
+                    // Clear all highlights if search is empty
+                    const highlightedSpans = document.querySelectorAll('.highlight');
+                    highlightedSpans.forEach(span => {
+                        const parent = span.parentNode;
+                        parent.textContent = parent.textContent; // Remove the span by replacing with text
+                    });
+                    matches = [];
+                    currentMatchIndex = -1;
+                    matchStats.textContent = '';
+                    return;
+                }
+                
+                // Reset matches
+                matches = [];
+                
+                // Clear previous highlights
+                const highlightedSpans = document.querySelectorAll('.highlight');
+                highlightedSpans.forEach(span => {
+                    const parent = span.parentNode;
+                    parent.textContent = parent.textContent;
+                });
+                
+                // Search and highlight
+                logLines.forEach((line, index) => {
+                    const lineContent = line.querySelector('.line-content');
+                    const text = lineContent.textContent;
+                    const lowerText = text.toLowerCase();
+                    
+                    if (lowerText.includes(searchTerm)) {
+                        matches.push(line);
+                        
+                        // Highlight matches with spans
+                        let html = '';
+                        let lastIndex = 0;
+                        const termLength = searchTerm.length;
+                        
+                        let startPos = lowerText.indexOf(searchTerm);
+                        while (startPos > -1) {
+                            html += text.substring(lastIndex, startPos);
+                            html += `<span class="highlight">${text.substring(startPos, startPos + termLength)}</span>`;
+                            lastIndex = startPos + termLength;
+                            startPos = lowerText.indexOf(searchTerm, lastIndex);
+                        }
+                        
+                        html += text.substring(lastIndex);
+                        lineContent.innerHTML = html;
+                    }
+                });
+                
+                // Update match status
+                updateMatchStats();
+                
+                // Go to first match
+                if (matches.length > 0) {
+                    currentMatchIndex = 0;
+                    navigateToMatch(currentMatchIndex);
+                }
+            };
+            
+            // Navigate to specific match
+            const navigateToMatch = (index) => {
+                if (matches.length === 0 || index < 0 || index >= matches.length) {
+                    return;
+                }
+                
+                const matchLine = matches[index];
+                matchLine.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                updateMatchStats();
+            };
+            
+            // Update match statistics display
+            const updateMatchStats = () => {
+                if (matches.length > 0) {
+                    matchStats.textContent = `${currentMatchIndex + 1} of ${matches.length} matches`;
+                } else {
+                    matchStats.textContent = 'No matches';
+                }
+            };
+            
+            // Filter by error/warning level
+            const filterByLevel = (level) => {
+                logLines.forEach(line => {
+                    if (level === 'all') {
+                        line.style.display = '';
+                    } else if (level === 'error' && line.classList.contains('error-line')) {
+                        line.style.display = '';
+                    } else if (level === 'warning' && line.classList.contains('warning-line')) {
+                        line.style.display = '';
+                    } else {
+                        line.style.display = 'none';
+                    }
+                });
+            };
+            
+            // Download log
+            const downloadLog = () => {
+                const content = Array.from(logLines).map(line => 
+                    line.querySelector('.line-content').textContent).join('\n');
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = '{{ filename }}';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            };
+            
+            // Set up event listeners
+            searchInput.addEventListener('input', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            gotoBtn.addEventListener('click', () => {
+                const lineNumber = parseInt(gotoLine.value, 10);
+                if (jumpToLine(lineNumber)) {
+                    window.location.hash = `L${lineNumber}`;
+                }
+            });
+            
+            gotoLine.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const lineNumber = parseInt(gotoLine.value, 10);
+                    if (jumpToLine(lineNumber)) {
+                        window.location.hash = `L${lineNumber}`;
+                    }
+                }
+            });
+            
+            prevMatchBtn.addEventListener('click', () => {
+                if (matches.length === 0) return;
+                currentMatchIndex = (currentMatchIndex - 1 + matches.length) % matches.length;
+                navigateToMatch(currentMatchIndex);
+            });
+            
+            nextMatchBtn.addEventListener('click', () => {
+                if (matches.length === 0) return;
+                currentMatchIndex = (currentMatchIndex + 1) % matches.length;
+                navigateToMatch(currentMatchIndex);
+            });
+            
+            filterErrors.addEventListener('click', () => {
+                filterByLevel('error');
+            });
+            
+            filterWarnings.addEventListener('click', () => {
+                filterByLevel('warning');
+            });
+            
+            clearFilters.addEventListener('click', () => {
+                filterByLevel('all');
+            });
+            
+            downloadBtn.addEventListener('click', downloadLog);
+            
+            // Check for line number in hash on load
+            checkHashForLineNumber();
+            
+            // Check for URL parameter to highlight specific search term
+            const urlParams = new URLSearchParams(window.location.search);
+            const highlightTerm = urlParams.get('highlight');
+            if (highlightTerm) {
+                searchInput.value = highlightTerm;
+                performSearch();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -373,6 +373,13 @@ def parse_log(log_content):
             
             # If we have useful information, add the entry
             if timestamp or error_level not in ['INFO', 'DEBUG']:
+                # If timestamp is in component, fix it
+                if not timestamp and component and ':' in component and component[0].isdigit():
+                    # This might be a timestamp
+                    if re.match(r'\d{2}:\d{2}:\d{2}', component):
+                        timestamp = component
+                        component = 'Unknown'
+                
                 log_entries.append({
                     'timestamp': timestamp,
                     'level': error_level,
@@ -1584,6 +1591,168 @@ def show_logs():
 @login_required
 def my_logs():
     return render_template('my_logs.html', user=session)
+
+@app.route('/rawlog/<filename>')
+@login_required
+def raw_log(filename):
+    """Show the raw log file content with line numbers"""
+    # Check for existence of the file
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    if not os.path.exists(file_path):
+        flash('Log file not found')
+        return redirect(url_for('index'))
+    
+    # Check user permissions
+    user_id = session['user_id']
+    role = session.get('role', ROLE_USER)
+    
+    # Check if filename starts with user_id or user is admin
+    if not role == ROLE_ADMIN and not filename.startswith(f"{user_id}_"):
+        flash('You do not have permission to view this log')
+        return redirect(url_for('index'))
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+            log_content = f.read()
+        
+        # Get log lines with line numbers
+        log_lines = log_content.splitlines()
+        
+        return render_template('raw_log.html', 
+                             filename=filename,
+                             log_lines=log_lines,
+                             line_count=len(log_lines),
+                             user=session)
+    except Exception as e:
+        flash(f'Error reading log file: {str(e)}')
+        return redirect(url_for('index'))
+
+@app.route('/api/analyze', methods=['POST'])
+def api_analyze():
+    """API endpoint for analyzing logs from external sources like Jenkins"""
+    # Check if API key provided (basic auth for now)
+    auth_header = request.headers.get('Authorization')
+    if not auth_header or not auth_header.startswith('Bearer '):
+        return jsonify({
+            'status': 'error',
+            'message': 'Authentication required'
+        }), 401
+    
+    api_key = auth_header.split(' ')[1]
+    
+    # For demonstration, use a simple API key - in production, use a secure method
+    if api_key != 'jenkins-analyzer-api-key':
+        return jsonify({
+            'status': 'error',
+            'message': 'Invalid API key'
+        }), 403
+    
+    # Get log content and metadata
+    data = request.json
+    if not data or 'log_content' not in data:
+        return jsonify({
+            'status': 'error',
+            'message': 'Log content is required'
+        }), 400
+    
+    log_content = data['log_content']
+    job_name = data.get('job_name', 'unknown-job')
+    build_number = data.get('build_number', 'unknown-build')
+    source_url = data.get('source_url', '')
+    
+    try:
+        # Save log to file with API prefix to distinguish from UI uploads
+        timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+        filename = f"api_{timestamp}_{secure_filename(job_name)}_{build_number}.txt"
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(log_content)
+        
+        # Process log entries
+        log_entries = parse_log(log_content)
+        
+        if not log_entries:
+            return jsonify({
+                'status': 'warning',
+                'message': 'No valid log entries found'
+            }), 200
+        
+        # Analyze the entries
+        try:
+            analysis = analyze_log_entries(log_entries)
+            recommendations = generate_recommendations(log_entries, analysis)
+            
+            # Save analysis to file
+            result_path = os.path.join(app.config['UPLOAD_FOLDER'], f"{filename}_analysis.json")
+            
+            with open(result_path, 'w') as f:
+                class SetEncoder(json.JSONEncoder):
+                    def default(self, obj):
+                        if isinstance(obj, set):
+                            return list(obj)
+                        return json.JSONEncoder.default(self, obj)
+                
+                # Create analysis result with API source info
+                analysis_result = {
+                    'entries': log_entries,
+                    'analysis': analysis,
+                    'recommendations': recommendations,
+                    'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'filename': filename,
+                    'original_filename': f"{job_name}_{build_number}",
+                    'source_url': source_url,
+                    'source': 'jenkins-api',
+                    'username': 'Jenkins API',
+                    'is_api_source': True
+                }
+                
+                json.dump(analysis_result, f, indent=2, cls=SetEncoder)
+            
+            # Create the summary response
+            critical_count = analysis['critical_issues_count']
+            error_count = analysis['error_by_level'].get('ERROR', 0)
+            warning_count = analysis['error_by_level'].get('WARNING', 0) + analysis['error_by_level'].get('WARN', 0)
+            
+            # List of error patterns found
+            patterns_found = [{'name': p['pattern_name'], 'severity': p['severity'], 
+                             'description': p['description'], 'suggestion': p['suggestion']} 
+                             for p in analysis['pattern_matches']]
+            
+            # Create a viewer URL for this analysis
+            viewer_url = url_for('show_analysis', filename=filename, _external=True)
+            
+            return jsonify({
+                'status': 'success',
+                'analysis_id': filename,
+                'counts': {
+                    'critical': critical_count,
+                    'error': error_count,
+                    'warning': warning_count,
+                    'total': len(log_entries)
+                },
+                'patterns_found': patterns_found,
+                'main_issue': analysis['most_common_errors'][0] if analysis['most_common_errors'] else None,
+                'recommendations': recommendations,
+                'viewer_url': viewer_url
+            })
+            
+        except Exception as analysis_error:
+            logger.exception(f"API error: {str(analysis_error)}")
+            
+            # Return basic info even on error
+            return jsonify({
+                'status': 'error',
+                'message': f'Error analyzing log: {str(analysis_error)}',
+                'viewer_url': url_for('show_analysis', filename=filename, _external=True)
+            }), 500
+            
+    except Exception as e:
+        logger.exception(f"API error: {str(e)}")
+        return jsonify({
+            'status': 'error',
+            'message': f'Server error: {str(e)}'
+        }), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8081, debug=True)
