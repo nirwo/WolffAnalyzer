@@ -364,13 +364,21 @@ def parse_log(log_content):
             error_level = error_level or 'INFO'
             
             # Extract component if possible (usually in brackets or after a colon)
-            component_match = re.search(r'\[([\w\.-]+)\]|\b([\w\.-]+):', message)
+            # But first filter out timestamp patterns that might look like components
+            # Filter out timestamps in brackets like [2025-02-27T05:52:32/367Z]
+            filtered_message = re.sub(r'\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[^\]]*\]', '', message)
+            
+            component_match = re.search(r'\[([\w\.-]+)\]|\b([\w\.-]+):', filtered_message)
             component = 'Unknown'
             if component_match:
                 if component_match.group(1):
                     component = component_match.group(1)
                 elif component_match.group(2):
                     component = component_match.group(2)
+                
+                # Verify the component is not a timestamp
+                if re.match(r'^\d{2}:\d{2}:\d{2}', component) or re.match(r'^\d{4}-\d{2}-\d{2}', component):
+                    component = 'Unknown'
             
             # Extract the actual error message
             actual_message = message
@@ -1071,26 +1079,36 @@ def register():
 @admin_required
 def admin_users():
     try:
-        # Create a proper user object from session data
-        user = None
-        if 'user_id' in session:
-            user = {
-                'id': session.get('user_id'),
-                'username': session.get('username'),
-                'role': session.get('role')
-            }
+        # Completely rebuild the session data for the template
+        current_user = {
+            'id': session.get('user_id', ''),
+            'username': session.get('username', 'Admin'),
+            'role': session.get('role', 'admin')
+        }
         
+        # Read and prepare user data
         with open(app.config['USERS_FILE'], 'r') as f:
             users_data = json.load(f)
+        
+        # Prepare users for template
+        users_list = []
+        for user_data in users_data.get('users', []):
+            # Create processed user objects with safe values for template
+            processed_user = {
+                'id': user_data.get('id', ''),
+                'username': user_data.get('username', ''),
+                'role': user_data.get('role', 'user'),
+                'created_at': user_data.get('created_at', datetime.now().strftime('%Y-%m-%d %H:%M:%S')),
+                'logs': []
+            }
             
-        # Add missing fields for backwards compatibility 
-        for user_data in users_data['users']:
-            if 'logs' not in user_data:
-                user_data['logs'] = []
-            if 'created_at' not in user_data:
-                user_data['created_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            # Process logs safely
+            if 'logs' in user_data and isinstance(user_data['logs'], list):
+                processed_user['logs'] = user_data['logs']
+            
+            users_list.append(processed_user)
                 
-        return render_template('admin_users.html', users=users_data['users'], user=user)
+        return render_template('admin_users.html', users=users_list, user=current_user)
     except Exception as e:
         logger.error(f'Error in admin_users: {str(e)}')
         flash(f'Error loading users: {str(e)}')
