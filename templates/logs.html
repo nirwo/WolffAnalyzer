@@ -147,11 +147,23 @@
                         
                         // Actions
                         const actionsCell = document.createElement('td');
+                        
+                        // View Analysis button
                         const viewLink = document.createElement('a');
                         viewLink.href = `/analysis/${log.filename}`;
-                        viewLink.classList.add('btn', 'btn-sm', 'btn-primary');
+                        viewLink.classList.add('btn', 'btn-sm', 'btn-primary', 'me-1');
                         viewLink.innerHTML = '<i class="bi bi-eye"></i> View Analysis';
                         actionsCell.appendChild(viewLink);
+                        
+                        // View Raw Log button
+                        const rawLogLink = document.createElement('a');
+                        // Get the raw log filename without the _analysis.json suffix
+                        const rawFilename = log.filename.replace('_analysis.json', '').replace('_basic_analysis.json', '');
+                        rawLogLink.href = `/rawlog/${rawFilename}`;
+                        rawLogLink.classList.add('btn', 'btn-sm', 'btn-secondary');
+                        rawLogLink.innerHTML = '<i class="bi bi-file-text"></i> View Log';
+                        actionsCell.appendChild(rawLogLink);
+                        
                         row.appendChild(actionsCell);
                         
                         tableBody.appendChild(row);
