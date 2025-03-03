@@ -301,6 +301,14 @@ def update_error_kpi(error_type, log_source='unknown'):
 
 def parse_log(log_content):
     """Parse log content and extract information"""
+    # Pre-process the content to remove HTML timestamp spans and other HTML tags
+    # This will clean the actual content and prevent the span tags from appearing in the output
+    log_content = re.sub(r'<span class="timestamp"><b>(\d{2}:\d{2}:\d{2})</b></span>', r'[\1]', log_content)
+    # Also match span tags without closing span
+    log_content = re.sub(r'<span class="timestamp"><b>(\d{2}:\d{2}:\d{2})</b>', r'[\1]', log_content)
+    # Clean up any other HTML tags that might interfere with parsing
+    log_content = re.sub(r'<[^>]+>', ' ', log_content)
+    
     # Common timestamp patterns in logs
     timestamp_patterns = [
         r'^(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}(?:\.\d+)?)',  # 2023-01-01 12:34:56.789
