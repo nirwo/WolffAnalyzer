@@ -30,6 +30,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url_for('show_kpi') }}">Error KPIs</a>
                     </li>
+                    {% if user and user.role == 'admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin_users') }}">User Management</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -165,7 +170,7 @@
         </div>
     </div>
 
-    <footer class="bg-light py-3 mt-5">
+    <footer class="bg-dark py-3 mt-5">
         <div class="container text-center">
             <p class="text-muted mb-0">Log Analyzer &copy; 2025</p>
         </div>
@@ -177,22 +182,37 @@
             // Set up error trends chart
             {% if dates %}
             const trendsCtx = document.getElementById('errorTrendsChart').getContext('2d');
+            
+            // Limit the number of error types shown in the chart to prevent endless scrolling
+            const maxErrorTypes = 5;
+            let errorTrendsData = {};
+            let shownErrorCount = 0;
+            
+            {% for error_type, values in error_trends.items() %}
+                {% if loop.index0 < maxErrorTypes %}
+                    errorTrendsData['{{ error_type }}'] = [{% for value in values %}{{ value }},{% endfor %}];
+                    shownErrorCount++;
+                {% endif %}
+            {% endfor %}
+            
+            // Create datasets from the limited error types
+            let datasets = [];
+            for (const [errorType, values] of Object.entries(errorTrendsData)) {
+                datasets.push({
+                    label: errorType,
+                    data: values,
+                    borderColor: getRandomColor(),
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.1
+                });
+            }
+            
             const trendsChart = new Chart(trendsCtx, {
                 type: 'line',
                 data: {
                     labels: [{% for date in dates %}'{{ date }}',{% endfor %}],
-                    datasets: [
-                        {% for error_type, values in error_trends.items() %}
-                        {
-                            label: '{{ error_type }}',
-                            data: [{% for value in values %}{{ value }},{% endfor %}],
-                            borderColor: getRandomColor(),
-                            borderWidth: 2,
-                            fill: false,
-                            tension: 0.1
-                        },
-                        {% endfor %}
-                    ]
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
@@ -214,6 +234,15 @@
                     }
                 }
             });
+            
+            // Show a message if some error types were omitted
+            if (Object.keys(errorTrendsData).length < {{ error_trends|length }}) {
+                const chartContainer = document.getElementById('errorTrendsChart').parentNode;
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'alert alert-info mt-3';
+                infoDiv.innerHTML = `<p class="mb-0">Showing top ${shownErrorCount} error types out of {{ error_trends|length }} total types.</p>`;
+                chartContainer.appendChild(infoDiv);
+            }
             {% endif %}
             
             // Set up Jenkins errors chart

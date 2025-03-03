@@ -29,6 +29,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('show_kpi') }}">Error KPIs</a>
                     </li>
+                    {% if user and user.role == 'admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin_users') }}">User Management</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

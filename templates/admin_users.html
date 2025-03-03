@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Log Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Log Analyzer</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_logs') }}">Previous Analyses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_patterns') }}">Error Patterns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_kpi') }}">Error KPIs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('admin_users') }}">User Management</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="bi bi-people-fill me-2"></i>User Management</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Created</th>
+                                <th>Logs</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td><small class="text-muted">{{ user.id }}</small></td>
+                                <td>{{ user.username }}</td>
+                                <td>
+                                    <span class="badge {% if user.role == 'admin' %}bg-danger{% else %}bg-info{% endif %}">
+                                        {{ user.role }}
+                                    </span>
+                                </td>
+                                <td>{{ user.created_at }}</td>
+                                <td>{{ user.logs|length }}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#userModal{{ user.id }}">
+                                            <i class="bi bi-info-circle"></i> Details
+                                        </button>
+                                        {% if user.id != '00000000-0000-0000-0000-000000000000' %}
+                                        <form action="{{ url_for('toggle_user_role', user_id=user.id) }}" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-warning">
+                                                <i class="bi bi-arrow-repeat"></i> Toggle Role
+                                            </button>
+                                        </form>
+                                        <form action="{{ url_for('delete_user', user_id=user.id) }}" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </button>
+                                        </form>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <!-- Modal for user details -->
+                            <div class="modal fade" id="userModal{{ user.id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">User Details: {{ user.username }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body bg-dark text-light">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h6>User Information</h6>
+                                                    <ul class="list-group mb-3">
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            User ID
+                                                            <span class="text-muted">{{ user.id }}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            Username
+                                                            <span>{{ user.username }}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            Role
+                                                            <span class="badge {% if user.role == 'admin' %}bg-danger{% else %}bg-info{% endif %}">{{ user.role }}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            Created
+                                                            <span>{{ user.created_at }}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            Total Logs
+                                                            <span class="badge bg-primary rounded-pill">{{ user.logs|length }}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h6>Recent Log Activity</h6>
+                                                    {% if user.logs %}
+                                                    <div class="table-responsive">
+                                                        <table class="table table-sm table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Date</th>
+                                                                    <th>File</th>
+                                                                    <th>Issues</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for log in user.logs[:5] %}
+                                                                <tr>
+                                                                    <td><small>{{ log.timestamp }}</small></td>
+                                                                    <td><small>{{ log.original_filename }}</small></td>
+                                                                    <td>
+                                                                        <span class="badge {% if log.critical_issues > 5 %}bg-danger{% elif log.critical_issues > 0 %}bg-warning text-dark{% else %}bg-success{% endif %}">
+                                                                            {{ log.critical_issues }}
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    {% if user.logs|length > 5 %}
+                                                    <p class="text-center text-muted small">
+                                                        <em>Showing 5 of {{ user.logs|length }} logs</em>
+                                                    </p>
+                                                    {% endif %}
+                                                    {% else %}
+                                                    <p class="text-muted">No log activity found</p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            {% if user.id != '00000000-0000-0000-0000-000000000000' %}
+                                            <form action="{{ url_for('toggle_user_role', user_id=user.id) }}" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-warning">
+                                                    {% if user.role == 'admin' %}
+                                                    Demote to User
+                                                    {% else %}
+                                                    Promote to Admin
+                                                    {% endif %}
+                                                </button>
+                                            </form>
+                                            <form action="{{ url_for('delete_user', user_id=user.id) }}" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                                                <button type="submit" class="btn btn-danger">Delete User</button>
+                                            </form>
+                                            {% else %}
+                                            <span class="text-muted">Default admin user cannot be modified</span>
+                                            {% endif %}
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-graph-up me-2"></i>User Statistics</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Total Users
+                                <span class="badge bg-primary rounded-pill">{{ users|length }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Admin Users
+                                <span class="badge bg-danger rounded-pill">{{ users|selectattr('role', 'equalto', 'admin')|list|length }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Regular Users
+                                <span class="badge bg-info rounded-pill">{{ users|selectattr('role', 'equalto', 'user')|list|length }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-shield-lock me-2"></i>Security Notes</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle me-2"></i> Admin users have full access to all logs and can manage other users.
+                        </div>
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i> Regular users can only see and manage their own logs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark py-3 mt-5">
+        <div class="container text-center">
+            <p class="text-muted mb-0">Log Analyzer &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
