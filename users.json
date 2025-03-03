@@ -20,6 +20,12 @@
           "timestamp": "2025-03-03 09:13:40",
           "critical_issues": 8,
           "is_basic_analysis": true
+        },
+        {
+          "filename": "00000000-0000-0000-0000-000000000000_sample_log.txt",
+          "original_filename": "sample_log.txt",
+          "timestamp": "2025-03-03 09:22:37",
+          "critical_issues": 7
         }
       ]
     }

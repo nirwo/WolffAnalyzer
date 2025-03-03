@@ -48,14 +48,18 @@
         <h2 class="mb-4">Analysis Results for: {{ filename }}</h2>
 
         {% if analysis.analysis_error is defined %}
-        <div class="analysis-failure-notice">
-            <h4><i class="bi bi-exclamation-triangle-fill text-danger"></i> Advanced Analysis Failed</h4>
-            <p><strong>Error type:</strong> {{ analysis.analysis_error.type }}</p>
-            <p><strong>Error details:</strong> {{ analysis.analysis_error.message }}</p>
-            {% if analysis.analysis_error.location %}
-            <p><strong>Location:</strong> {{ analysis.analysis_error.location }}</p>
-            {% endif %}
-            <p class="mb-0">Basic analysis is still available below. See recommendations for troubleshooting steps.</p>
+        <div class="analysis-failure-notice card bg-dark text-light mb-4 border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0"><i class="bi bi-exclamation-triangle-fill"></i> Advanced Analysis Failed</h4>
+            </div>
+            <div class="card-body">
+                <p><strong>Error type:</strong> {{ analysis.analysis_error.type }}</p>
+                <p><strong>Error details:</strong> {{ analysis.analysis_error.message }}</p>
+                {% if analysis.analysis_error.location %}
+                <p><strong>Location:</strong> {{ analysis.analysis_error.location }}</p>
+                {% endif %}
+                <p class="mb-0">Basic analysis is still available below. See recommendations for troubleshooting steps.</p>
+            </div>
         </div>
         {% endif %}
         
@@ -301,20 +305,20 @@
                                                     
                                                     <div class="mb-3">
                                                         <h5>Message</h5>
-                                                        <pre class="bg-light p-3 rounded">{{ entry.message }}</pre>
+                                                        <pre class="bg-dark text-light p-3 rounded border">{{ entry.message }}</pre>
                                                     </div>
                                                     
                                                     {% if entry.raw_message is defined and entry.raw_message != entry.message %}
                                                     <div class="mb-3">
                                                         <h6>Raw Message</h6>
-                                                        <pre class="bg-light p-2 rounded small">{{ entry.raw_message }}</pre>
+                                                        <pre class="bg-dark text-light p-2 rounded border small">{{ entry.raw_message }}</pre>
                                                     </div>
                                                     {% endif %}
                                                     
                                                     <div class="mb-3">
                                                         <h6>Context (surrounding lines)</h6>
                                                         <div class="context-container">
-                                                            <pre class="bg-light p-3 rounded">{% for line in entry.context %}{{ line }}
+                                                            <pre class="bg-dark text-light p-3 rounded border">{% for line in entry.context %}{{ line }}
 {% endfor %}</pre>
                                                         </div>
                                                     </div>
@@ -374,7 +378,7 @@
                                 <div class="row">
                                     <div class="col-md-5">
                                         <h6>Initial Error</h6>
-                                        <pre class="bg-light p-2 rounded small">{{ chain.from.message }}</pre>
+                                        <pre class="bg-dark text-light p-2 rounded border small">{{ chain.from.message }}</pre>
                                         <p class="mb-0 small text-muted">{{ chain.from.timestamp }} - {{ chain.from.component }}</p>
                                     </div>
                                     <div class="col-md-2 d-flex align-items-center justify-content-center">
@@ -382,7 +386,7 @@
                                     </div>
                                     <div class="col-md-5">
                                         <h6>Subsequent Error</h6>
-                                        <pre class="bg-light p-2 rounded small">{{ chain.to.message }}</pre>
+                                        <pre class="bg-dark text-light p-2 rounded border small">{{ chain.to.message }}</pre>
                                         <p class="mb-0 small text-muted">{{ chain.to.timestamp }} - {{ chain.to.component }}</p>
                                     </div>
                                 </div>
@@ -401,7 +405,7 @@
         </div>
     </div>
 
-    <footer class="bg-light py-3 mt-5">
+    <footer class="bg-dark py-3 mt-5">
         <div class="container text-center">
             <p class="text-muted mb-0">Log Analyzer &copy; 2025</p>
         </div>

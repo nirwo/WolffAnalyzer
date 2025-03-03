@@ -137,10 +137,10 @@
                                                     <h5 class="modal-title">Pattern Details: {{ pattern.name }}</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body bg-dark text-light">
                                                     <div class="mb-3">
                                                         <h6>Pattern</h6>
-                                                        <pre class="bg-light p-2 rounded"><code>{{ pattern.pattern }}</code></pre>
+                                                        <pre class="bg-dark p-2 rounded text-light border"><code>{{ pattern.pattern }}</code></pre>
                                                     </div>
                                                     <div class="mb-3">
                                                         <h6>Description</h6>
@@ -152,6 +152,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
+                                                    <form action="{{ url_for('delete_pattern', pattern_id=pattern.id) }}" method="post" class="d-inline">
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
@@ -206,10 +209,10 @@
                                                     <h5 class="modal-title">Pattern Details: {{ pattern.name }}</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body bg-dark text-light">
                                                     <div class="mb-3">
                                                         <h6>Pattern</h6>
-                                                        <pre class="bg-light p-2 rounded"><code>{{ pattern.pattern }}</code></pre>
+                                                        <pre class="bg-dark p-2 rounded text-light border"><code>{{ pattern.pattern }}</code></pre>
                                                     </div>
                                                     <div class="mb-3">
                                                         <h6>Description</h6>
@@ -221,6 +224,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
+                                                    <form action="{{ url_for('delete_pattern', pattern_id=pattern.id) }}" method="post" class="d-inline">
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
@@ -236,7 +242,7 @@
         </div>
     </div>
 
-    <footer class="bg-light py-3 mt-5">
+    <footer class="bg-dark py-3 mt-5">
         <div class="container text-center">
             <p class="text-muted mb-0">Log Analyzer &copy; 2025</p>
         </div>
