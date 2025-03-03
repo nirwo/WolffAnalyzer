@@ -45,7 +45,12 @@
         {% endif %}
         {% endwith %}
 
-        <h2 class="mb-4">Analysis Results for: {{ filename }}</h2>
+        <h2 class="mb-4">Analysis Results for: {{ original_filename }}</h2>
+        {% if source_url is defined and source_url %}
+        <div class="alert alert-info mb-4">
+            <strong>Source URL:</strong> <a href="{{ source_url }}" target="_blank" class="text-info">{{ source_url }}</a>
+        </div>
+        {% endif %}
 
         {% if analysis.analysis_error is defined %}
         <div class="analysis-failure-notice card bg-dark text-light mb-4 border-danger">

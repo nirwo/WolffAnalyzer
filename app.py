@@ -4,6 +4,7 @@ import re
 import json
 import uuid
 import hashlib
+import requests
 from datetime import datetime, timedelta
 from werkzeug.utils import secure_filename
 import logging
@@ -1319,6 +1320,140 @@ def analyze_text():
         flash(f'Error processing log content: {str(e)}')
         return redirect(url_for('index'))
 
+@app.route('/analyze_url', methods=['POST'])
+@login_required
+def analyze_url():
+    if 'logurl' not in request.form or not request.form['logurl'].strip():
+        flash('No URL provided')
+        return redirect(url_for('index'))
+    
+    log_url = request.form['logurl']
+    
+    try:
+        # Fetch the content from the URL
+        response = requests.get(log_url, timeout=30)
+        
+        # Check if the request was successful
+        if response.status_code != 200:
+            flash(f'Failed to fetch log from URL: HTTP {response.status_code}')
+            return redirect(url_for('index'))
+        
+        # Get the log content
+        log_content = response.text
+        
+        # Save the content to a file with user prefix and URL info
+        user_id = session['user_id']
+        timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+        
+        # Extract filename from URL or use generic name
+        url_parts = log_url.split('/')
+        original_filename = url_parts[-1] if url_parts[-1] else 'remote_log'
+        safe_filename = secure_filename(original_filename)
+        
+        filename = f"{user_id}_url_{timestamp}_{safe_filename}"
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(log_content)
+        
+        log_entries = parse_log(log_content)
+        
+        # Handle error if no entries found
+        if not log_entries:
+            flash('No valid log entries found in the content from URL. Please check the format.')
+            return redirect(url_for('index'))
+            
+        try:
+            analysis = analyze_log_entries(log_entries)
+            recommendations = generate_recommendations(log_entries, analysis)
+            
+            # Save the analysis results
+            result_path = os.path.join(app.config['UPLOAD_FOLDER'], f"{filename}_analysis.json")
+            with open(result_path, 'w') as f:
+                # Use a default JSON encoder to handle sets
+                class SetEncoder(json.JSONEncoder):
+                    def default(self, obj):
+                        if isinstance(obj, set):
+                            return list(obj)
+                        return json.JSONEncoder.default(self, obj)
+                
+                # Create analysis result
+                analysis_result = {
+                    'entries': log_entries,
+                    'analysis': analysis,
+                    'recommendations': recommendations,
+                    'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'filename': filename,
+                    'original_filename': original_filename,
+                    'source_url': log_url,
+                    'user_id': user_id,
+                    'username': session.get('username', 'Unknown')
+                }
+                
+                json.dump(analysis_result, f, indent=2, cls=SetEncoder)
+                
+                # Add to user's logs
+                try:
+                    with open(app.config['USERS_FILE'], 'r') as users_f:
+                        users_data = json.load(users_f)
+                        
+                    for user in users_data['users']:
+                        if user['id'] == user_id:
+                            user['logs'].append({
+                                'filename': filename,
+                                'original_filename': original_filename,
+                                'source_url': log_url,
+                                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                                'critical_issues': analysis['critical_issues_count']
+                            })
+                            break
+                            
+                    with open(app.config['USERS_FILE'], 'w') as users_f:
+                        json.dump(users_data, users_f, indent=2)
+                except Exception as e:
+                    logger.warning(f"Error updating user logs: {str(e)}")
+            
+            return redirect(url_for('show_analysis', filename=filename))
+        except Exception as analysis_error:
+            logger.exception(f"Error analyzing log from URL: {str(analysis_error)}")
+            flash(f'Error analyzing log from URL: {str(analysis_error)}')
+            
+            # Even if analysis fails, we can still show the raw entries
+            result_path = os.path.join(app.config['UPLOAD_FOLDER'], f"{filename}_basic_analysis.json")
+            with open(result_path, 'w') as f:
+                json.dump({
+                    'entries': log_entries,
+                    'analysis': {
+                        'critical_issues_count': len([e for e in log_entries if e.get('severity', 0) >= 3]),
+                        'problematic_components': [],
+                        'most_common_errors': [],
+                        'source_url': log_url
+                    },
+                    'recommendations': [
+                        {'title': 'Review Log Content from URL', 
+                         'description': f'Advanced analysis failed for log from {log_url}',
+                         'steps': ['Check timestamps', 'Look for ERROR or CRITICAL entries', 'Review components with most issues']}
+                    ],
+                    'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'filename': filename,
+                    'original_filename': original_filename,
+                    'source_url': log_url,
+                    'user_id': user_id,
+                    'username': session.get('username', 'Unknown'),
+                    'is_basic_analysis': True
+                }, f, indent=2)
+            
+            return redirect(url_for('show_analysis', filename=filename))
+            
+    except requests.RequestException as req_error:
+        logger.exception(f"Error fetching log from URL: {str(req_error)}")
+        flash(f'Error fetching log from URL: {str(req_error)}')
+        return redirect(url_for('index'))
+    except Exception as e:
+        logger.exception(f"Error processing log from URL: {str(e)}")
+        flash(f'Error processing log from URL: {str(e)}')
+        return redirect(url_for('index'))
+
 @app.route('/analysis/<filename>')
 @login_required
 def show_analysis(filename):
@@ -1351,6 +1486,7 @@ def show_analysis(filename):
                                   recommendations=analysis_data['recommendations'],
                                   filename=filename,
                                   original_filename=analysis_data.get('original_filename', filename),
+                                  source_url=analysis_data.get('source_url', ''),
                                   user=session,
                                   enumerate=enumerate)
         else:

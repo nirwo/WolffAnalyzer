@@ -67,7 +67,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">Upload Log File</h5>
@@ -84,7 +84,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">Paste Log Content</h5>
@@ -100,10 +100,28 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Analyze From URL</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url_for('analyze_url') }}" method="post">
+                            <div class="mb-3">
+                                <label for="logurl" class="form-label">Enter URL to a log file</label>
+                                <input type="url" class="form-control" id="logurl" name="logurl" placeholder="https://example.com/path/to/log.txt" required>
+                                <div class="form-text text-muted">Directly analyze logs from Jenkins, GitHub or other accessible URLs</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Fetch and Analyze</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <footer class="bg-light py-3 mt-5">
+    <footer class="bg-dark py-3 mt-5">
         <div class="container text-center">
             <p class="text-muted mb-0">Log Analyzer &copy; 2025</p>
         </div>
