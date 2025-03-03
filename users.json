@@ -1,0 +1,27 @@
+{
+  "users": [
+    {
+      "id": "00000000-0000-0000-0000-000000000000",
+      "username": "admin",
+      "password_hash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "role": "admin",
+      "created_at": "2025-03-03 09:00:49",
+      "logs": [
+        {
+          "filename": "00000000-0000-0000-0000-000000000000_app.log",
+          "original_filename": "app.log",
+          "timestamp": "2025-03-03 09:09:35",
+          "critical_issues": 5,
+          "is_basic_analysis": true
+        },
+        {
+          "filename": "00000000-0000-0000-0000-000000000000_app.log",
+          "original_filename": "app.log",
+          "timestamp": "2025-03-03 09:13:40",
+          "critical_issues": 8,
+          "is_basic_analysis": true
+        }
+      ]
+    }
+  ]
+}

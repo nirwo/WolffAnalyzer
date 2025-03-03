@@ -1,0 +1,435 @@
+[INFO] Building project ABC 1.0.0
+[INFO] Initializing build process
+[INFO] Setting up dependencies
+[INFO] Downloading dependencies...
+[INFO] Dependency resolution completed
+[INFO] Starting build phase...
+[INFO] Compiling source code
+[INFO] Compiling Groovy files...
+[INFO] Running Groovy scripts
+[INFO] Groovy script processing started
+[INFO] Executing script build.groovy
+[INFO] Groovy script execution in progress...
+[INFO] Starting task: task1
+[INFO] Task task1 completed successfully
+[INFO] Starting task: task2
+[INFO] Task task2 completed successfully
+[INFO] Starting task: task3
+[INFO] Task task3 completed successfully
+[INFO] Starting task: task4
+[INFO] Task task4 completed successfully
+[INFO] Starting task: task5
+[INFO] Task task5 completed successfully
+...
+[INFO] Task task48 completed successfully
+[INFO] Starting task: task49
+[INFO] Task task49 completed successfully
+[INFO] Starting task: task50
+[INFO] Task task50 completed successfully
+[INFO] Starting task: task51
+[INFO] Task task51 completed successfully
+[INFO] Starting task: task52
+[INFO] Task task52 completed successfully
+[INFO] Starting task: task53
+[INFO] Task task53 completed successfully
+[INFO] Starting task: task54
+[INFO] Task task54 completed successfully
+[INFO] Starting task: task55
+[INFO] Task task55 completed successfully
+[INFO] Starting task: task56
+[INFO] Task task56 completed successfully
+[INFO] Starting task: task57
+[INFO] Task task57 completed successfully
+[INFO] Starting task: task58
+[INFO] Task task58 completed successfully
+[INFO] Starting task: task59
+[INFO] Task task59 completed successfully
+[INFO] Starting task: task60
+[INFO] Task task60 completed successfully
+[INFO] Starting task: task61
+[INFO] Task task61 completed successfully
+[INFO] Starting task: task62
+[INFO] Task task62 completed successfully
+[INFO] Starting task: task63
+[INFO] Task task63 completed successfully
+[INFO] Starting task: task64
+[INFO] Task task64 completed successfully
+[INFO] Starting task: task65
+[INFO] Task task65 completed successfully
+[INFO] Starting task: task66
+[INFO] Task task66 completed successfully
+[INFO] Starting task: task67
+[INFO] Task task67 completed successfully
+[INFO] Starting task: task68
+[INFO] Task task68 completed successfully
+[INFO] Starting task: task69
+[INFO] Task task69 completed successfully
+[INFO] Starting task: task70
+[INFO] Task task70 completed successfully
+[INFO] Starting task: task71
+[INFO] Task task71 completed successfully
+[INFO] Starting task: task72
+[INFO] Task task72 completed successfully
+[INFO] Starting task: task73
+[INFO] Task task73 completed successfully
+[INFO] Starting task: task74
+[INFO] Task task74 completed successfully
+[INFO] Starting task: task75
+[INFO] Task task75 completed successfully
+[INFO] Starting task: task76
+[INFO] Task task76 completed successfully
+[INFO] Starting task: task77
+[INFO] Task task77 completed successfully
+[INFO] Starting task: task78
+[INFO] Task task78 completed successfully
+[INFO] Starting task: task79
+[INFO] Task task79 completed successfully
+[INFO] Starting task: task80
+[INFO] Task task80 completed successfully
+[INFO] Starting task: task81
+[INFO] Task task81 completed successfully
+[INFO] Starting task: task82
+[INFO] Task task82 completed successfully
+[INFO] Starting task: task83
+[INFO] Task task83 completed successfully
+[INFO] Starting task: task84
+[INFO] Task task84 completed successfully
+[INFO] Starting task: task85
+[INFO] Task task85 completed successfully
+[INFO] Starting task: task86
+[INFO] Task task86 completed successfully
+[INFO] Starting task: task87
+[INFO] Task task87 completed successfully
+[INFO] Starting task: task88
+[INFO] Task task88 completed successfully
+[INFO] Starting task: task89
+[INFO] Task task89 completed successfully
+[INFO] Starting task: task90
+[INFO] Task task90 completed successfully
+[INFO] Starting task: task91
+[INFO] Task task91 completed successfully
+[INFO] Starting task: task92
+[INFO] Task task92 completed successfully
+[INFO] Starting task: task93
+[INFO] Task task93 completed successfully
+[INFO] Starting task: task94
+[INFO] Task task94 completed successfully
+[INFO] Starting task: task95
+[INFO] Task task95 completed successfully
+[INFO] Starting task: task96
+[INFO] Task task96 completed successfully
+[INFO] Starting task: task97
+[INFO] Task task97 completed successfully
+[INFO] Starting task: task98
+[INFO] Task task98 completed successfully
+[INFO] Starting task: task99
+[INFO] Task task99 completed successfully
+[INFO] Starting task: task100
+[INFO] Task task100 completed successfully
+[INFO] Starting task: task101
+[INFO] Task task101 completed successfully
+[INFO] Starting task: task102
+[INFO] Task task102 completed successfully
+[INFO] Starting task: task103
+[INFO] Task task103 completed successfully
+[INFO] Starting task: task104
+[INFO] Task task104 completed successfully
+[INFO] Starting task: task105
+[INFO] Task task105 completed successfully
+[INFO] Starting task: task106
+[INFO] Task task106 completed successfully
+[INFO] Starting task: task107
+[INFO] Task task107 completed successfully
+[INFO] Starting task: task108
+[INFO] Task task108 completed successfully
+[INFO] Starting task: task109
+[INFO] Task task109 completed successfully
+[INFO] Starting task: task110
+[INFO] Task task110 completed successfully
+[INFO] Starting task: task111
+[INFO] Task task111 completed successfully
+[INFO] Starting task: task112
+[INFO] Task task112 completed successfully
+[INFO] Starting task: task113
+[INFO] Task task113 completed successfully
+[INFO] Starting task: task114
+[INFO] Task task114 completed successfully
+[INFO] Starting task: task115
+[INFO] Task task115 completed successfully
+[INFO] Starting task: task116
+[INFO] Task task116 completed successfully
+[INFO] Starting task: task117
+[INFO] Task task117 completed successfully
+[INFO] Starting task: task118
+[INFO] Task task118 completed successfully
+[INFO] Starting task: task119
+[INFO] Task task119 completed successfully
+[INFO] Starting task: task120
+[INFO] Task task120 completed successfully
+[INFO] Starting task: task121
+[INFO] Task task121 completed successfully
+[INFO] Starting task: task122
+[INFO] Task task122 completed successfully
+[INFO] Starting task: task123
+[INFO] Task task123 completed successfully
+[INFO] Starting task: task124
+[INFO] Task task124 completed successfully
+[INFO] Starting task: task125
+[INFO] Task task125 completed successfully
+[INFO] Starting task: task126
+[INFO] Task task126 completed successfully
+[INFO] Starting task: task127
+[INFO] Task task127 completed successfully
+[INFO] Starting task: task128
+[INFO] Task task128 completed successfully
+[INFO] Starting task: task129
+[INFO] Task task129 completed successfully
+[INFO] Starting task: task130
+[INFO] Task task130 completed successfully
+[INFO] Starting task: task131
+[INFO] Task task131 completed successfully
+[INFO] Starting task: task132
+[INFO] Task task132 completed successfully
+[INFO] Starting task: task133
+[INFO] Task task133 completed successfully
+[INFO] Starting task: task134
+[INFO] Task task134 completed successfully
+[INFO] Starting task: task135
+[INFO] Task task135 completed successfully
+[INFO] Starting task: task136
+[INFO] Task task136 completed successfully
+[INFO] Starting task: task137
+[INFO] Task task137 completed successfully
+[INFO] Starting task: task138
+[INFO] Task task138 completed successfully
+[INFO] Starting task: task139
+[INFO] Task task139 completed successfully
+[INFO] Starting task: task140
+[INFO] Task task140 completed successfully
+[INFO] Starting task: task141
+[INFO] Task task141 completed successfully
+[INFO] Starting task: task142
+[INFO] Task task142 completed successfully
+[INFO] Starting task: task143
+[INFO] Task task143 completed successfully
+[INFO] Starting task: task144
+[INFO] Task task144 completed successfully
+[INFO] Starting task: task145
+[INFO] Task task145 completed successfully
+[INFO] Starting task: task146
+[INFO] Task task146 completed successfully
+[INFO] Starting task: task147
+[INFO] Task task147 completed successfully
+[INFO] Starting task: task148
+[INFO] Task task148 completed successfully
+[INFO] Starting task: task149
+[INFO] Task task149 completed successfully
+[INFO] Starting task: task150
+[INFO] Task task150 completed successfully
+[INFO] Starting task: task151
+[INFO] Task task151 completed successfully
+[INFO] Starting task: task152
+[INFO] Task task152 completed successfully
+[INFO] Starting task: task153
+[INFO] Task task153 completed successfully
+[INFO] Starting task: task154
+[INFO] Task task154 completed successfully
+[INFO] Starting task: task155
+[INFO] Task task155 completed successfully
+[INFO] Starting task: task156
+[INFO] Task task156 completed successfully
+[INFO] Starting task: task157
+[INFO] Task task157 completed successfully
+[INFO] Starting task: task158
+[INFO] Task task158 completed successfully
+[INFO] Starting task: task159
+[INFO] Task task159 completed successfully
+[INFO] Starting task: task160
+[INFO] Task task160 completed successfully
+[INFO] Starting task: task161
+[INFO] Task task161 completed successfully
+[INFO] Starting task: task162
+[INFO] Task task162 completed successfully
+[INFO] Starting task: task163
+[INFO] Task task163 completed successfully
+[INFO] Starting task: task164
+[INFO] Task task164 completed successfully
+[INFO] Starting task: task165
+[INFO] Task task165 completed successfully
+[INFO] Starting task: task166
+[INFO] Task task166 completed successfully
+[INFO] Starting task: task167
+[INFO] Task task167 completed successfully
+[INFO] Starting task: task168
+[INFO] Task task168 completed successfully
+[INFO] Starting task: task169
+[INFO] Task task169 completed successfully
+[INFO] Starting task: task170
+[INFO] Task task170 completed successfully
+[INFO] Starting task: task171
+[INFO] Task task171 completed successfully
+[INFO] Starting task: task172
+[INFO] Task task172 completed successfully
+[INFO] Starting task: task173
+[INFO] Task task173 completed successfully
+[INFO] Starting task: task174
+[INFO] Task task174 completed successfully
+[INFO] Starting task: task175
+[INFO] Task task175 completed successfully
+[INFO] Starting task: task176
+[INFO] Task task176 completed successfully
+[INFO] Starting task: task177
+[INFO] Task task177 completed successfully
+[INFO] Starting task: task178
+[INFO] Task task178 completed successfully
+[INFO] Starting task: task179
+[INFO] Task task179 completed successfully
+[INFO] Starting task: task180
+[INFO] Task task180 completed successfully
+[INFO] Starting task: task181
+[INFO] Task task181 completed successfully
+[INFO] Starting task: task182
+[INFO] Task task182 completed successfully
+[INFO] Starting task: task183
+[INFO] Task task183 completed successfully
+[INFO] Starting task: task184
+[INFO] Task task184 completed successfully
+[INFO] Starting task: task185
+[INFO] Task task185 completed successfully
+[INFO] Starting task: task186
+[INFO] Task task186 completed successfully
+[INFO] Starting task: task187
+[INFO] Task task187 completed successfully
+[INFO] Starting task: task188
+[INFO] Task task188 completed successfully
+[INFO] Starting task: task189
+[INFO] Task task189 completed successfully
+[INFO] Starting task: task190
+[INFO] Task task190 completed successfully
+[INFO] Starting task: task191
+[INFO] Task task191 completed successfully
+[INFO] Starting task: task192
+[INFO] Task task192 completed successfully
+[INFO] Starting task: task193
+[INFO] Task task193 completed successfully
+[INFO] Starting task: task194
+[INFO] Task task194 completed successfully
+[INFO] Starting task: task195
+[INFO] Task task195 completed successfully
+[INFO] Starting task: task196
+[INFO] Task task196 completed successfully
+[INFO] Starting task: task197
+[INFO] Task task197 completed successfully
+[INFO] Starting task: task198
+[INFO] Task task198 completed successfully
+[INFO] Starting task: task199
+[INFO] Task task199 completed successfully
+[INFO] Starting task: task200
+[INFO] Task task200 completed successfully
+[INFO] Starting task: task201
+[INFO] Task task201 completed successfully
+[INFO] Starting task: task202
+[INFO] Task task202 completed successfully
+[INFO] Starting task: task203
+[INFO] Task task203 completed successfully
+[INFO] Starting task: task204
+[INFO] Task task204 completed successfully
+[INFO] Starting task: task205
+[INFO] Task task205 completed successfully
+[INFO] Starting task: task206
+[INFO] Task task206 completed successfully
+[INFO] Starting task: task207
+[INFO] Task task207 completed successfully
+[INFO] Starting task: task208
+[INFO] Task task208 completed successfully
+[INFO] Starting task: task209
+[INFO] Task task209 completed successfully
+[INFO] Starting task: task210
+[INFO] Task task210 completed successfully
+[INFO] Starting task: task211
+[INFO] Task task211 completed successfully
+[INFO] Starting task: task212
+[INFO] Task task212 completed successfully
+[INFO] Starting task: task213
+[INFO] Task task213 completed successfully
+[INFO] Starting task: task214
+[INFO] Task task214 completed successfully
+[INFO] Starting task: task215
+[INFO] Task task215 completed successfully
+[INFO] Starting task: task216
+[INFO] Task task216 completed successfully
+[INFO] Starting task: task217
+[INFO] Task task217 completed successfully
+[INFO] Starting task: task218
+[INFO] Task task218 completed successfully
+[INFO] Starting task: task219
+[INFO] Task task219 completed successfully
+[INFO] Starting task: task220
+[INFO] Task task220 completed successfully
+[INFO] Starting task: task221
+[INFO] Task task221 completed successfully
+[INFO] Starting task: task222
+[INFO] Task task222 completed successfully
+[INFO] Starting task: task223
+[INFO] Task task223 completed successfully
+[INFO] Starting task: task224
+[INFO] Task task224 completed successfully
+[INFO] Starting task: task225
+[INFO] Task task225 completed successfully
+[INFO] Starting task: task226
+[INFO] Task task226 completed successfully
+[INFO] Starting task: task227
+[INFO] Task task227 completed successfully
+[INFO] Starting task: task228
+[INFO] Task task228 completed successfully
+[INFO] Starting task: task229
+[INFO] Task task229 completed successfully
+[INFO] Starting task: task230
+[INFO] Task task230 completed successfully
+[INFO] Starting task: task231
+[INFO] Task task231 completed successfully
+[INFO] Starting task: task232
+[INFO] Task task232 completed successfully
+[INFO] Starting task: task233
+[INFO] Task task233 completed successfully
+[INFO] Starting task: task234
+[INFO] Task task234 completed successfully
+[INFO] Starting task: task235
+[INFO] Task task235 completed successfully
+[INFO] Starting task: task236
+[INFO] Task task236 completed successfully
+[INFO] Starting task: task237
+[INFO] Task task237 completed successfully
+[INFO] Starting task: task238
+[INFO] Task task238 completed successfully
+[INFO] Starting task: task239
+[INFO] Task task239 completed successfully
+[INFO] Starting task: task240
+[INFO] Task task240 completed successfully
+[INFO] Starting task: task241
+[INFO] Task task241 completed successfully
+[INFO] Starting task: task242
+[INFO] Task task242 completed successfully
+[INFO] Starting task: task243
+[INFO] Task task243 completed successfully
+[INFO] Starting task: task244
+[INFO] Task task244 completed successfully
+[INFO] Starting task: task245
+[INFO] Task task245 completed successfully
+[INFO] Starting task: task246
+[INFO] Task task246 completed successfully
+[INFO] Starting task: task247
+[INFO] Task task247 completed successfully
+[INFO] Starting task: task248
+[INFO] Task task248 completed successfully
+[INFO] Starting task: task249
+[INFO] Task task249 completed successfully
+[ERROR] Groovy exception encountered during task 250
+[ERROR] org.codehaus.groovy.runtime.typehandling.GroovyCastException: Cannot cast object of type 'java.lang.String' to class 'java.lang.Integer'
+[INFO] Stack trace:
+[INFO] at org.codehaus.groovy.runtime.typehandling.DefaultTypeTransformation.castToNumber(DefaultTypeTransformation.java:102)
+[INFO] at org.codehaus.groovy.runtime.InvokerHelper.asType(InvokerHelper.java:372)
+[INFO] at build.groovy:250
+[INFO] Build failed due to Groovy exception
+[INFO] Ending build process
+[INFO] Build complete with errors

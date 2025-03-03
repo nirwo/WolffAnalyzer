@@ -1,0 +1,313 @@
+/* Custom styles for Log Analyzer */
+
+/* Dark theme */
+:root {
+    --dark-bg: #212529;
+    --darker-bg: #1a1d20;
+    --dark-card: #2c3034;
+    --dark-border: #373b3e;
+    --text-light: #f1f1f1;
+    --text-muted: #adb5bd;
+    --primary: #0d6efd;
+    --primary-dark: #0a58ca;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --success: #198754;
+    --info: #0dcaf0;
+}
+
+/* Main styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+}
+
+/* Navbar styles */
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Card styles */
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: var(--dark-card);
+    border-color: var(--dark-border);
+}
+
+.card-header {
+    font-weight: bold;
+    background-color: var(--darker-bg);
+    border-color: var(--dark-border);
+}
+
+.card-body {
+    background-color: var(--dark-card);
+}
+
+/* Table styles */
+.table {
+    color: var(--text-light);
+}
+
+.table th {
+    background-color: var(--darker-bg);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: rgba(255, 255, 255, 0.075);
+}
+
+/* Modal styles */
+.modal-content {
+    border-radius: 0.5rem;
+    background-color: var(--dark-card);
+    color: var(--text-light);
+    border-color: var(--dark-border);
+}
+
+.modal-header, .modal-footer {
+    background-color: var(--darker-bg);
+    border-color: var(--dark-border);
+}
+
+/* Badge styles */
+.badge {
+    padding: 0.5em 0.8em;
+}
+
+/* Log entry styles */
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: var(--darker-bg);
+    color: var(--text-light);
+    border-color: var(--dark-border);
+}
+
+code {
+    color: var(--info);
+}
+
+/* Alert styles */
+.alert {
+    border: none;
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.2);
+    color: #ff6b6b;
+}
+
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #ffd166;
+}
+
+.alert-success {
+    background-color: rgba(25, 135, 84, 0.2);
+    color: #2ecc71;
+}
+
+.alert-info {
+    background-color: rgba(13, 202, 240, 0.2);
+    color: #48dbfb;
+}
+
+/* Highlight critical elements */
+.critical-highlight {
+    border-left: 4px solid var(--danger);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}
+
+/* Accordion styles */
+.accordion-button {
+    background-color: var(--dark-card);
+    color: var(--text-light);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: rgba(13, 110, 253, 0.2);
+    color: var(--primary);
+}
+
+.accordion-button::after {
+    filter: invert(1);
+}
+
+.accordion-item {
+    background-color: var(--dark-card);
+    border-color: var(--dark-border);
+}
+
+.accordion-body {
+    background-color: var(--dark-card);
+}
+
+/* Critical issues counter styling */
+.alert h2, .alert h3 {
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.alert h2 {
+    font-size: 2.5rem;
+}
+
+.alert h3 {
+    font-size: 2rem;
+}
+
+/* Error chains styling */
+.error-chain {
+    position: relative;
+}
+
+.error-chain-arrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* List group styles */
+.list-group-item {
+    background-color: var(--dark-card);
+    border-color: var(--dark-border);
+    color: var(--text-light);
+}
+
+/* Form control styles */
+.form-control, .form-select {
+    background-color: var(--darker-bg);
+    border-color: var(--dark-border);
+    color: var(--text-light);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--darker-bg);
+    color: var(--text-light);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Text styling */
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* Button styles */
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary-dark);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+/* Error notification */
+.analysis-failure-notice {
+    background-color: rgba(220, 53, 69, 0.2);
+    border-left: 4px solid var(--danger);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+}
+
+/* Quick fix suggestion */
+.quick-fix {
+    background-color: rgba(25, 135, 84, 0.15);
+    border-left: 4px solid var(--success);
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+/* Print styles */
+@media print {
+    .navbar, .btn, footer {
+        display: none !important;
+    }
+    
+    .card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    pre {
+        white-space: pre-wrap;
+        word-break: break-word;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+    
+    body {
+        padding: 0;
+        margin: 0;
+        background-color: white;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    .modal {
+        position: static;
+        display: block;
+    }
+    
+    .accordion-button::after {
+        display: none;
+    }
+    
+    .accordion-collapse {
+        display: block !important;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+    
+    pre {
+        font-size: 0.8rem;
+    }
+}

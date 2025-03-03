@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Log Analyses</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Log Analyzer</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('show_logs') }}">Previous Analyses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_patterns') }}">Error Patterns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_kpi') }}">Error KPIs</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <h2 class="mb-4">Previous Log Analyses</h2>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Analyzed Logs</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="logsTable">
+                        <thead>
+                            <tr>
+                                <th>Filename</th>
+                                <th>Analysis Date</th>
+                                <th>Critical Issues</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logsTableBody">
+                            <!-- JavaScript will populate this -->
+                            <tr>
+                                <td colspan="4" class="text-center">Loading previous analyses...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">Analyze New Log</a>
+        </div>
+    </div>
+
+    <footer class="bg-light py-3 mt-5">
+        <div class="container text-center">
+            <p class="text-muted mb-0">Log Analyzer &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch previous log analyses
+            fetch('/api/logs')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('logsTableBody');
+                    
+                    if (data.length === 0) {
+                        tableBody.innerHTML = '<tr><td colspan="4" class="text-center">No previous analyses found</td></tr>';
+                        return;
+                    }
+                    
+                    // Sort by timestamp (newest first)
+                    data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+                    
+                    // Clear the table
+                    tableBody.innerHTML = '';
+                    
+                    // Add rows for each log
+                    data.forEach(log => {
+                        const row = document.createElement('tr');
+                        
+                        // Filename
+                        const filenameCell = document.createElement('td');
+                        filenameCell.textContent = log.filename;
+                        
+                        // Mark basic analysis logs
+                        if (log.is_basic) {
+                            const basicBadge = document.createElement('span');
+                            basicBadge.classList.add('badge', 'bg-secondary', 'ms-2');
+                            basicBadge.textContent = 'Basic';
+                            basicBadge.title = 'This log was processed with basic analysis only';
+                            filenameCell.appendChild(basicBadge);
+                        }
+                        
+                        row.appendChild(filenameCell);
+                        
+                        // Timestamp
+                        const timestampCell = document.createElement('td');
+                        timestampCell.textContent = log.timestamp;
+                        row.appendChild(timestampCell);
+                        
+                        // Critical issues count
+                        const issuesCell = document.createElement('td');
+                        const issuesBadge = document.createElement('span');
+                        issuesBadge.classList.add('badge', 'rounded-pill');
+                        
+                        if (log.critical_issues_count > 5) {
+                            issuesBadge.classList.add('bg-danger');
+                        } else if (log.critical_issues_count > 0) {
+                            issuesBadge.classList.add('bg-warning', 'text-dark');
+                        } else {
+                            issuesBadge.classList.add('bg-success');
+                        }
+                        
+                        issuesBadge.textContent = log.critical_issues_count;
+                        issuesCell.appendChild(issuesBadge);
+                        row.appendChild(issuesCell);
+                        
+                        // Actions
+                        const actionsCell = document.createElement('td');
+                        const viewLink = document.createElement('a');
+                        viewLink.href = `/analysis/${log.filename}`;
+                        viewLink.classList.add('btn', 'btn-sm', 'btn-primary');
+                        viewLink.innerHTML = '<i class="bi bi-eye"></i> View Analysis';
+                        actionsCell.appendChild(viewLink);
+                        row.appendChild(actionsCell);
+                        
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching logs:', error);
+                    const tableBody = document.getElementById('logsTableBody');
+                    tableBody.innerHTML = '<tr><td colspan="4" class="text-center text-danger">Error loading previous analyses</td></tr>';
+                });
+        });
+    </script>
+</body>
+</html>

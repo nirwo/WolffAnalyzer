@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Analysis Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Log Analyzer</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_logs') }}">Previous Analyses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_patterns') }}">Error Patterns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('show_kpi') }}">Error KPIs</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <h2 class="mb-4">Analysis Results for: {{ filename }}</h2>
+
+        {% if analysis.analysis_error is defined %}
+        <div class="analysis-failure-notice">
+            <h4><i class="bi bi-exclamation-triangle-fill text-danger"></i> Advanced Analysis Failed</h4>
+            <p><strong>Error type:</strong> {{ analysis.analysis_error.type }}</p>
+            <p><strong>Error details:</strong> {{ analysis.analysis_error.message }}</p>
+            {% if analysis.analysis_error.location %}
+            <p><strong>Location:</strong> {{ analysis.analysis_error.location }}</p>
+            {% endif %}
+            <p class="mb-0">Basic analysis is still available below. See recommendations for troubleshooting steps.</p>
+        </div>
+        {% endif %}
+        
+        {% if analysis.jenkins_specific_issues is defined and analysis.jenkins_specific_issues|length > 0 %}
+        <div class="card mb-4 critical-highlight">
+            <div class="card-header bg-danger">
+                <h5 class="mb-0"><i class="bi bi-jenkins"></i> Jenkins Build Issues</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for issue in analysis.jenkins_specific_issues %}
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{ issue.pattern_name }}</div>
+                            <p>{{ issue.description }}</p>
+                            <div class="matched-line text-muted small mb-2">{{ issue.matched_line|truncate(100) }}</div>
+                            <div class="quick-fix">
+                                <i class="bi bi-tools"></i> <strong>Quick fix:</strong> {{ issue.suggestion }}
+                            </div>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">{{ issue.severity }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% elif analysis.critical_messages is defined and analysis.critical_messages|length > 0 %}
+        <div class="card mb-4 critical-highlight">
+            <div class="card-header bg-danger">
+                <h5 class="mb-0"><i class="bi bi-lightning-charge-fill"></i> Critical Issues Requiring Immediate Attention</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for issue in analysis.critical_messages %}
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{ issue.component }}</div>
+                            {{ issue.message }}
+                            <div class="quick-fix">
+                                <i class="bi bi-tools"></i> <strong>Quick fix:</strong> Check the component's configuration and logs for errors
+                            </div>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">{{ issue.timestamp }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row">
+            <!-- Summary Card -->
+            <div class="col-lg-12 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Analysis Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row mb-3">
+                                    <div class="col-12 text-center">
+                                        <div class="alert {% if analysis.critical_issues_count > 5 %}alert-danger{% elif analysis.critical_issues_count > 0 %}alert-warning{% else %}alert-success{% endif %}">
+                                            <h5>Issues Summary</h5>
+                                            <div class="d-flex justify-content-around">
+                                                <div class="text-center {% if analysis.error_by_level is defined and analysis.error_by_level.CRITICAL > 0 %}critical-highlight p-2 rounded{% endif %}">
+                                                    <div class="fs-5">Critical</div>
+                                                    <h3>{{ analysis.error_by_level.CRITICAL if analysis.error_by_level is defined else 0 }}</h3>
+                                                </div>
+                                                <div class="text-center {% if analysis.error_by_level is defined and analysis.error_by_level.ERROR > 5 %}critical-highlight p-2 rounded{% endif %}">
+                                                    <div class="fs-5">Errors</div>
+                                                    <h3>{{ analysis.error_by_level.ERROR if analysis.error_by_level is defined else 0 }}</h3>
+                                                </div>
+                                                <div class="text-center">
+                                                    <div class="fs-5">Warnings</div>
+                                                    <h3>{{ analysis.error_by_level.WARNING if analysis.error_by_level is defined else 0 }}</h3>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2">
+                                                <span class="badge bg-secondary">Total: {{ analysis.total_issues if analysis.total_issues is defined else entries|length }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h5>Problematic Components</h5>
+                                <ul class="list-group mb-3">
+                                    {% for component, count in analysis.problematic_components %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ component }}
+                                        <span class="badge bg-primary rounded-pill">{{ count }} issues</span>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            
+                            <div class="col-md-8">
+                                <h5>Most Common Errors</h5>
+                                <div class="list-group">
+                                    {% if analysis.most_common_errors is mapping %}
+                                        {% for error_type, count in analysis.most_common_errors %}
+                                        <div class="list-group-item">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h6 class="mb-1">{{ error_type }}</h6>
+                                                <span class="badge bg-danger rounded-pill">{{ count }}</span>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for error in analysis.most_common_errors %}
+                                        <div class="list-group-item">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h6 class="mb-1">{{ error.error_type if error is mapping and 'error_type' in error else error[0] if error is sequence else error }}</h6>
+                                                <span class="badge bg-danger rounded-pill">{{ error.count if error is mapping and 'count' in error else error[1] if error is sequence else 1 }}</span>
+                                            </div>
+                                            {% if error is mapping and 'example' in error %}
+                                            <p class="mb-1 text-muted small">{{ error.example }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    {% if error.affects_components is defined %}
+                                                    <span class="badge bg-info text-dark">Affects: 
+                                                    {% for comp in error.affects_components %}
+                                                        {{ comp }}{% if not loop.last %}, {% endif %}
+                                                    {% endfor %}
+                                                    </span>
+                                                    {% endif %}
+                                                </div>
+                                                {% if error.first_seen is defined and error.last_seen is defined %}
+                                                <small class="text-muted">
+                                                    First: {{ error.first_seen }} <br>
+                                                    Last: {{ error.last_seen }}
+                                                </small>
+                                                {% endif %}
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations Card -->
+            <div class="col-lg-12 mb-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Recommendations</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="recommendationsAccordion">
+                            {% for rec in recommendations %}
+                            {% set i = loop.index0 %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading{{ i }}">
+                                    <button class="accordion-button {% if i != 0 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ i }}" aria-expanded="{{ 'true' if i == 0 else 'false' }}" aria-controls="collapse{{ i }}">
+                                        {{ rec.title }}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ i }}" class="accordion-collapse collapse {% if i == 0 %}show{% endif %}" aria-labelledby="heading{{ i }}" data-bs-parent="#recommendationsAccordion">
+                                    <div class="accordion-body">
+                                        <p>{{ rec.description }}</p>
+                                        <h6>Recommended Steps:</h6>
+                                        <ol class="list-group list-group-numbered">
+                                            {% for step in rec.steps %}
+                                            <li class="list-group-item">{{ step }}</li>
+                                            {% endfor %}
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Timeline Card -->
+            <div class="col-lg-12 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Error Timeline</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Level</th>
+                                        <th>Component</th>
+                                        <th>Message</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for entry in entries %}
+                                    <tr class="{% if entry.level == 'ERROR' %}table-danger{% elif entry.level == 'WARNING' or entry.level == 'WARN' %}table-warning{% elif entry.level == 'CRITICAL' or entry.level == 'FATAL' %}table-dark{% else %}{% endif %}">
+                                        <td>{{ entry.timestamp or 'N/A' }}</td>
+                                        <td>
+                                            <span class="badge {% if entry.level == 'ERROR' %}bg-danger{% elif entry.level == 'WARNING' or entry.level == 'WARN' %}bg-warning text-dark{% elif entry.level == 'CRITICAL' or entry.level == 'FATAL' %}bg-dark{% elif entry.level == 'INFO' %}bg-info text-dark{% else %}bg-secondary{% endif %}">
+                                                {{ entry.level }}
+                                            </span>
+                                        </td>
+                                        <td>{{ entry.component }}</td>
+                                        <td>{{ entry.message|truncate(100) }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#entryModal{{ loop.index }}">
+                                                <i class="bi bi-search"></i> View
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Modal for each entry -->
+                                    <div class="modal fade" id="entryModal{{ loop.index }}" tabindex="-1" aria-labelledby="entryModalLabel{{ loop.index }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="entryModalLabel{{ loop.index }}">Log Entry Details</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="alert {% if entry.level == 'ERROR' %}alert-danger{% elif entry.level == 'WARNING' or entry.level == 'WARN' %}alert-warning{% elif entry.level == 'CRITICAL' or entry.level == 'FATAL' %}alert-dark{% else %}alert-info{% endif %} mb-3">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <strong>Timestamp:</strong> {{ entry.timestamp or 'Not available' }}
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <strong>Component:</strong> {{ entry.component }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-1">
+                                                            <div class="col-md-6">
+                                                                <strong>Severity:</strong> {{ entry.level }} ({{ entry.severity }})
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <strong>Line Number:</strong> {{ entry.line_number }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <h5>Message</h5>
+                                                        <pre class="bg-light p-3 rounded">{{ entry.message }}</pre>
+                                                    </div>
+                                                    
+                                                    {% if entry.raw_message is defined and entry.raw_message != entry.message %}
+                                                    <div class="mb-3">
+                                                        <h6>Raw Message</h6>
+                                                        <pre class="bg-light p-2 rounded small">{{ entry.raw_message }}</pre>
+                                                    </div>
+                                                    {% endif %}
+                                                    
+                                                    <div class="mb-3">
+                                                        <h6>Context (surrounding lines)</h6>
+                                                        <div class="context-container">
+                                                            <pre class="bg-light p-3 rounded">{% for line in entry.context %}{{ line }}
+{% endfor %}</pre>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <h6>Possible Causes</h6>
+                                                        <ul class="list-group">
+                                                            {% if 'connection' in entry.message.lower() %}
+                                                                <li class="list-group-item">Network connectivity issue or service unavailable</li>
+                                                            {% endif %}
+                                                            {% if 'timeout' in entry.message.lower() %}
+                                                                <li class="list-group-item">Operation took too long to complete</li>
+                                                            {% endif %}
+                                                            {% if 'permission' in entry.message.lower() or 'access' in entry.message.lower() %}
+                                                                <li class="list-group-item">Insufficient permissions or authentication issues</li>
+                                                            {% endif %}
+                                                            {% if 'file' in entry.message.lower() and ('not found' in entry.message.lower() or 'missing' in entry.message.lower()) %}
+                                                                <li class="list-group-item">Required file is missing or inaccessible</li>
+                                                            {% endif %}
+                                                            {% if 'memory' in entry.message.lower() %}
+                                                                <li class="list-group-item">System running out of memory resources</li>
+                                                            {% endif %}
+                                                            <li class="list-group-item">Check the component logs for more details</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-primary copy-btn" 
+                                                            data-content="{{ entry.raw_message if entry.raw_message is defined else entry.message }}">
+                                                        <i class="bi bi-clipboard"></i> Copy Message
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Chains Card -->
+            {% if analysis.error_chains %}
+            <div class="col-lg-12 mb-4">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Error Chains</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">The following errors appear to be related and might indicate cascading failures:</p>
+                        <div class="list-group">
+                            {% for chain in analysis.error_chains %}
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6>Initial Error</h6>
+                                        <pre class="bg-light p-2 rounded small">{{ chain.from.message }}</pre>
+                                        <p class="mb-0 small text-muted">{{ chain.from.timestamp }} - {{ chain.from.component }}</p>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-arrow-right fs-2"></i>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h6>Subsequent Error</h6>
+                                        <pre class="bg-light p-2 rounded small">{{ chain.to.message }}</pre>
+                                        <p class="mb-0 small text-muted">{{ chain.to.timestamp }} - {{ chain.to.component }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-between mb-4">
+            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">Back to Home</a>
+            <button class="btn btn-primary" onclick="window.print()">Print/Save Report</button>
+        </div>
+    </div>
+
+    <footer class="bg-light py-3 mt-5">
+        <div class="container text-center">
+            <p class="text-muted mb-0">Log Analyzer &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

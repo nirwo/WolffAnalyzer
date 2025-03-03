@@ -1,0 +1,3225 @@
+{
+  "entries": [
+    {
+      "timestamp": "2025-03-03 08:59:35",
+      "level": "WARNING",
+      "message": ",438 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 08:59:35,438 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 08:59:35,331 - werkzeug - INFO - \u001b[33mPress CTRL+C to quit\u001b[0m",
+        "2025-03-03 08:59:35,332 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 08:59:35,438 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 08:59:35,440 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 08:59:46,703 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"GET / HTTP/1.1\" 200 -"
+      ],
+      "component": "Unknown",
+      "line_number": 9
+    },
+    {
+      "timestamp": "2025-03-03 08:59:35",
+      "level": "INFO",
+      "message": "This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m",
+      "raw_message": "2025-03-03 08:59:35,331 - werkzeug - INFO - \u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m",
+      "severity": 1,
+      "context": [
+        " * Serving Flask app 'app'",
+        " * Debug mode: on",
+        "2025-03-03 08:59:35,331 - werkzeug - INFO - \u001b[31m\u001b[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.\u001b[0m",
+        " * Running on all addresses (0.0.0.0)",
+        " * Running on http://127.0.0.1:8080"
+      ],
+      "component": "1mWARNING",
+      "line_number": 3
+    },
+    {
+      "timestamp": "2025-03-03 08:59:35",
+      "level": "INFO",
+      "message": ",331 - werkzeug - INFO - \u001b[33mPress CTRL+C to quit\u001b[0m",
+      "raw_message": "2025-03-03 08:59:35,331 - werkzeug - INFO - \u001b[33mPress CTRL+C to quit\u001b[0m",
+      "severity": 1,
+      "context": [
+        " * Running on http://127.0.0.1:8080",
+        " * Running on http://192.168.68.56:8080",
+        "2025-03-03 08:59:35,331 - werkzeug - INFO - \u001b[33mPress CTRL+C to quit\u001b[0m",
+        "2025-03-03 08:59:35,332 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 08:59:35,438 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 7
+    },
+    {
+      "timestamp": "2025-03-03 08:59:35",
+      "level": "INFO",
+      "message": ",332 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 08:59:35,332 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        " * Running on http://192.168.68.56:8080",
+        "2025-03-03 08:59:35,331 - werkzeug - INFO - \u001b[33mPress CTRL+C to quit\u001b[0m",
+        "2025-03-03 08:59:35,332 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 08:59:35,438 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 08:59:35,440 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 8
+    },
+    {
+      "timestamp": "2025-03-03 08:59:35",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 08:59:35,440 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:35,332 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 08:59:35,438 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 08:59:35,440 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 08:59:46,703 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "PIN",
+      "line_number": 10
+    },
+    {
+      "timestamp": "2025-03-03 08:59:46",
+      "level": "INFO",
+      "message": "\"GET / HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 08:59:46,703 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"GET / HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:35,438 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 08:59:35,440 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 08:59:46,703 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "08",
+      "line_number": 11
+    },
+    {
+      "timestamp": "2025-03-03 08:59:46",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:35,440 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 08:59:46,703 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:49,671 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"GET /patterns HTTP/1.1\" 200 -"
+      ],
+      "component": "08",
+      "line_number": 12
+    },
+    {
+      "timestamp": "2025-03-03 08:59:46",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:46,703 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:49,671 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:49,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "08",
+      "line_number": 13
+    },
+    {
+      "timestamp": "2025-03-03 08:59:49",
+      "level": "INFO",
+      "message": "\"GET /patterns HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 08:59:49,671 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"GET /patterns HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:49,671 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:49,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:55,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"GET /kpi HTTP/1.1\" 200 -"
+      ],
+      "component": "08",
+      "line_number": 14
+    },
+    {
+      "timestamp": "2025-03-03 08:59:49",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 08:59:49,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:46,718 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:46] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:49,671 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:49,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:55,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:55,686 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "08",
+      "line_number": 15
+    },
+    {
+      "timestamp": "2025-03-03 08:59:55",
+      "level": "INFO",
+      "message": "\"GET /kpi HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 08:59:55,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"GET /kpi HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:49,671 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:49,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:55,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:55,686 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:57,553 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"GET /patterns HTTP/1.1\" 200 -"
+      ],
+      "component": "08",
+      "line_number": 16
+    },
+    {
+      "timestamp": "2025-03-03 08:59:55",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 08:59:55,686 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:49,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:55,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:55,686 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:57,553 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:57,561 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "08",
+      "line_number": 17
+    },
+    {
+      "timestamp": "2025-03-03 08:59:57",
+      "level": "INFO",
+      "message": "\"GET /patterns HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 08:59:57,553 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"GET /patterns HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:55,678 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:55,686 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:57,553 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:57,561 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:37,497 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "08",
+      "line_number": 18
+    },
+    {
+      "timestamp": "2025-03-03 08:59:57",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 08:59:57,561 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:55,686 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 08:59:57,553 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:57,561 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:37,497 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:00:37,526 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "08",
+      "line_number": 19
+    },
+    {
+      "timestamp": "2025-03-03 09:00:37",
+      "level": "WARNING",
+      "message": ",640 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:00:37,640 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:00:37,497 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:00:37,526 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:00:37,640 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:00:37,643 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:00:49,656 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 22
+    },
+    {
+      "timestamp": "2025-03-03 09:00:37",
+      "level": "INFO",
+      "message": ",497 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:00:37,497 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:57,553 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 08:59:57,561 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:37,497 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:00:37,526 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:00:37,640 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 20
+    },
+    {
+      "timestamp": "2025-03-03 09:00:37",
+      "level": "INFO",
+      "message": ",526 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:00:37,526 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 08:59:57,561 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 08:59:57] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:37,497 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:00:37,526 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:00:37,640 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:00:37,643 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 21
+    },
+    {
+      "timestamp": "2025-03-03 09:00:37",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:00:37,643 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:37,526 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:00:37,640 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:00:37,643 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:00:49,656 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:00:49,673 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 23
+    },
+    {
+      "timestamp": "2025-03-03 09:00:49",
+      "level": "WARNING",
+      "message": ",778 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:00:49,778 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:00:49,656 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:00:49,673 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:00:49,778 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:00:49,780 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:00:49,795 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"GET /kpi HTTP/1.1\" 200 -"
+      ],
+      "component": "Unknown",
+      "line_number": 26
+    },
+    {
+      "timestamp": "2025-03-03 09:00:49",
+      "level": "INFO",
+      "message": ",656 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:00:49,656 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:37,640 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:00:37,643 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:00:49,656 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:00:49,673 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:00:49,778 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 24
+    },
+    {
+      "timestamp": "2025-03-03 09:00:49",
+      "level": "INFO",
+      "message": ",673 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:00:49,673 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:37,643 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:00:49,656 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:00:49,673 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:00:49,778 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:00:49,780 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 25
+    },
+    {
+      "timestamp": "2025-03-03 09:00:49",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:00:49,780 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:49,673 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:00:49,778 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:00:49,780 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:00:49,795 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:49,807 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "PIN",
+      "line_number": 27
+    },
+    {
+      "timestamp": "2025-03-03 09:00:49",
+      "level": "INFO",
+      "message": "\"GET /kpi HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:00:49,795 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"GET /kpi HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:49,778 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:00:49,780 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:00:49,795 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:49,807 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:52,042 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /logs HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 28
+    },
+    {
+      "timestamp": "2025-03-03 09:00:49",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:00:49,807 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:49,780 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:00:49,795 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:49,807 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:52,042 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:52,051 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 29
+    },
+    {
+      "timestamp": "2025-03-03 09:00:52",
+      "level": "INFO",
+      "message": "\"GET /logs HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:00:52,042 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /logs HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:49,795 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:49,807 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:52,042 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:52,051 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:52,054 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /api/logs HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 30
+    },
+    {
+      "timestamp": "2025-03-03 09:00:52",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:00:52,051 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:49,807 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:49] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:52,042 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:52,051 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:52,054 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /api/logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:54,495 - __main__ - ERROR - Error loading analysis file: expected token 'end of statement block', got 'if'"
+      ],
+      "component": "09",
+      "line_number": 31
+    },
+    {
+      "timestamp": "2025-03-03 09:00:52",
+      "level": "INFO",
+      "message": "\"GET /api/logs HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:00:52,054 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /api/logs HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:52,042 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:52,051 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:52,054 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /api/logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:54,495 - __main__ - ERROR - Error loading analysis file: expected token 'end of statement block', got 'if'",
+        "Traceback (most recent call last):"
+      ],
+      "component": "09",
+      "line_number": 32
+    },
+    {
+      "timestamp": "2025-03-03 09:00:54",
+      "level": "ERROR",
+      "message": "expected token 'end of statement block', got 'if'",
+      "raw_message": "2025-03-03 09:00:54,495 - __main__ - ERROR - Error loading analysis file: expected token 'end of statement block', got 'if'",
+      "severity": 3,
+      "context": [
+        "2025-03-03 09:00:52,051 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:52,054 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:52] \"GET /api/logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:54,495 - __main__ - ERROR - Error loading analysis file: expected token 'end of statement block', got 'if'",
+        "Traceback (most recent call last):",
+        "  File \"/code-claude/log_analyzer/app.py\", line 949, in show_analysis"
+      ],
+      "component": "file",
+      "line_number": 33
+    },
+    {
+      "timestamp": "2025-03-03 09:00:54",
+      "level": "INFO",
+      "message": "\"\u001b[32mGET /analysis/groovy.log HTTP/1.1\u001b[0m\" 302 -",
+      "raw_message": "2025-03-03 09:00:54,497 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[32mGET /analysis/groovy.log HTTP/1.1\u001b[0m\" 302 -",
+      "severity": 1,
+      "context": [
+        "    ^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got 'if'",
+        "2025-03-03 09:00:54,497 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[32mGET /analysis/groovy.log HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:00:54,501 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 61
+    },
+    {
+      "timestamp": "2025-03-03 09:00:54",
+      "level": "INFO",
+      "message": "\"GET / HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:00:54,501 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"GET / HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got 'if'",
+        "2025-03-03 09:00:54,497 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[32mGET /analysis/groovy.log HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:00:54,501 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 62
+    },
+    {
+      "timestamp": "2025-03-03 09:00:54",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:54,497 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[32mGET /analysis/groovy.log HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:00:54,501 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:58,272 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"GET / HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 63
+    },
+    {
+      "timestamp": "2025-03-03 09:00:54",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:54,501 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:58,272 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:58,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 64
+    },
+    {
+      "timestamp": "2025-03-03 09:00:58",
+      "level": "INFO",
+      "message": "\"GET / HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:00:58,272 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"GET / HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:58,272 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:58,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:58,281 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 65
+    },
+    {
+      "timestamp": "2025-03-03 09:00:58",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:00:58,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:54,509 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:54] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:58,272 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:58,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:58,281 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:59,572 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"GET / HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 66
+    },
+    {
+      "timestamp": "2025-03-03 09:00:58",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:00:58,281 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:58,272 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:58,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:58,281 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:59,572 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 67
+    },
+    {
+      "timestamp": "2025-03-03 09:00:59",
+      "level": "INFO",
+      "message": "\"GET / HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:00:59,572 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"GET / HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:58,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:58,281 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:59,572 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 68
+    },
+    {
+      "timestamp": "2025-03-03 09:00:59",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:58,281 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:58] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:59,572 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:14,383 - __main__ - ERROR - Error analyzing log file: too many values to unpack (expected 2)"
+      ],
+      "component": "09",
+      "line_number": 69
+    },
+    {
+      "timestamp": "2025-03-03 09:00:59",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:00:59,572 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:14,383 - __main__ - ERROR - Error analyzing log file: too many values to unpack (expected 2)",
+        "Traceback (most recent call last):"
+      ],
+      "component": "09",
+      "line_number": 70
+    },
+    {
+      "timestamp": "2025-03-03 09:01:14",
+      "level": "ERROR",
+      "message": "too many values to unpack (expected 2)",
+      "raw_message": "2025-03-03 09:01:14,383 - __main__ - ERROR - Error analyzing log file: too many values to unpack (expected 2)",
+      "severity": 3,
+      "context": [
+        "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:00:59,580 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:00:59] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:14,383 - __main__ - ERROR - Error analyzing log file: too many values to unpack (expected 2)",
+        "Traceback (most recent call last):",
+        "  File \"/code-claude/log_analyzer/app.py\", line 719, in upload_file"
+      ],
+      "component": "file",
+      "line_number": 71
+    },
+    {
+      "timestamp": "2025-03-03 09:01:14",
+      "level": "ERROR",
+      "message": "expected token 'end of statement block', got 'if'",
+      "raw_message": "2025-03-03 09:01:14,388 - __main__ - ERROR - Error loading analysis file: expected token 'end of statement block', got 'if'",
+      "severity": 3,
+      "context": [
+        "ValueError: too many values to unpack (expected 2)",
+        "2025-03-03 09:01:14,384 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[32mPOST /upload HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:01:14,388 - __main__ - ERROR - Error loading analysis file: expected token 'end of statement block', got 'if'",
+        "Traceback (most recent call last):",
+        "  File \"/code-claude/log_analyzer/app.py\", line 949, in show_analysis"
+      ],
+      "component": "file",
+      "line_number": 81
+    },
+    {
+      "timestamp": "2025-03-03 09:01:14",
+      "level": "INFO",
+      "message": "\"\u001b[32mPOST /upload HTTP/1.1\u001b[0m\" 302 -",
+      "raw_message": "2025-03-03 09:01:14,384 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[32mPOST /upload HTTP/1.1\u001b[0m\" 302 -",
+      "severity": 1,
+      "context": [
+        "    ^^^^^^^^^^^^^",
+        "ValueError: too many values to unpack (expected 2)",
+        "2025-03-03 09:01:14,384 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[32mPOST /upload HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:01:14,388 - __main__ - ERROR - Error loading analysis file: expected token 'end of statement block', got 'if'",
+        "Traceback (most recent call last):"
+      ],
+      "component": "09",
+      "line_number": 80
+    },
+    {
+      "timestamp": "2025-03-03 09:01:14",
+      "level": "INFO",
+      "message": "\"\u001b[32mGET /analysis/groovy.log HTTP/1.1\u001b[0m\" 302 -",
+      "raw_message": "2025-03-03 09:01:14,388 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[32mGET /analysis/groovy.log HTTP/1.1\u001b[0m\" 302 -",
+      "severity": 1,
+      "context": [
+        "    ^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got 'if'",
+        "2025-03-03 09:01:14,388 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[32mGET /analysis/groovy.log HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:01:14,390 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 109
+    },
+    {
+      "timestamp": "2025-03-03 09:01:14",
+      "level": "INFO",
+      "message": "\"GET / HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:01:14,390 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"GET / HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got 'if'",
+        "2025-03-03 09:01:14,388 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[32mGET /analysis/groovy.log HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:01:14,390 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 110
+    },
+    {
+      "timestamp": "2025-03-03 09:01:14",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:14,388 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[32mGET /analysis/groovy.log HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:01:14,390 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:22,825 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "09",
+      "line_number": 111
+    },
+    {
+      "timestamp": "2025-03-03 09:01:14",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:14,390 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:22,825 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:22,841 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "09",
+      "line_number": 112
+    },
+    {
+      "timestamp": "2025-03-03 09:01:22",
+      "level": "WARNING",
+      "message": ",946 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:01:22,946 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:01:22,825 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:22,841 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:22,946 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:22,948 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:01:42,968 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 115
+    },
+    {
+      "timestamp": "2025-03-03 09:01:22",
+      "level": "INFO",
+      "message": ",825 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:01:22,825 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:22,825 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:22,841 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:22,946 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 113
+    },
+    {
+      "timestamp": "2025-03-03 09:01:22",
+      "level": "INFO",
+      "message": ",841 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:01:22,841 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:14,399 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:01:14] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:01:22,825 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:22,841 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:22,946 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:22,948 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 114
+    },
+    {
+      "timestamp": "2025-03-03 09:01:22",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:01:22,948 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:22,841 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:22,946 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:22,948 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:01:42,968 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:42,984 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 116
+    },
+    {
+      "timestamp": "2025-03-03 09:01:42",
+      "level": "INFO",
+      "message": ",968 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:01:42,968 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:22,946 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:22,948 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:01:42,968 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:42,984 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:43,091 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 117
+    },
+    {
+      "timestamp": "2025-03-03 09:01:42",
+      "level": "INFO",
+      "message": ",984 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:01:42,984 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:22,948 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:01:42,968 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:42,984 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:43,091 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:43,093 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 118
+    },
+    {
+      "timestamp": "2025-03-03 09:01:43",
+      "level": "WARNING",
+      "message": ",091 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:01:43,091 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:01:42,968 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:42,984 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:43,091 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:43,093 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:01:50,102 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 119
+    },
+    {
+      "timestamp": "2025-03-03 09:01:43",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:01:43,093 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:42,984 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:43,091 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:43,093 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:01:50,102 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:50,118 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 120
+    },
+    {
+      "timestamp": "2025-03-03 09:01:50",
+      "level": "WARNING",
+      "message": ",224 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:01:50,224 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:01:50,102 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:50,118 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:50,224 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:50,226 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:16,251 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 123
+    },
+    {
+      "timestamp": "2025-03-03 09:01:50",
+      "level": "INFO",
+      "message": ",102 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:01:50,102 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:43,091 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:43,093 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:01:50,102 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:50,118 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:50,224 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 121
+    },
+    {
+      "timestamp": "2025-03-03 09:01:50",
+      "level": "INFO",
+      "message": ",118 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:01:50,118 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:43,093 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:01:50,102 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:01:50,118 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:50,224 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:50,226 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 122
+    },
+    {
+      "timestamp": "2025-03-03 09:01:50",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:01:50,226 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:50,118 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:01:50,224 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:50,226 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:16,251 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:16,267 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 124
+    },
+    {
+      "timestamp": "2025-03-03 09:02:16",
+      "level": "WARNING",
+      "message": ",379 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:02:16,379 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:02:16,251 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:16,267 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:16,379 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:16,381 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:20,241 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -"
+      ],
+      "component": "Unknown",
+      "line_number": 127
+    },
+    {
+      "timestamp": "2025-03-03 09:02:16",
+      "level": "INFO",
+      "message": ",251 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:02:16,251 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:50,224 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:01:50,226 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:16,251 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:16,267 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:16,379 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 125
+    },
+    {
+      "timestamp": "2025-03-03 09:02:16",
+      "level": "INFO",
+      "message": ",267 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:02:16,267 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:01:50,226 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:16,251 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:16,267 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:16,379 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:16,381 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 126
+    },
+    {
+      "timestamp": "2025-03-03 09:02:16",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:02:16,381 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:16,267 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:16,379 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:16,381 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:20,241 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:02:20,247 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -"
+      ],
+      "component": "PIN",
+      "line_number": 128
+    },
+    {
+      "timestamp": "2025-03-03 09:02:20",
+      "level": "INFO",
+      "message": "\"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+      "raw_message": "2025-03-03 09:02:20,241 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:16,379 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:16,381 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:20,241 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:02:20,247 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+        "Traceback (most recent call last):"
+      ],
+      "component": "09",
+      "line_number": 129
+    },
+    {
+      "timestamp": "2025-03-03 09:02:20",
+      "level": "INFO",
+      "message": "\"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+      "raw_message": "2025-03-03 09:02:20,247 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:16,381 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:20,241 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:02:20,247 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/venv/lib/python3.12/site-packages/flask/app.py\", line 2213, in __call__"
+      ],
+      "component": "09",
+      "line_number": 130
+    },
+    {
+      "timestamp": "2025-03-03 09:02:20",
+      "level": "INFO",
+      "message": "\"GET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:02:20,260 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "    raise TemplateNotFound(template)",
+        "jinja2.exceptions.TemplateNotFound: login.html",
+        "2025-03-03 09:02:20,260 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,260 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,269 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 174
+    },
+    {
+      "timestamp": "2025-03-03 09:02:20",
+      "level": "INFO",
+      "message": "\"GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:02:20,260 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "jinja2.exceptions.TemplateNotFound: login.html",
+        "2025-03-03 09:02:20,260 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,260 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,269 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,363 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 175
+    },
+    {
+      "timestamp": "2025-03-03 09:02:20",
+      "level": "INFO",
+      "message": "\"GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:02:20,269 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:20,260 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,260 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,269 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,363 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:02:32,398 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "09",
+      "line_number": 176
+    },
+    {
+      "timestamp": "2025-03-03 09:02:20",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:02:20,363 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:20,260 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,269 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,363 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:02:32,398 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:32,417 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "09",
+      "line_number": 177
+    },
+    {
+      "timestamp": "2025-03-03 09:02:32",
+      "level": "WARNING",
+      "message": ",523 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:02:32,523 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:02:32,398 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:32,417 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:32,523 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:32,525 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:37,532 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 180
+    },
+    {
+      "timestamp": "2025-03-03 09:02:32",
+      "level": "INFO",
+      "message": ",398 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:02:32,398 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:20,269 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"GET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\" 200 -",
+        "2025-03-03 09:02:20,363 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:02:32,398 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:32,417 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:32,523 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 178
+    },
+    {
+      "timestamp": "2025-03-03 09:02:32",
+      "level": "INFO",
+      "message": ",417 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:02:32,417 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:20,363 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:02:20] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:02:32,398 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:32,417 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:32,523 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:32,525 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 179
+    },
+    {
+      "timestamp": "2025-03-03 09:02:32",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:02:32,525 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:32,417 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:32,523 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:32,525 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:37,532 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:37,548 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 181
+    },
+    {
+      "timestamp": "2025-03-03 09:02:37",
+      "level": "WARNING",
+      "message": ",654 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:02:37,654 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:02:37,532 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:37,548 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:37,654 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:37,657 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:14,691 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 184
+    },
+    {
+      "timestamp": "2025-03-03 09:02:37",
+      "level": "INFO",
+      "message": ",532 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:02:37,532 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:32,523 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:32,525 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:37,532 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:37,548 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:37,654 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 182
+    },
+    {
+      "timestamp": "2025-03-03 09:02:37",
+      "level": "INFO",
+      "message": ",548 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:02:37,548 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:32,525 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:02:37,532 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:02:37,548 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:37,654 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:37,657 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 183
+    },
+    {
+      "timestamp": "2025-03-03 09:02:37",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:02:37,657 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:37,548 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:02:37,654 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:37,657 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:14,691 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:14,708 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 185
+    },
+    {
+      "timestamp": "2025-03-03 09:03:14",
+      "level": "WARNING",
+      "message": ",813 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:03:14,813 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:03:14,691 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:14,708 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:14,813 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:14,815 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:18,821 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 188
+    },
+    {
+      "timestamp": "2025-03-03 09:03:14",
+      "level": "INFO",
+      "message": ",691 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:03:14,691 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:37,654 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:02:37,657 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:14,691 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:14,708 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:14,813 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 186
+    },
+    {
+      "timestamp": "2025-03-03 09:03:14",
+      "level": "INFO",
+      "message": ",708 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:03:14,708 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:02:37,657 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:14,691 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:14,708 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:14,813 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:14,815 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 187
+    },
+    {
+      "timestamp": "2025-03-03 09:03:14",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:03:14,815 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:14,708 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:14,813 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:14,815 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:18,821 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:18,844 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 189
+    },
+    {
+      "timestamp": "2025-03-03 09:03:18",
+      "level": "WARNING",
+      "message": ",956 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:03:18,956 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:03:18,821 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:18,844 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:18,956 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:18,958 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:18,966 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -"
+      ],
+      "component": "Unknown",
+      "line_number": 192
+    },
+    {
+      "timestamp": "2025-03-03 09:03:18",
+      "level": "INFO",
+      "message": ",821 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:03:18,821 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:14,813 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:14,815 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:18,821 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:18,844 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:18,956 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 190
+    },
+    {
+      "timestamp": "2025-03-03 09:03:18",
+      "level": "INFO",
+      "message": ",844 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:03:18,844 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:14,815 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:18,821 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:18,844 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:18,956 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:18,958 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 191
+    },
+    {
+      "timestamp": "2025-03-03 09:03:18",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:03:18,958 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:18,844 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:18,956 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:18,958 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:18,966 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+        "Traceback (most recent call last):"
+      ],
+      "component": "PIN",
+      "line_number": 193
+    },
+    {
+      "timestamp": "2025-03-03 09:03:18",
+      "level": "INFO",
+      "message": "\"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+      "raw_message": "2025-03-03 09:03:18,966 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:18,956 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:18,958 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:18,966 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/venv/lib/python3.12/site-packages/flask/app.py\", line 2213, in __call__"
+      ],
+      "component": "09",
+      "line_number": 194
+    },
+    {
+      "timestamp": "2025-03-03 09:03:18",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:18,976 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "    raise TemplateNotFound(template)",
+        "jinja2.exceptions.TemplateNotFound: login.html",
+        "2025-03-03 09:03:18,976 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:18,979 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:18,982 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 238
+    },
+    {
+      "timestamp": "2025-03-03 09:03:18",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:18,979 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "jinja2.exceptions.TemplateNotFound: login.html",
+        "2025-03-03 09:03:18,976 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:18,979 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:18,982 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:19,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:19] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 239
+    },
+    {
+      "timestamp": "2025-03-03 09:03:18",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:18,982 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:18,976 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:18,979 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:18,982 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:19,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:19] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:23,971 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "09",
+      "line_number": 240
+    },
+    {
+      "timestamp": "2025-03-03 09:03:19",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:19,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:19] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:18,979 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:18,982 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:19,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:19] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:23,971 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:23,988 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "09",
+      "line_number": 241
+    },
+    {
+      "timestamp": "2025-03-03 09:03:23",
+      "level": "INFO",
+      "message": ",971 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:03:23,971 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:18,982 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:18] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:19,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:19] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:23,971 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:23,988 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:24,092 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 242
+    },
+    {
+      "timestamp": "2025-03-03 09:03:23",
+      "level": "INFO",
+      "message": ",988 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:03:23,988 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:19,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:19] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:23,971 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:23,988 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:24,092 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:24,094 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 243
+    },
+    {
+      "timestamp": "2025-03-03 09:03:24",
+      "level": "WARNING",
+      "message": ",092 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:03:24,092 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:03:23,971 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:23,988 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:24,092 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:24,094 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:29,101 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 244
+    },
+    {
+      "timestamp": "2025-03-03 09:03:24",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:03:24,094 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:23,988 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:24,092 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:24,094 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:29,101 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:29,117 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 245
+    },
+    {
+      "timestamp": "2025-03-03 09:03:29",
+      "level": "WARNING",
+      "message": ",221 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:03:29,221 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:03:29,101 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:29,117 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:29,221 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:29,223 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:38,146 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -"
+      ],
+      "component": "Unknown",
+      "line_number": 248
+    },
+    {
+      "timestamp": "2025-03-03 09:03:29",
+      "level": "INFO",
+      "message": ",101 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:03:29,101 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:24,092 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:24,094 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:29,101 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:29,117 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:29,221 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 246
+    },
+    {
+      "timestamp": "2025-03-03 09:03:29",
+      "level": "INFO",
+      "message": ",117 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:03:29,117 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:24,094 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:29,101 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:29,117 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:29,221 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:29,223 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 247
+    },
+    {
+      "timestamp": "2025-03-03 09:03:29",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:03:29,223 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:29,117 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:29,221 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:29,223 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:38,146 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+        "Traceback (most recent call last):"
+      ],
+      "component": "PIN",
+      "line_number": 249
+    },
+    {
+      "timestamp": "2025-03-03 09:03:38",
+      "level": "INFO",
+      "message": "\"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+      "raw_message": "2025-03-03 09:03:38,146 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:29,221 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:29,223 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:38,146 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/venv/lib/python3.12/site-packages/flask/app.py\", line 2213, in __call__"
+      ],
+      "component": "09",
+      "line_number": 250
+    },
+    {
+      "timestamp": "2025-03-03 09:03:38",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:38,159 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "    raise TemplateNotFound(template)",
+        "jinja2.exceptions.TemplateNotFound: login.html",
+        "2025-03-03 09:03:38,159 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,159 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,166 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 294
+    },
+    {
+      "timestamp": "2025-03-03 09:03:38",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:38,159 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "jinja2.exceptions.TemplateNotFound: login.html",
+        "2025-03-03 09:03:38,159 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,159 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,166 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,254 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 295
+    },
+    {
+      "timestamp": "2025-03-03 09:03:38",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:38,166 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:38,159 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,159 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,166 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,254 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:42,237 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "09",
+      "line_number": 296
+    },
+    {
+      "timestamp": "2025-03-03 09:03:38",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:38,254 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:38,159 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,166 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,254 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:42,237 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:42,255 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "09",
+      "line_number": 297
+    },
+    {
+      "timestamp": "2025-03-03 09:03:42",
+      "level": "WARNING",
+      "message": ",360 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:03:42,360 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:03:42,237 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:42,255 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:42,360 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:42,362 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:55,920 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -"
+      ],
+      "component": "Unknown",
+      "line_number": 300
+    },
+    {
+      "timestamp": "2025-03-03 09:03:42",
+      "level": "INFO",
+      "message": ",237 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:03:42,237 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:38,166 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:38,254 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:42,237 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:42,255 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:42,360 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 298
+    },
+    {
+      "timestamp": "2025-03-03 09:03:42",
+      "level": "INFO",
+      "message": ",255 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:03:42,255 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:38,254 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:38] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:42,237 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:42,255 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:42,360 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:42,362 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 299
+    },
+    {
+      "timestamp": "2025-03-03 09:03:42",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:03:42,362 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:42,255 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:42,360 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:42,362 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:55,920 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+        "Traceback (most recent call last):"
+      ],
+      "component": "PIN",
+      "line_number": 301
+    },
+    {
+      "timestamp": "2025-03-03 09:03:55",
+      "level": "INFO",
+      "message": "\"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+      "raw_message": "2025-03-03 09:03:55,920 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:42,360 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:42,362 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:03:55,920 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[35m\u001b[1mGET /login HTTP/1.1\u001b[0m\" 500 -",
+        "Traceback (most recent call last):",
+        "  File \"/tmp/venv/lib/python3.12/site-packages/flask/app.py\", line 2213, in __call__"
+      ],
+      "component": "09",
+      "line_number": 302
+    },
+    {
+      "timestamp": "2025-03-03 09:03:55",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:55,931 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "    raise TemplateNotFound(template)",
+        "jinja2.exceptions.TemplateNotFound: login.html",
+        "2025-03-03 09:03:55,931 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:55,933 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:55,939 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 346
+    },
+    {
+      "timestamp": "2025-03-03 09:03:55",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:55,933 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "jinja2.exceptions.TemplateNotFound: login.html",
+        "2025-03-03 09:03:55,931 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:55,933 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:55,939 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:56,035 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:56] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 347
+    },
+    {
+      "timestamp": "2025-03-03 09:03:55",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:55,939 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:55,931 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:55,933 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:55,939 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:56,035 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:56] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:57,377 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "09",
+      "line_number": 348
+    },
+    {
+      "timestamp": "2025-03-03 09:03:56",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:03:56,035 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:56] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:55,933 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:55,939 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:56,035 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:56] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:57,377 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:57,394 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "09",
+      "line_number": 349
+    },
+    {
+      "timestamp": "2025-03-03 09:03:57",
+      "level": "WARNING",
+      "message": ",500 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:03:57,500 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:03:57,377 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:57,394 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:57,500 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:57,502 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:02,509 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 352
+    },
+    {
+      "timestamp": "2025-03-03 09:03:57",
+      "level": "INFO",
+      "message": ",377 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:03:57,377 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:55,939 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:55] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:56,035 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:56] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:57,377 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:57,394 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:57,500 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 350
+    },
+    {
+      "timestamp": "2025-03-03 09:03:57",
+      "level": "INFO",
+      "message": ",394 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:03:57,394 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:56,035 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:03:56] \"\u001b[36mGET /login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:03:57,377 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:03:57,394 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:57,500 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:57,502 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 351
+    },
+    {
+      "timestamp": "2025-03-03 09:03:57",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:03:57,502 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:57,394 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:03:57,500 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:57,502 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:02,509 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:02,533 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 353
+    },
+    {
+      "timestamp": "2025-03-03 09:04:02",
+      "level": "WARNING",
+      "message": ",651 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:04:02,651 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:04:02,509 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:02,533 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:02,651 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:02,653 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:09,662 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 356
+    },
+    {
+      "timestamp": "2025-03-03 09:04:02",
+      "level": "INFO",
+      "message": ",509 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:04:02,509 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:57,500 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:03:57,502 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:02,509 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:02,533 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:02,651 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 354
+    },
+    {
+      "timestamp": "2025-03-03 09:04:02",
+      "level": "INFO",
+      "message": ",533 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:04:02,533 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:03:57,502 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:02,509 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:02,533 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:02,651 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:02,653 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 355
+    },
+    {
+      "timestamp": "2025-03-03 09:04:02",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:04:02,653 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:02,533 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:02,651 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:02,653 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:09,662 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:09,679 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 357
+    },
+    {
+      "timestamp": "2025-03-03 09:04:09",
+      "level": "WARNING",
+      "message": ",786 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:04:09,786 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:04:09,662 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:09,679 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:09,786 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:09,788 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:12,793 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 360
+    },
+    {
+      "timestamp": "2025-03-03 09:04:09",
+      "level": "INFO",
+      "message": ",662 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:04:09,662 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:02,651 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:02,653 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:09,662 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:09,679 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:09,786 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 358
+    },
+    {
+      "timestamp": "2025-03-03 09:04:09",
+      "level": "INFO",
+      "message": ",679 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:04:09,679 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:02,653 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:09,662 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:09,679 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:09,786 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:09,788 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 359
+    },
+    {
+      "timestamp": "2025-03-03 09:04:09",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:04:09,788 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:09,679 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:09,786 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:09,788 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:12,793 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:12,811 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 361
+    },
+    {
+      "timestamp": "2025-03-03 09:04:12",
+      "level": "WARNING",
+      "message": ",925 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:04:12,925 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:04:12,793 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:12,811 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:12,925 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:12,927 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:17,934 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 364
+    },
+    {
+      "timestamp": "2025-03-03 09:04:12",
+      "level": "INFO",
+      "message": ",793 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:04:12,793 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:09,786 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:09,788 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:12,793 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:12,811 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:12,925 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 362
+    },
+    {
+      "timestamp": "2025-03-03 09:04:12",
+      "level": "INFO",
+      "message": ",811 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:04:12,811 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:09,788 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:12,793 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:12,811 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:12,925 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:12,927 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 363
+    },
+    {
+      "timestamp": "2025-03-03 09:04:12",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:04:12,927 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:12,811 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:12,925 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:12,927 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:17,934 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:17,951 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 365
+    },
+    {
+      "timestamp": "2025-03-03 09:04:17",
+      "level": "INFO",
+      "message": ",934 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:04:17,934 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:12,925 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:12,927 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:17,934 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:17,951 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:18,060 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 366
+    },
+    {
+      "timestamp": "2025-03-03 09:04:17",
+      "level": "INFO",
+      "message": ",951 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:04:17,951 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:12,927 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:17,934 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:17,951 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:18,060 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:18,062 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 367
+    },
+    {
+      "timestamp": "2025-03-03 09:04:18",
+      "level": "WARNING",
+      "message": ",060 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:04:18,060 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:04:17,934 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:17,951 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:18,060 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:18,062 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:22,068 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 368
+    },
+    {
+      "timestamp": "2025-03-03 09:04:18",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:04:18,062 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:17,951 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:18,060 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:18,062 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:22,068 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:22,085 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 369
+    },
+    {
+      "timestamp": "2025-03-03 09:04:22",
+      "level": "WARNING",
+      "message": ",193 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:04:22,193 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:04:22,068 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:22,085 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:22,193 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:22,195 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:44,217 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "Unknown",
+      "line_number": 372
+    },
+    {
+      "timestamp": "2025-03-03 09:04:22",
+      "level": "INFO",
+      "message": ",068 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:04:22,068 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:18,060 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:18,062 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:22,068 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:22,085 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:22,193 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 370
+    },
+    {
+      "timestamp": "2025-03-03 09:04:22",
+      "level": "INFO",
+      "message": ",085 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:04:22,085 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:18,062 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:22,068 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:22,085 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:22,193 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:22,195 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 371
+    },
+    {
+      "timestamp": "2025-03-03 09:04:22",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:04:22,195 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:22,085 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:22,193 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:22,195 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:44,217 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:44,234 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "PIN",
+      "line_number": 373
+    },
+    {
+      "timestamp": "2025-03-03 09:04:44",
+      "level": "WARNING",
+      "message": ",344 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:04:44,344 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:04:44,217 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:44,234 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:44,344 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:44,346 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:05:11,099 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"GET /login HTTP/1.1\" 200 -"
+      ],
+      "component": "Unknown",
+      "line_number": 376
+    },
+    {
+      "timestamp": "2025-03-03 09:04:44",
+      "level": "INFO",
+      "message": ",217 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:04:44,217 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:22,193 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:22,195 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:44,217 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:44,234 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:44,344 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 374
+    },
+    {
+      "timestamp": "2025-03-03 09:04:44",
+      "level": "INFO",
+      "message": ",234 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:04:44,234 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:22,195 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:04:44,217 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:04:44,234 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:44,344 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:44,346 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 375
+    },
+    {
+      "timestamp": "2025-03-03 09:04:44",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:04:44,346 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:44,234 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:04:44,344 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:44,346 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:05:11,099 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:05:11,113 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "PIN",
+      "line_number": 377
+    },
+    {
+      "timestamp": "2025-03-03 09:05:11",
+      "level": "INFO",
+      "message": "\"GET /login HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:05:11,099 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"GET /login HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:44,344 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:04:44,346 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:05:11,099 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:05:11,113 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:26,880 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"GET /login HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 378
+    },
+    {
+      "timestamp": "2025-03-03 09:05:11",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:05:11,113 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:04:44,346 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:05:11,099 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:05:11,113 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:26,880 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:26,890 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 379
+    },
+    {
+      "timestamp": "2025-03-03 09:07:26",
+      "level": "INFO",
+      "message": "\"GET /login HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:07:26,880 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"GET /login HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:05:11,099 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:05:11,113 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:26,880 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:26,890 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:30,274 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -"
+      ],
+      "component": "09",
+      "line_number": 380
+    },
+    {
+      "timestamp": "2025-03-03 09:07:26",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:07:26,890 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:05:11,113 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:05:11] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:26,880 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:26,890 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:30,274 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:07:30,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"GET / HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 381
+    },
+    {
+      "timestamp": "2025-03-03 09:07:30",
+      "level": "INFO",
+      "message": "\"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+      "raw_message": "2025-03-03 09:07:30,274 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:07:26,880 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:26,890 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:30,274 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:07:30,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 382
+    },
+    {
+      "timestamp": "2025-03-03 09:07:30",
+      "level": "INFO",
+      "message": "\"GET / HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:07:30,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"GET / HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:07:26,890 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:26] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:30,274 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:07:30,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 383
+    },
+    {
+      "timestamp": "2025-03-03 09:07:30",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:07:30,274 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:07:30,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:35,600 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"GET /kpi HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 384
+    },
+    {
+      "timestamp": "2025-03-03 09:07:30",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:07:30,280 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:35,600 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:35,613 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 385
+    },
+    {
+      "timestamp": "2025-03-03 09:07:35",
+      "level": "INFO",
+      "message": "\"GET /kpi HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:07:35,600 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"GET /kpi HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:35,600 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:35,613 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:36,160 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"GET /patterns HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 386
+    },
+    {
+      "timestamp": "2025-03-03 09:07:35",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:07:35,613 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:07:30,292 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:30] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:35,600 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:35,613 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:36,160 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:36,167 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 387
+    },
+    {
+      "timestamp": "2025-03-03 09:07:36",
+      "level": "INFO",
+      "message": "\"GET /patterns HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:07:36,160 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"GET /patterns HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:07:35,600 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"GET /kpi HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:35,613 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:36,160 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:36,167 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:22,835 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"GET /patterns HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 388
+    },
+    {
+      "timestamp": "2025-03-03 09:07:36",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:07:36,167 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:07:35,613 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:07:36,160 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:36,167 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:22,835 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:22,845 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 389
+    },
+    {
+      "timestamp": "2025-03-03 09:09:22",
+      "level": "INFO",
+      "message": "\"GET /patterns HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:09:22,835 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"GET /patterns HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:07:36,160 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:07:36,167 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:22,835 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:22,845 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:25,812 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"GET /patterns HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 390
+    },
+    {
+      "timestamp": "2025-03-03 09:09:22",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:09:22,845 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:07:36,167 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:07:36] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:22,835 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:22,845 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:25,812 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:25,820 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 391
+    },
+    {
+      "timestamp": "2025-03-03 09:09:25",
+      "level": "INFO",
+      "message": "\"GET /patterns HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:09:25,812 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"GET /patterns HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:22,835 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:22,845 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:25,812 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:25,820 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:27,109 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /logs HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 392
+    },
+    {
+      "timestamp": "2025-03-03 09:09:25",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:09:25,820 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:22,845 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:22] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:25,812 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:25,820 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:27,109 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:27,118 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 393
+    },
+    {
+      "timestamp": "2025-03-03 09:09:27",
+      "level": "INFO",
+      "message": "\"GET /logs HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:09:27,109 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /logs HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:25,812 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:25,820 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:27,109 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:27,118 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:27,123 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /api/logs HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 394
+    },
+    {
+      "timestamp": "2025-03-03 09:09:27",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:09:27,118 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:25,820 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:25] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:27,109 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:27,118 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:27,123 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /api/logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:29,611 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"GET / HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 395
+    },
+    {
+      "timestamp": "2025-03-03 09:09:27",
+      "level": "INFO",
+      "message": "\"GET /api/logs HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:09:27,123 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /api/logs HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:27,109 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:27,118 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:27,123 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /api/logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:29,611 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 396
+    },
+    {
+      "timestamp": "2025-03-03 09:09:29",
+      "level": "INFO",
+      "message": "\"GET / HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:09:29,611 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"GET / HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:27,118 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:27,123 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /api/logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:29,611 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 397
+    },
+    {
+      "timestamp": "2025-03-03 09:09:29",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:27,123 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:27] \"GET /api/logs HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:29,611 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:35,188 - __main__ - ERROR - Error analyzing log file: too many values to unpack (expected 2)"
+      ],
+      "component": "09",
+      "line_number": 398
+    },
+    {
+      "timestamp": "2025-03-03 09:09:29",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:29,611 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:35,188 - __main__ - ERROR - Error analyzing log file: too many values to unpack (expected 2)",
+        "Traceback (most recent call last):"
+      ],
+      "component": "09",
+      "line_number": 399
+    },
+    {
+      "timestamp": "2025-03-03 09:09:35",
+      "level": "ERROR",
+      "message": "too many values to unpack (expected 2)",
+      "raw_message": "2025-03-03 09:09:35,188 - __main__ - ERROR - Error analyzing log file: too many values to unpack (expected 2)",
+      "severity": 3,
+      "context": [
+        "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:29,621 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:29] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:35,188 - __main__ - ERROR - Error analyzing log file: too many values to unpack (expected 2)",
+        "Traceback (most recent call last):",
+        "  File \"/code-claude/log_analyzer/app.py\", line 1048, in upload_file"
+      ],
+      "component": "file",
+      "line_number": 400
+    },
+    {
+      "timestamp": "2025-03-03 09:09:35",
+      "level": "ERROR",
+      "message": "expected token 'end of statement block', got 'if'",
+      "raw_message": "2025-03-03 09:09:35,196 - __main__ - ERROR - Error loading analysis file: expected token 'end of statement block', got 'if'",
+      "severity": 3,
+      "context": [
+        "ValueError: too many values to unpack (expected 2)",
+        "2025-03-03 09:09:35,191 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[32mPOST /upload HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:09:35,196 - __main__ - ERROR - Error loading analysis file: expected token 'end of statement block', got 'if'",
+        "Traceback (most recent call last):",
+        "  File \"/code-claude/log_analyzer/app.py\", line 1340, in show_analysis"
+      ],
+      "component": "file",
+      "line_number": 410
+    },
+    {
+      "timestamp": "2025-03-03 09:09:35",
+      "level": "INFO",
+      "message": "\"\u001b[32mPOST /upload HTTP/1.1\u001b[0m\" 302 -",
+      "raw_message": "2025-03-03 09:09:35,191 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[32mPOST /upload HTTP/1.1\u001b[0m\" 302 -",
+      "severity": 1,
+      "context": [
+        "    ^^^^^^^^^^^^^",
+        "ValueError: too many values to unpack (expected 2)",
+        "2025-03-03 09:09:35,191 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[32mPOST /upload HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:09:35,196 - __main__ - ERROR - Error loading analysis file: expected token 'end of statement block', got 'if'",
+        "Traceback (most recent call last):"
+      ],
+      "component": "09",
+      "line_number": 409
+    },
+    {
+      "timestamp": "2025-03-03 09:09:35",
+      "level": "INFO",
+      "message": "\"\u001b[32mGET /analysis/00000000-0000-0000-0000-000000000000_app.log HTTP/1.1\u001b[0m\" 302 -",
+      "raw_message": "2025-03-03 09:09:35,197 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[32mGET /analysis/00000000-0000-0000-0000-000000000000_app.log HTTP/1.1\u001b[0m\" 302 -",
+      "severity": 1,
+      "context": [
+        "    ^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got 'if'",
+        "2025-03-03 09:09:35,197 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[32mGET /analysis/00000000-0000-0000-0000-000000000000_app.log HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:09:35,198 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:35,207 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 438
+    },
+    {
+      "timestamp": "2025-03-03 09:09:35",
+      "level": "INFO",
+      "message": "\"GET / HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:09:35,198 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"GET / HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got 'if'",
+        "2025-03-03 09:09:35,197 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[32mGET /analysis/00000000-0000-0000-0000-000000000000_app.log HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:09:35,198 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:35,207 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:35,209 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 439
+    },
+    {
+      "timestamp": "2025-03-03 09:09:35",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:09:35,207 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:35,197 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[32mGET /analysis/00000000-0000-0000-0000-000000000000_app.log HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:09:35,198 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:35,207 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:35,209 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:53,626 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "09",
+      "line_number": 440
+    },
+    {
+      "timestamp": "2025-03-03 09:09:35",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:09:35,209 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:35,198 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:35,207 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:35,209 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:53,626 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:09:53,643 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "09",
+      "line_number": 441
+    },
+    {
+      "timestamp": "2025-03-03 09:09:53",
+      "level": "WARNING",
+      "message": ",759 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:09:53,759 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:09:53,626 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:09:53,643 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:09:53,759 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:09:53,762 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:09:55,446 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -"
+      ],
+      "component": "Unknown",
+      "line_number": 444
+    },
+    {
+      "timestamp": "2025-03-03 09:09:53",
+      "level": "INFO",
+      "message": ",626 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:09:53,626 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:35,207 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:35,209 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:53,626 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:09:53,643 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:09:53,759 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 442
+    },
+    {
+      "timestamp": "2025-03-03 09:09:53",
+      "level": "INFO",
+      "message": ",643 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:09:53,643 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:35,209 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:35] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:53,626 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:09:53,643 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:09:53,759 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:09:53,762 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 443
+    },
+    {
+      "timestamp": "2025-03-03 09:09:53",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:09:53,762 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:53,643 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:09:53,759 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:09:53,762 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:09:55,446 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:09:55,453 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"GET /login HTTP/1.1\" 200 -"
+      ],
+      "component": "PIN",
+      "line_number": 445
+    },
+    {
+      "timestamp": "2025-03-03 09:09:55",
+      "level": "INFO",
+      "message": "\"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+      "raw_message": "2025-03-03 09:09:55,446 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:53,759 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:09:53,762 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:09:55,446 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:09:55,453 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:55,463 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 446
+    },
+    {
+      "timestamp": "2025-03-03 09:09:55",
+      "level": "INFO",
+      "message": "\"GET /login HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:09:55,453 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"GET /login HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:53,762 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:09:55,446 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:09:55,453 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:55,463 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:59,770 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "09",
+      "line_number": 447
+    },
+    {
+      "timestamp": "2025-03-03 09:09:55",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:09:55,463 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:55,446 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[32mGET / HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:09:55,453 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:55,463 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:59,770 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:09:59,788 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "09",
+      "line_number": 448
+    },
+    {
+      "timestamp": "2025-03-03 09:09:59",
+      "level": "WARNING",
+      "message": ",898 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:09:59,898 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:09:59,770 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:09:59,788 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:09:59,898 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:09:59,901 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:10:02,492 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -"
+      ],
+      "component": "Unknown",
+      "line_number": 451
+    },
+    {
+      "timestamp": "2025-03-03 09:09:59",
+      "level": "INFO",
+      "message": ",770 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:09:59,770 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:55,453 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"GET /login HTTP/1.1\" 200 -",
+        "2025-03-03 09:09:55,463 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:59,770 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:09:59,788 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:09:59,898 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 449
+    },
+    {
+      "timestamp": "2025-03-03 09:09:59",
+      "level": "INFO",
+      "message": ",788 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:09:59,788 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:55,463 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:09:55] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:09:59,770 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:09:59,788 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:09:59,898 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:09:59,901 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 450
+    },
+    {
+      "timestamp": "2025-03-03 09:09:59",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:09:59,901 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:59,788 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:09:59,898 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:09:59,901 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:10:02,492 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:10:02,499 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"GET / HTTP/1.1\" 200 -"
+      ],
+      "component": "PIN",
+      "line_number": 452
+    },
+    {
+      "timestamp": "2025-03-03 09:10:02",
+      "level": "INFO",
+      "message": "\"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+      "raw_message": "2025-03-03 09:10:02,492 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:59,898 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:09:59,901 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:10:02,492 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:10:02,499 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:10:02,512 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 453
+    },
+    {
+      "timestamp": "2025-03-03 09:10:02",
+      "level": "INFO",
+      "message": "\"GET / HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:10:02,499 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"GET / HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:09:59,901 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:10:02,492 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:10:02,499 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:10:02,512 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:10:02,513 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 454
+    },
+    {
+      "timestamp": "2025-03-03 09:10:02",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:10:02,512 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:10:02,492 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[32mPOST /login HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:10:02,499 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:10:02,512 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:10:02,513 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:10:09,077 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"GET /patterns HTTP/1.1\" 200 -"
+      ],
+      "component": "09",
+      "line_number": 455
+    },
+    {
+      "timestamp": "2025-03-03 09:10:02",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:10:02,513 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:10:02,499 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"GET / HTTP/1.1\" 200 -",
+        "2025-03-03 09:10:02,512 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:10:02,513 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:10:09,077 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:10:09,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 456
+    },
+    {
+      "timestamp": "2025-03-03 09:10:09",
+      "level": "INFO",
+      "message": "\"GET /patterns HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:10:09,077 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"GET /patterns HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:10:02,512 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:10:02,513 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:10:09,077 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:10:09,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:11:53,008 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading"
+      ],
+      "component": "09",
+      "line_number": 457
+    },
+    {
+      "timestamp": "2025-03-03 09:10:09",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:10:09,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:10:02,513 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:02] \"\u001b[36mGET /static/js/script.js HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:10:09,077 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:10:09,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:11:53,008 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:11:53,025 - werkzeug - INFO -  * Restarting with stat"
+      ],
+      "component": "09",
+      "line_number": 458
+    },
+    {
+      "timestamp": "2025-03-03 09:11:53",
+      "level": "WARNING",
+      "message": ",133 - werkzeug - WARNING -  * Debugger is active!",
+      "raw_message": "2025-03-03 09:11:53,133 - werkzeug - WARNING -  * Debugger is active!",
+      "severity": 2,
+      "context": [
+        "2025-03-03 09:11:53,008 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:11:53,025 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:11:53,133 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:11:53,135 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:11:53,960 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"\u001b[32mGET /patterns HTTP/1.1\u001b[0m\" 302 -"
+      ],
+      "component": "Unknown",
+      "line_number": 461
+    },
+    {
+      "timestamp": "2025-03-03 09:11:53",
+      "level": "INFO",
+      "message": ",008 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "raw_message": "2025-03-03 09:11:53,008 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:10:09,077 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"GET /patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:10:09,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:11:53,008 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:11:53,025 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:11:53,133 - werkzeug - WARNING -  * Debugger is active!"
+      ],
+      "component": "Unknown",
+      "line_number": 459
+    },
+    {
+      "timestamp": "2025-03-03 09:11:53",
+      "level": "INFO",
+      "message": ",025 - werkzeug - INFO -  * Restarting with stat",
+      "raw_message": "2025-03-03 09:11:53,025 - werkzeug - INFO -  * Restarting with stat",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:10:09,086 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:10:09] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+        "2025-03-03 09:11:53,008 - werkzeug - INFO -  * Detected change in '/code-claude/log_analyzer/app.py', reloading",
+        "2025-03-03 09:11:53,025 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:11:53,133 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:11:53,135 - werkzeug - INFO -  * Debugger PIN: 904-017-785"
+      ],
+      "component": "Unknown",
+      "line_number": 460
+    },
+    {
+      "timestamp": "2025-03-03 09:11:53",
+      "level": "INFO",
+      "message": "904-017-785",
+      "raw_message": "2025-03-03 09:11:53,135 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:11:53,025 - werkzeug - INFO -  * Restarting with stat",
+        "2025-03-03 09:11:53,133 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:11:53,135 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:11:53,960 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"\u001b[32mGET /patterns HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:11:53,966 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"GET /login?next=http://localhost:8080/patterns HTTP/1.1\" 200 -"
+      ],
+      "component": "PIN",
+      "line_number": 462
+    },
+    {
+      "timestamp": "2025-03-03 09:11:53",
+      "level": "INFO",
+      "message": "\"\u001b[32mGET /patterns HTTP/1.1\u001b[0m\" 302 -",
+      "raw_message": "2025-03-03 09:11:53,960 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"\u001b[32mGET /patterns HTTP/1.1\u001b[0m\" 302 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:11:53,133 - werkzeug - WARNING -  * Debugger is active!",
+        "2025-03-03 09:11:53,135 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:11:53,960 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"\u001b[32mGET /patterns HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:11:53,966 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"GET /login?next=http://localhost:8080/patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:11:53,979 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 463
+    },
+    {
+      "timestamp": "2025-03-03 09:11:53",
+      "level": "INFO",
+      "message": "\"GET /login?next=http://localhost:8080/patterns HTTP/1.1\" 200 -",
+      "raw_message": "2025-03-03 09:11:53,966 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"GET /login?next=http://localhost:8080/patterns HTTP/1.1\" 200 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:11:53,135 - werkzeug - INFO -  * Debugger PIN: 904-017-785",
+        "2025-03-03 09:11:53,960 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"\u001b[32mGET /patterns HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:11:53,966 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"GET /login?next=http://localhost:8080/patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:11:53,979 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 464
+    },
+    {
+      "timestamp": "2025-03-03 09:11:53",
+      "level": "INFO",
+      "message": "\"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "raw_message": "2025-03-03 09:11:53,979 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -",
+      "severity": 1,
+      "context": [
+        "2025-03-03 09:11:53,960 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"\u001b[32mGET /patterns HTTP/1.1\u001b[0m\" 302 -",
+        "2025-03-03 09:11:53,966 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"GET /login?next=http://localhost:8080/patterns HTTP/1.1\" 200 -",
+        "2025-03-03 09:11:53,979 - werkzeug - INFO - 127.0.0.1 - - [03/Mar/2025 09:11:53] \"\u001b[36mGET /static/css/style.css HTTP/1.1\u001b[0m\" 304 -"
+      ],
+      "component": "09",
+      "line_number": 465
+    },
+    {
+      "timestamp": null,
+      "level": "CRITICAL",
+      "message": "    <div class=\"text-center {% if analysis.error_by_level.CRITICAL > 0 if analysis.error_by_level is defined else False %}critical-highlight p-2 rounded{% endif %}\">",
+      "raw_message": "    <div class=\"text-center {% if analysis.error_by_level.CRITICAL > 0 if analysis.error_by_level is defined else False %}critical-highlight p-2 rounded{% endif %}\">",
+      "severity": 4,
+      "context": [
+        "    raise rewrite_traceback_stack(source=source)",
+        "  File \"/code-claude/log_analyzer/templates/analysis.html\", line 124, in template",
+        "    <div class=\"text-center {% if analysis.error_by_level.CRITICAL > 0 if analysis.error_by_level is defined else False %}critical-highlight p-2 rounded{% endif %}\">",
+        "    ^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got 'if'"
+      ],
+      "component": "Unknown",
+      "line_number": 58
+    },
+    {
+      "timestamp": null,
+      "level": "CRITICAL",
+      "message": "    <div class=\"text-center {% if analysis.error_by_level.CRITICAL > 0 if analysis.error_by_level is defined else False %}critical-highlight p-2 rounded{% endif %}\">",
+      "raw_message": "    <div class=\"text-center {% if analysis.error_by_level.CRITICAL > 0 if analysis.error_by_level is defined else False %}critical-highlight p-2 rounded{% endif %}\">",
+      "severity": 4,
+      "context": [
+        "    raise rewrite_traceback_stack(source=source)",
+        "  File \"/code-claude/log_analyzer/templates/analysis.html\", line 124, in template",
+        "    <div class=\"text-center {% if analysis.error_by_level.CRITICAL > 0 if analysis.error_by_level is defined else False %}critical-highlight p-2 rounded{% endif %}\">",
+        "    ^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got 'if'"
+      ],
+      "component": "Unknown",
+      "line_number": 106
+    },
+    {
+      "timestamp": null,
+      "level": "CRITICAL",
+      "message": "    <div class=\"text-center {% if analysis.error_by_level.CRITICAL > 0 if analysis.error_by_level is defined else False %}critical-highlight p-2 rounded{% endif %}\">",
+      "raw_message": "    <div class=\"text-center {% if analysis.error_by_level.CRITICAL > 0 if analysis.error_by_level is defined else False %}critical-highlight p-2 rounded{% endif %}\">",
+      "severity": 4,
+      "context": [
+        "    raise rewrite_traceback_stack(source=source)",
+        "  File \"/code-claude/log_analyzer/templates/analysis.html\", line 124, in template",
+        "    <div class=\"text-center {% if analysis.error_by_level.CRITICAL > 0 if analysis.error_by_level is defined else False %}critical-highlight p-2 rounded{% endif %}\">",
+        "    ^^^^^^^^^^^^^^^^^^^^^^^^^",
+        "jinja2.exceptions.TemplateSyntaxError: expected token 'end of statement block', got 'if'"
+      ],
+      "component": "Unknown",
+      "line_number": 435
+    }
+  ],
+  "analysis": {
+    "critical_issues_count": 8,
+    "problematic_components": [
+      [
+        "09",
+        80
+      ],
+      [
+        "Unknown",
+        75
+      ],
+      [
+        "PIN",
+        24
+      ],
+      [
+        "08",
+        9
+      ],
+      [
+        "file",
+        5
+      ],
+      [
+        "1mWARNING",
+        1
+      ]
+    ],
+    "most_common_errors": [
+      {
+        "error_type": "expected token 'end of stateme",
+        "count": 3,
+        "example": "expected token 'end of statement block', got 'if'",
+        "affects_components": [
+          "file"
+        ]
+      },
+      {
+        "error_type": "<div class=\"text-center {%",
+        "count": 3,
+        "example": "    <div class=\"text-center {% if analysis.error_by_level.CRITICAL > 0 if analysis.error_by_level is defined else False %}critical-highlight p-2 rounded{% endif %}\">",
+        "affects_components": [
+          "Unknown"
+        ]
+      },
+      {
+        "error_type": "too many values to unpack (exp",
+        "count": 2,
+        "example": "too many values to unpack (expected 2)",
+        "affects_components": [
+          "file"
+        ]
+      }
+    ],
+    "error_by_level": {
+      "ERROR": 5,
+      "CRITICAL": 3,
+      "WARNING": 24,
+      "EXCEPTION": 0
+    },
+    "analysis_error": {
+      "message": "too many values to unpack (expected 2)",
+      "type": "too many values to unpack (exp",
+      "location": "in generate_recommendations at line 640"
+    },
+    "critical_messages": [
+      {
+        "message": "expected token 'end of statement block', got 'if'",
+        "component": "file",
+        "timestamp": "2025-03-03 09:00:54"
+      },
+      {
+        "message": "too many values to unpack (expected 2)",
+        "component": "file",
+        "timestamp": "2025-03-03 09:01:14"
+      },
+      {
+        "message": "expected token 'end of statement block', got 'if'",
+        "component": "file",
+        "timestamp": "2025-03-03 09:01:14"
+      },
+      {
+        "message": "too many values to unpack (expected 2)",
+        "component": "file",
+        "timestamp": "2025-03-03 09:09:35"
+      },
+      {
+        "message": "expected token 'end of statement block', got 'if'",
+        "component": "file",
+        "timestamp": "2025-03-03 09:09:35"
+      }
+    ],
+    "total_issues": 194
+  },
+  "recommendations": [
+    {
+      "title": "Review Critical Errors First",
+      "description": "Focus on the 8 critical issues identified.",
+      "steps": [
+        "Check each critical error and exception in the timeline",
+        "Look for patterns around the timestamps of critical errors",
+        "Check the most problematic component: 09"
+      ]
+    },
+    {
+      "title": "Advanced Analysis Failed",
+      "description": "Error details: too many values to unpack (exp - too many values to unpack (expected 2)",
+      "steps": [
+        "The log might be too large or complex for detailed analysis",
+        "Consider analyzing a smaller segment of the log",
+        "Check for malformed log entries around the time of errors"
+      ]
+    }
+  ],
+  "timestamp": "2025-03-03 09:13:40",
+  "filename": "00000000-0000-0000-0000-000000000000_app.log",
+  "original_filename": "app.log",
+  "user_id": "00000000-0000-0000-0000-000000000000",
+  "username": "admin",
+  "is_basic_analysis": true
+}

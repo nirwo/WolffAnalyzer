@@ -1,0 +1,62 @@
+{
+  "jenkins_patterns": [
+    {
+      "id": 1,
+      "name": "Maven Build Error",
+      "pattern": "BUILD FAILURE|Failed to execute goal",
+      "severity": "critical",
+      "description": "Maven build process failed",
+      "suggestion": "Check for compilation errors, dependency issues, or test failures"
+    },
+    {
+      "id": 2,
+      "name": "NPM Error",
+      "pattern": "npm ERR!",
+      "severity": "critical",
+      "description": "NPM package or build error",
+      "suggestion": "Verify package.json, dependencies, or build scripts"
+    },
+    {
+      "id": 3,
+      "name": "Missing Dependency",
+      "pattern": "Cannot find module|Could not find|No such file or directory",
+      "severity": "error",
+      "description": "Required dependency or file is missing",
+      "suggestion": "Install missing dependencies or check file paths"
+    },
+    {
+      "id": 4,
+      "name": "Permission Error",
+      "pattern": "Permission denied|EACCES",
+      "severity": "error",
+      "description": "Insufficient permissions to access a resource",
+      "suggestion": "Check file/directory permissions or use sudo/admin privileges"
+    },
+    {
+      "id": 5,
+      "name": "Test Failure",
+      "pattern": "Tests failed|Test failures|FAILED TEST",
+      "severity": "warning",
+      "description": "One or more tests are failing",
+      "suggestion": "Check test output and fix failing tests"
+    }
+  ],
+  "system_patterns": [
+    {
+      "id": 6,
+      "name": "Out of Memory",
+      "pattern": "OutOfMemoryError|MemoryError|out of memory|insufficient memory",
+      "severity": "critical",
+      "description": "Process ran out of memory",
+      "suggestion": "Increase memory allocation or optimize memory usage"
+    },
+    {
+      "id": 7,
+      "name": "Connection Error",
+      "pattern": "Connection refused|Connection reset|Connection timeout",
+      "severity": "error",
+      "description": "Network connection problem",
+      "suggestion": "Check network connectivity, firewall rules, or service availability"
+    }
+  ]
+}

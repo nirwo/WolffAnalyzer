@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  log_analyzer:
+    build: .
+    image: log_analyzer:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    environment:
+      - FLASK_ENV=production
