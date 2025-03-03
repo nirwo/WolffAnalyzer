@@ -61,8 +61,9 @@ def login_required(f):
             return redirect(url_for('login', next=request.url))
         return f(*args, **kwargs)
     return decorated_function
-def admin_required(func):
-    @wraps(func)
+
+def admin_required(f):
+    @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session:
             flash('Please log in to access this page')
@@ -70,8 +71,8 @@ def admin_required(func):
         
         # Check if user is admin
         try:
-            with open(app.config['USERS_FILE'], 'r') as file_handle:
-                users_data = json.load(file_handle)
+            with open(app.config['USERS_FILE'], 'r') as f:
+                users_data = json.load(f)
                 
             user = next((u for u in users_data['users'] if u['id'] == session['user_id']), None)
             if not user or user['role'] != ROLE_ADMIN:
@@ -81,7 +82,7 @@ def admin_required(func):
             flash(f'Error checking user permissions: {str(e)}')
             return redirect(url_for('index'))
             
-        return func(*args, **kwargs)
+        return f(*args, **kwargs)
     return decorated_function
 
 # Initialize patterns database if it doesn't exist

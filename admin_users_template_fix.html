@@ -1,0 +1,9 @@
+<!-- Replace lines 153-155 with this safer version -->
+<span class="badge 
+    {% if log.critical_issues is defined and log.critical_issues is not none %}
+        {% if log.critical_issues > 5 %}bg-danger
+        {% elif log.critical_issues > 0 %}bg-warning text-dark
+        {% else %}bg-success{% endif %}
+    {% else %}bg-secondary{% endif %}">
+    {{ log.critical_issues if log.critical_issues is defined and log.critical_issues is not none else 0 }}
+</span>
