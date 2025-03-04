@@ -274,8 +274,8 @@
                                                 {{ entry.level }}
                                             </span>
                                         </td>
-                                        <td>{{ entry.component }}</td>
-                                        <td>{{ entry.message|truncate(100) }}</td>
+                                        <td class="text-wrap">{{ entry.component }}</td>
+                                        <td class="text-wrap">{{ entry.message|truncate(100) }}</td>
                                         <td>
                                             <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#entryModal{{ loop.index }}">
                                                 <i class="bi bi-search"></i> View
@@ -313,20 +313,20 @@
                                                     
                                                     <div class="mb-3">
                                                         <h5>Message</h5>
-                                                        <pre class="bg-dark text-light p-3 rounded border">{{ entry.message }}</pre>
+                                                        <pre class="bg-dark text-light p-3 rounded border text-wrap">{{ entry.message }}</pre>
                                                     </div>
                                                     
                                                     {% if entry.raw_message is defined and entry.raw_message != entry.message %}
                                                     <div class="mb-3">
                                                         <h6>Raw Message</h6>
-                                                        <pre class="bg-dark text-light p-2 rounded border small">{{ entry.raw_message }}</pre>
+                                                        <pre class="bg-dark text-light p-3 rounded border text-wrap">{{ entry.raw_message }}</pre>
                                                     </div>
                                                     {% endif %}
                                                     
                                                     <div class="mb-3">
                                                         <h6>Context (surrounding lines)</h6>
                                                         <div class="context-container">
-                                                            <pre class="bg-dark text-light p-3 rounded border" id="context-{{ loop.index }}">{% for context_line in entry.context %}{% if context_line == entry.raw_message %}<span class="error-line">{{ context_line }}</span>{% else %}{{ context_line }}{% endif %}
+                                                            <pre class="bg-dark text-light p-3 rounded border text-wrap" id="context-{{ loop.index }}">{% for context_line in entry.context %}{% if context_line == entry.raw_message %}<span class="error-line">{{ context_line }}</span>{% else %}{{ context_line }}{% endif %}
 {% endfor %}</pre>
                                                             <div class="d-flex justify-content-end mt-2">
                                                                 <button type="button" class="btn btn-sm btn-outline-primary jump-to-error" data-error-line="{{ entry.line_number }}">
@@ -594,6 +594,31 @@
         #entryFilter:focus, #levelFilter:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+        
+        /* Word-wrap for table cells and pre elements */
+        .text-wrap {
+            word-wrap: break-word;
+            word-break: break-word;
+            white-space: normal;
+        }
+        
+        pre.text-wrap {
+            white-space: pre-wrap;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        
+        /* Set a reasonable width for the component column */
+        #entriesTable th:nth-child(3),
+        #entriesTable td:nth-child(3) {
+            max-width: 150px;
+        }
+        
+        /* Set a reasonable width for the message column */
+        #entriesTable th:nth-child(4),
+        #entriesTable td:nth-child(4) {
+            max-width: 300px;
         }
     </style>
 </body>

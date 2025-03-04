@@ -367,17 +367,33 @@ def parse_log(log_content):
             # Filter out timestamps in brackets like [2025-02-27T05:52:32/367Z]
             filtered_message = re.sub(r'\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[^\]]*\]', '', message)
             
-            component_match = re.search(r'\[([\w\.-]+)\]|\b([\w\.-]+):', filtered_message)
-            component = 'Unknown'
-            if component_match:
-                if component_match.group(1):
-                    component = component_match.group(1)
-                elif component_match.group(2):
-                    component = component_match.group(2)
+            # Handle special case where time indicators are attached to component names (e.g., 1mgitw)
+            time_component_match = re.search(r'\[(\d+[mhd])([\w\.-]+)\]|\b(\d+[mhd])([\w\.-]+):', filtered_message)
+            if time_component_match:
+                # Extract the time part and the actual component
+                if time_component_match.group(1) and time_component_match.group(2):
+                    # Format: [1mgitw]
+                    time_part = time_component_match.group(1)  # e.g., 1m
+                    component = time_component_match.group(2)  # e.g., gitw
+                elif time_component_match.group(3) and time_component_match.group(4):
+                    # Format: 1mgitw:
+                    time_part = time_component_match.group(3)  # e.g., 1m
+                    component = time_component_match.group(4)  # e.g., gitw
                 
-                # Verify the component is not a timestamp
-                if re.match(r'^\d{2}:\d{2}:\d{2}', component) or re.match(r'^\d{4}-\d{2}-\d{2}', component):
-                    component = 'Unknown'
+                # Add the time part to the message for context
+                message = message.replace(time_part + component, f"{time_part} {component}")
+            else:
+                component_match = re.search(r'\[([\w\.-]+)\]|\b([\w\.-]+):', filtered_message)
+                component = 'Unknown'
+                if component_match:
+                    if component_match.group(1):
+                        component = component_match.group(1)
+                    elif component_match.group(2):
+                        component = component_match.group(2)
+                    
+                    # Verify the component is not a timestamp
+                    if re.match(r'^\d{2}:\d{2}:\d{2}', component) or re.match(r'^\d{4}-\d{2}-\d{2}', component):
+                        component = 'Unknown'
             
             # Extract the actual error message
             actual_message = message
