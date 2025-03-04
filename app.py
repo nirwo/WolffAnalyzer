@@ -1729,9 +1729,51 @@ def analyze_url():
         logger.info(f"Modified Jenkins URL to: {log_url}")
         flash(f"Added '/consoleText' to Jenkins URL for log retrieval", "info")
     
+    # Check for SSL verification settings
+    verify_ssl = True
+    if 'verify_ssl' in request.form:
+        verify_ssl = request.form.get('verify_ssl') == 'on'
+    
+    # If system certificates option is selected, set verify to True (default)
+    # If custom CA bundle is provided, use that path
+    ca_bundle_path = None
+    if 'ca_bundle' in request.form and request.form.get('ca_bundle') == 'system':
+        verify_ssl = True
+        
+        # Check if the system has certificate issues
+        try:
+            # Try to detect the CA certificates path
+            import ssl
+            import certifi
+            
+            # Log the certificates path being used
+            default_certs = ssl.get_default_verify_paths()
+            certifi_path = certifi.where()
+            
+            logger.info(f"System using cert paths: {default_certs}")
+            logger.info(f"Certifi path: {certifi_path}")
+            
+            # If certifi path exists but isn't being used, suggest it
+            if os.path.exists(certifi_path) and default_certs.cafile != certifi_path:
+                logger.info(f"Certifi available at {certifi_path} but not being used as default")
+                flash(f"Info: Your system is using {default_certs.cafile or 'default certificates'}. " +
+                      f"If you have SSL issues, try setting custom CA bundle path to: {certifi_path}", "info")
+        except (ImportError, Exception) as cert_check_error:
+            logger.warning(f"Could not check certificate paths: {str(cert_check_error)}")
+    
+    elif 'custom_ca_path' in request.form and request.form.get('custom_ca_path').strip():
+        ca_bundle_path = request.form.get('custom_ca_path').strip()
+        # Verify the CA bundle path exists
+        if not os.path.exists(ca_bundle_path):
+            flash(f'Custom CA bundle path does not exist: {ca_bundle_path}')
+            return redirect(url_for('index'))
+    
     try:
-        # Fetch the content from the URL
-        response = requests.get(log_url, timeout=30)
+        # Fetch the content from the URL with appropriate SSL settings
+        if ca_bundle_path:
+            response = requests.get(log_url, timeout=30, verify=ca_bundle_path)
+        else:
+            response = requests.get(log_url, timeout=30, verify=verify_ssl)
         
         # Check if the request was successful
         if response.status_code != 200:
@@ -1845,6 +1887,20 @@ def analyze_url():
             
             return redirect(url_for('show_analysis', filename=filename))
             
+    except requests.exceptions.SSLError as ssl_error:
+        logger.exception(f"SSL certificate verification failed: {str(ssl_error)}")
+        
+        # Provide a more helpful error message with instructions
+        error_msg = f"SSL certificate verification failed: {str(ssl_error)}"
+        suggestion = (
+            "You can try one of the following solutions:\n"
+            "1. Use system certificates (already selected by default)\n"
+            "2. Provide a custom CA bundle path\n"
+            "3. Uncheck 'Verify SSL certificates' (only if you trust the source)"
+        )
+        
+        flash(f"{error_msg}\n\n{suggestion}")
+        return redirect(url_for('index'))
     except requests.RequestException as req_error:
         logger.exception(f"Error fetching log from URL: {str(req_error)}")
         flash(f'Error fetching log from URL: {str(req_error)}')

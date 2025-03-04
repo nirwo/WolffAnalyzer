@@ -6,3 +6,4 @@ itsdangerous==2.1.2
 python-dateutil==2.8.2
 gunicorn==22.0.0
 requests==2.32.3
+certifi==2025.1.31

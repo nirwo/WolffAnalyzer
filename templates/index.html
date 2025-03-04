@@ -90,6 +90,38 @@
                                 <input type="url" class="form-control" id="logurl" name="logurl" placeholder="https://example.com/path/to/log.txt" required>
                                 <div class="form-text text-muted">Directly analyze logs from Jenkins, GitHub or other accessible URLs</div>
                             </div>
+                            
+                            <div class="mb-3 border-top pt-3">
+                                <label class="form-label fw-bold">SSL Certificate Options</label>
+                                
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="ca_bundle" id="systemCerts" value="system" checked>
+                                    <label class="form-check-label" for="systemCerts">
+                                        Use system certificates (default)
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="ca_bundle" id="customCerts" value="custom">
+                                    <label class="form-check-label" for="customCerts">
+                                        Use custom CA bundle
+                                    </label>
+                                </div>
+                                
+                                <div class="mb-3 ms-4 custom-ca-path" style="display:none;">
+                                    <label for="custom_ca_path" class="form-label">Custom CA bundle path:</label>
+                                    <input type="text" class="form-control" id="custom_ca_path" name="custom_ca_path" placeholder="/etc/ssl/certs/ca-certificates.crt">
+                                </div>
+                                
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="verify_ssl" name="verify_ssl" checked>
+                                    <label class="form-check-label" for="verify_ssl">
+                                        Verify SSL certificates
+                                    </label>
+                                    <div class="form-text text-muted">Uncheck only if you trust the source but have certificate issues</div>
+                                </div>
+                            </div>
+                            
                             <button type="submit" class="btn btn-primary">Fetch and Analyze</button>
                         </form>
                     </div>
@@ -106,5 +138,38 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle the custom CA bundle option
+            const systemCerts = document.getElementById('systemCerts');
+            const customCerts = document.getElementById('customCerts');
+            const customCaPath = document.querySelector('.custom-ca-path');
+            
+            function toggleCustomCaPath() {
+                if (customCerts.checked) {
+                    customCaPath.style.display = 'block';
+                } else {
+                    customCaPath.style.display = 'none';
+                }
+            }
+            
+            systemCerts.addEventListener('change', toggleCustomCaPath);
+            customCerts.addEventListener('change', toggleCustomCaPath);
+            
+            // Initialize state
+            toggleCustomCaPath();
+            
+            // Handle the verify SSL checkbox
+            const verifySsl = document.getElementById('verify_ssl');
+            
+            verifySsl.addEventListener('change', function() {
+                if (!this.checked) {
+                    if (!confirm('Warning: Disabling SSL verification can pose security risks. Only disable this if you fully trust the source and understand the risks. Continue?')) {
+                        this.checked = true;
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
