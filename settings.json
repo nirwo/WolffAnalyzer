@@ -1,0 +1,14 @@
+{
+  "ssl": {
+    "default_cert_mode": "system",
+    "default_ca_path": "/etc/pki/CA/certs",
+    "allow_insecure_ssl": true,
+    "verify_ssl_by_default": true
+  },
+  "general": {
+    "max_upload_size": 16,
+    "session_lifetime": 24,
+    "enable_url_analysis": true,
+    "enable_guest_access": false
+  }
+}

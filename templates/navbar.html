@@ -19,8 +19,18 @@
                     <a class="nav-link {% if request.path == url_for('show_kpi') %}active{% endif %}" href="{{ url_for('show_kpi') }}">Error KPIs</a>
                 </li>
                 {% if session.get('role') == 'admin' %}
-                <li class="nav-item">
-                    <a class="nav-link {% if request.path == url_for('admin_users') %}active{% endif %}" href="{{ url_for('admin_users') }}">User Management</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {% if 'admin' in request.path %}active{% endif %}" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-shield-lock me-1"></i>Administration
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                        <li><a class="dropdown-item {% if request.path == url_for('admin_users') %}active{% endif %}" href="{{ url_for('admin_users') }}">
+                            <i class="bi bi-people me-2"></i>User Management
+                        </a></li>
+                        <li><a class="dropdown-item {% if request.path == url_for('admin_settings') %}active{% endif %}" href="{{ url_for('admin_settings') }}">
+                            <i class="bi bi-gear me-2"></i>System Settings
+                        </a></li>
+                    </ul>
                 </li>
                 {% endif %}
             </ul>

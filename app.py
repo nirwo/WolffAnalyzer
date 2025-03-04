@@ -19,6 +19,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB max upload size
 app.config['PATTERNS_FILE'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'patterns.json')
 app.config['KPI_FILE'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'error_kpi.json')
 app.config['USERS_FILE'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'users.json')
+app.config['SETTINGS_FILE'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'settings.json')
 app.config['SESSION_LIFETIME'] = timedelta(hours=24)  # Set session timeout to 24 hours
 
 # User roles
@@ -1729,24 +1730,35 @@ def analyze_url():
         logger.info(f"Modified Jenkins URL to: {log_url}")
         flash(f"Added '/consoleText' to Jenkins URL for log retrieval", "info")
     
-    # Check for SSL verification settings
-    verify_ssl = True
-    # Check if verify_ssl is in the form AND has value 'on' (checked)
-    # If the checkbox is unchecked, it won't be in the form data at all
-    verify_ssl = 'verify_ssl' in request.form and request.form.get('verify_ssl') == 'on'
+    # Load system settings
+    settings = load_settings()
+    
+    # Check for SSL verification settings from form or use system defaults
+    if 'verify_ssl' in request.form:
+        # User explicitly set verification in the form
+        verify_ssl = 'verify_ssl' in request.form and request.form.get('verify_ssl') == 'on'
+    else:
+        # Use system default
+        verify_ssl = settings['ssl']['verify_ssl_by_default']
+    
+    # Check if user is allowed to disable SSL verification
+    if not verify_ssl and not settings['ssl']['allow_insecure_ssl'] and session.get('role') != ROLE_ADMIN:
+        # Non-admin users cannot disable SSL verification if system setting disallows it
+        logger.warning("Non-admin user attempted to disable SSL verification, but system settings disallow it")
+        flash("SSL verification cannot be disabled due to system security settings", "warning")
+        verify_ssl = True
     
     # Log the verification setting for debugging
     logger.info(f"SSL verification setting: {'enabled' if verify_ssl else 'disabled'}")
     if not verify_ssl:
         logger.warning("SSL certificate verification has been disabled by user request")
     
-    # If system certificates option is selected, set verify to True (default)
-    # If custom CA bundle is provided, use that path
+    # Determine CA bundle path based on form input or system settings
     ca_bundle_path = None
-    if 'ca_bundle' in request.form and request.form.get('ca_bundle') == 'system':
-        verify_ssl = True
-        
-        # Check if the system has certificate issues
+    cert_mode = request.form.get('ca_bundle') if 'ca_bundle' in request.form else settings['ssl']['default_cert_mode']
+    
+    if cert_mode == 'system':
+        # System certificates - check if the system has certificate issues
         try:
             # Try to detect the CA certificates path
             import ssl
@@ -1792,11 +1804,28 @@ def analyze_url():
         except (ImportError, Exception) as cert_check_error:
             logger.warning(f"Could not check certificate paths: {str(cert_check_error)}")
     
-    elif 'custom_ca_path' in request.form and request.form.get('custom_ca_path').strip():
-        ca_bundle_path = request.form.get('custom_ca_path').strip()
+    elif cert_mode == 'custom':
+        # Custom CA bundle path from form or settings
+        if 'custom_ca_path' in request.form and request.form.get('custom_ca_path').strip():
+            ca_bundle_path = request.form.get('custom_ca_path').strip()
+        else:
+            # Use system default custom path
+            ca_bundle_path = settings['ssl']['default_ca_path']
+            logger.info(f"Using system default CA bundle path: {ca_bundle_path}")
+            
         # Verify the CA bundle path exists
         if not os.path.exists(ca_bundle_path):
             flash(f'Custom CA bundle path does not exist: {ca_bundle_path}')
+            return redirect(url_for('index'))
+    
+    elif cert_mode == 'certifi':
+        # Use Python's certifi package
+        try:
+            import certifi
+            ca_bundle_path = certifi.where()
+            logger.info(f"Using certifi path: {ca_bundle_path}")
+        except ImportError:
+            flash(f'Certifi package not installed. Please install it or choose a different certificate mode.', 'error')
             return redirect(url_for('index'))
     
     try:
@@ -2463,6 +2492,228 @@ def test_analyze():
         traceback.print_exc()
         flash(f"Error analyzing log: {str(e)}")
         return redirect(url_for('index'))
+
+# Admin Settings Management
+@app.route('/admin/settings', methods=['GET'])
+@admin_required
+def admin_settings():
+    """Admin settings page for system configuration"""
+    try:
+        # Get system certificate information
+        ssl_info = {}
+        try:
+            import ssl
+            import certifi
+            default_certs = ssl.get_default_verify_paths()
+            ssl_info = {
+                'cafile': default_certs.cafile,
+                'capath': default_certs.capath,
+                'certifi': certifi.where()
+            }
+        except Exception as e:
+            logger.warning(f"Error getting SSL certificate info: {str(e)}")
+            ssl_info = {
+                'cafile': 'Error getting cafile',
+                'capath': 'Error getting capath',
+                'certifi': 'Error getting certifi path'
+            }
+        
+        # Common certificate paths to check
+        system_cert_paths = [
+            "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem",  # Red Hat / CentOS
+            "/etc/pki/tls/certs/ca-bundle.crt",                   # Red Hat / CentOS alternative
+            "/etc/pki/CA/certs",                                  # Red Hat / CentOS directory
+            "/etc/ssl/certs/ca-certificates.crt",                 # Debian / Ubuntu
+            "/etc/ssl/certs",                                     # Debian / Ubuntu directory
+            "/etc/certificates",                                  # Generic path
+            "/usr/local/share/certs",                             # FreeBSD
+            "/usr/local/etc/ssl/certs",                           # OpenBSD
+        ]
+        
+        # Check if each path exists
+        path_exists = {}
+        for path in system_cert_paths:
+            path_exists[path] = os.path.exists(path)
+        
+        # Load settings
+        settings = load_settings()
+        
+        return render_template('admin_settings.html', 
+                              ssl_info=ssl_info,
+                              system_cert_paths=system_cert_paths,
+                              path_exists=path_exists,
+                              settings=settings)
+    except Exception as e:
+        logger.exception(f"Error loading admin settings: {str(e)}")
+        flash(f"Error loading settings: {str(e)}")
+        return redirect(url_for('index'))
+
+@app.route('/admin/save_ssl_settings', methods=['POST'])
+@admin_required
+def save_ssl_settings():
+    """Save SSL certificate settings"""
+    try:
+        # Load current settings
+        settings = load_settings()
+        
+        # Update SSL settings
+        settings['ssl']['default_cert_mode'] = request.form.get('default_cert_mode', 'system')
+        settings['ssl']['default_ca_path'] = request.form.get('default_ca_path', '')
+        settings['ssl']['allow_insecure_ssl'] = 'allow_insecure_ssl' in request.form
+        settings['ssl']['verify_ssl_by_default'] = 'verify_ssl_by_default' in request.form
+        
+        # Save settings
+        save_settings(settings)
+        
+        flash("SSL settings updated successfully")
+        return redirect(url_for('admin_settings'))
+    except Exception as e:
+        logger.exception(f"Error saving SSL settings: {str(e)}")
+        flash(f"Error saving settings: {str(e)}")
+        return redirect(url_for('admin_settings'))
+
+@app.route('/admin/save_general_settings', methods=['POST'])
+@admin_required
+def save_general_settings():
+    """Save general system settings"""
+    try:
+        # Load current settings
+        settings = load_settings()
+        
+        # Update general settings
+        settings['general']['max_upload_size'] = int(request.form.get('max_upload_size', 16))
+        settings['general']['session_lifetime'] = int(request.form.get('session_lifetime', 24))
+        settings['general']['enable_url_analysis'] = 'enable_url_analysis' in request.form
+        settings['general']['enable_guest_access'] = 'enable_guest_access' in request.form
+        
+        # Save settings
+        save_settings(settings)
+        
+        # Update app configuration
+        app.config['MAX_CONTENT_LENGTH'] = settings['general']['max_upload_size'] * 1024 * 1024
+        app.config['SESSION_LIFETIME'] = timedelta(hours=settings['general']['session_lifetime'])
+        
+        flash("General settings updated successfully")
+        return redirect(url_for('admin_settings'))
+    except Exception as e:
+        logger.exception(f"Error saving general settings: {str(e)}")
+        flash(f"Error saving settings: {str(e)}")
+        return redirect(url_for('admin_settings'))
+
+@app.route('/admin/test_ssl_connection')
+@admin_required
+def test_ssl_connection():
+    """Test SSL connection with specified certificate settings"""
+    try:
+        # Get test parameters
+        mode = request.args.get('mode', 'system')
+        path = request.args.get('path', '')
+        verify = request.args.get('verify', 'true') == 'true'
+        
+        # Test URL (default to Google as it should be generally accessible)
+        test_url = request.args.get('url', 'https://www.google.com')
+        
+        # Determine verification parameter
+        if not verify:
+            # If verification is disabled
+            verify_param = False
+        elif mode == 'custom' and path:
+            # If custom path provided and exists
+            if os.path.exists(path):
+                verify_param = path
+            else:
+                return jsonify({
+                    'success': False,
+                    'error': f'Custom certificate path does not exist: {path}'
+                })
+        elif mode == 'certifi':
+            # Use certifi
+            import certifi
+            verify_param = certifi.where()
+        else:
+            # System certificates (default)
+            verify_param = True
+        
+        # Perform the test request
+        response = requests.get(test_url, timeout=10, verify=verify_param)
+        
+        return jsonify({
+            'success': True,
+            'status': response.status_code,
+            'url': test_url,
+            'verify_mode': 'Enabled' if verify else 'Disabled',
+            'cert_path': str(verify_param) if isinstance(verify_param, str) else 'System certificates' if verify_param else 'Verification disabled'
+        })
+    except requests.exceptions.SSLError as ssl_err:
+        logger.error(f"SSL error during test connection: {str(ssl_err)}")
+        return jsonify({
+            'success': False,
+            'error': f'SSL Certificate Error: {str(ssl_err)}'
+        })
+    except Exception as e:
+        logger.error(f"Error during test connection: {str(e)}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+# Helper functions for settings
+def load_settings():
+    """Load system settings from file"""
+    try:
+        # Check if settings file exists
+        if os.path.exists(app.config['SETTINGS_FILE']):
+            with open(app.config['SETTINGS_FILE'], 'r') as f:
+                return json.load(f)
+        else:
+            # Create default settings
+            default_settings = {
+                'ssl': {
+                    'default_cert_mode': 'system',
+                    'default_ca_path': '/etc/pki/CA/certs',
+                    'allow_insecure_ssl': True,
+                    'verify_ssl_by_default': True
+                },
+                'general': {
+                    'max_upload_size': 16,
+                    'session_lifetime': 24,
+                    'enable_url_analysis': True,
+                    'enable_guest_access': False
+                }
+            }
+            
+            # Save default settings
+            with open(app.config['SETTINGS_FILE'], 'w') as f:
+                json.dump(default_settings, f, indent=2)
+            
+            return default_settings
+    except Exception as e:
+        logger.error(f"Error loading settings: {str(e)}")
+        # Return default settings
+        return {
+            'ssl': {
+                'default_cert_mode': 'system',
+                'default_ca_path': '',
+                'allow_insecure_ssl': True,
+                'verify_ssl_by_default': True
+            },
+            'general': {
+                'max_upload_size': 16,
+                'session_lifetime': 24,
+                'enable_url_analysis': True,
+                'enable_guest_access': False
+            }
+        }
+
+def save_settings(settings):
+    """Save system settings to file"""
+    try:
+        with open(app.config['SETTINGS_FILE'], 'w') as f:
+            json.dump(settings, f, indent=2)
+        return True
+    except Exception as e:
+        logger.error(f"Error saving settings: {str(e)}")
+        return False
 
 # Fix pattern route - redirects to edit_pattern
 @app.route('/fix_pattern', methods=['POST'])
