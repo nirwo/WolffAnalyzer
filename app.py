@@ -2243,6 +2243,124 @@ def change_password():
     
     return render_template('change_password.html')
 
+# View analysis for a specific log file (test route)
+@app.route('/test_analyze', methods=['GET'])
+def test_analyze():
+    """Test route to analyze the sample Jenkins log file"""
+    try:
+        # Read the sample log file
+        log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs/sample_jenkins_build.log')
+        with open(log_path, 'r', encoding='utf-8') as f:
+            log_content = f.read()
+        
+        # Parse the log
+        entries = parse_log(log_content)
+        
+        # Analyze the entries
+        analysis = analyze_log_entries(entries)
+        
+        # Generate recommendations
+        recommendations = generate_recommendations(entries, analysis)
+        
+        # Match patterns against entries
+        for entry in entries:
+            # Check if this entry matches any pattern
+            for pattern_match in analysis.get('pattern_matches', []):
+                if pattern_match.get('line_number') == entry.get('line_number'):
+                    entry['matched_pattern'] = {
+                        'id': pattern_match.get('pattern_id'),
+                        'name': pattern_match.get('pattern_name'),
+                        'pattern': pattern_match.get('pattern'),
+                        'severity': pattern_match.get('severity'),
+                        'description': pattern_match.get('description'),
+                        'suggestion': pattern_match.get('suggestion')
+                    }
+                    # Check if this might be a false positive
+                    if entry.get('component') in ['Unknown', None] or '/' in entry.get('message') or '\\' in entry.get('message'):
+                        entry['false_positive'] = True
+                    break
+        
+        # Render the analysis template
+        return render_template('analysis.html', 
+                               entries=entries, 
+                               analysis=analysis, 
+                               recommendations=recommendations,
+                               original_filename='sample_jenkins_build.log',
+                               log_id='sample_jenkins_build.log')
+    
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        flash(f"Error analyzing log: {str(e)}")
+        return redirect(url_for('index'))
+
+# Fix pattern route - redirects to edit_pattern
+@app.route('/fix_pattern', methods=['POST'])
+@login_required
+def fix_pattern():
+    """Fix a pattern from analysis page"""
+    try:
+        pattern_id = int(request.form.get('pattern_id'))
+        pattern_name = request.form.get('pattern_name')
+        pattern_regex = request.form.get('pattern_regex')
+        pattern_type = request.form.get('pattern_type')
+        severity = request.form.get('severity')
+        description = request.form.get('description')
+        suggestion = request.form.get('suggestion')
+        exclude_paths = 'exclude_paths' in request.form
+        exclude_timestamp = 'exclude_timestamp' in request.form
+        
+        # Verify user is admin
+        if session.get('role') != ROLE_ADMIN:
+            flash("Only administrators can edit patterns")
+            return redirect(url_for('show_patterns'))
+        
+        # Load current patterns
+        with open(app.config['PATTERNS_FILE'], 'r') as f:
+            patterns = json.load(f)
+        
+        # Find and update the pattern
+        pattern_found = False
+        for category in patterns.values():
+            for pattern in category:
+                if pattern['id'] == pattern_id:
+                    pattern['name'] = pattern_name
+                    pattern['pattern'] = pattern_regex
+                    pattern['severity'] = severity
+                    pattern['description'] = description
+                    pattern['suggestion'] = suggestion
+                    pattern['exclude_paths'] = exclude_paths
+                    pattern['exclude_timestamp'] = exclude_timestamp
+                    pattern['updated_by'] = session.get('username', 'Unknown')
+                    pattern['updated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    pattern_found = True
+                    break
+            if pattern_found:
+                break
+        
+        if not pattern_found:
+            flash(f"Pattern with ID {pattern_id} not found")
+            return redirect(url_for('show_patterns'))
+        
+        # Save updated patterns
+        with open(app.config['PATTERNS_FILE'], 'w') as f:
+            json.dump(patterns, f, indent=2)
+        
+        # If the edit came from a log analysis, redirect back to the analysis
+        log_id = request.form.get('log_id', '')
+        analysis_id = request.form.get('analysis_id', '')
+        
+        if analysis_id:
+            flash(f"Pattern '{pattern_name}' updated successfully")
+            return redirect(url_for('show_analysis', filename=analysis_id))
+        
+        flash(f"Pattern '{pattern_name}' updated successfully")
+        return redirect(url_for('show_patterns'))
+        
+    except Exception as e:
+        flash(f"Error updating pattern: {str(e)}")
+        return redirect(url_for('show_patterns'))
+
 # API endpoints for pattern management and testing
 @app.route('/api/pattern/<int:pattern_id>', methods=['GET'])
 @login_required
