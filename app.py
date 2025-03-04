@@ -312,11 +312,12 @@ def parse_log(log_content):
     timestamp_patterns = [
         r'^(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}(?:\.\d+)?)',  # 2023-01-01 12:34:56.789
         r'^(\d{2}/\d{2}/\d{4}\s+\d{2}:\d{2}:\d{2}(?:\.\d+)?)',   # 01/01/2023 12:34:56.789
-        r'^(\w{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})',              # Jan 1 12:34:56
+        r'^(\w{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})',              # Jan 1 12:34:56 or Dec 10 06:55:46
         r'^(\d{1,2}\s+\w{3}\s+\d{4}\s+\d{2}:\d{2}:\d{2})',      # 1 Jan 2023 12:34:56
-        r'^\[(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?)\]', # [2023-01-01T12:34:56.789] (Jenkins format)
+        r'^\[(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:[+-]\d{2}:\d{2})?)\]', # [2023-01-01T12:34:56.789] or [2023-01-01T12:34:56.789+00:00] (Jenkins format)
         r'^\[(\d{2}:\d{2}:\d{2})\]',                            # [12:34:56] (Jenkins console)
-        r'<span class="timestamp"><b>(\d{2}:\d{2}:\d{2})</b>'    # <span class="timestamp"><b>00:00:00</b> (Jenkins HTML format)
+        r'<span class="timestamp"><b>(\d{2}:\d{2}:\d{2})</b>',   # <span class="timestamp"><b>00:00:00</b> (Jenkins HTML format)
+        r'^\[?(\d{2}:\d{2}:\d{2}\.\d+)\]?'                      # 12:34:56.789 or [12:34:56.789] (Jenkins format with milliseconds)
     ]
     
     # Error level patterns
@@ -351,7 +352,7 @@ def parse_log(log_content):
             context_end = min(len(lines), i + 3)
             context = lines[context_start:context_end]
             
-                    # If we don't have an error level but the line has common error indicators
+            # If we don't have an error level but the line has common error indicators
             if not error_level and any(err in line.lower() for err in ['error', 'exception', 'fail', 'crash', 'problem', 'build failure']):
                 error_level = 'ERROR'
             
@@ -362,46 +363,24 @@ def parse_log(log_content):
             # Default to INFO if no error level found
             error_level = error_level or 'INFO'
             
-            # Extract component if possible (usually in brackets or after a colon)
-            # But first filter out timestamp patterns that might look like components
-            # Filter out timestamps in brackets like [2025-02-27T05:52:32/367Z]
-            filtered_message = re.sub(r'\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[^\]]*\]', '', message)
-            
-            # Handle special case where time indicators are attached to component names (e.g., 1mgitw)
-            time_component_match = re.search(r'\[(\d+[mhd])([\w\.-]+)\]|\b(\d+[mhd])([\w\.-]+):', filtered_message)
-            if time_component_match:
-                # Extract the time part and the actual component
-                if time_component_match.group(1) and time_component_match.group(2):
-                    # Format: [1mgitw]
-                    time_part = time_component_match.group(1)  # e.g., 1m
-                    component = time_component_match.group(2)  # e.g., gitw
-                elif time_component_match.group(3) and time_component_match.group(4):
-                    # Format: 1mgitw:
-                    time_part = time_component_match.group(3)  # e.g., 1m
-                    component = time_component_match.group(4)  # e.g., gitw
-                
-                # Add the time part to the message for context
-                message = message.replace(time_part + component, f"{time_part} {component}")
-            else:
-                component_match = re.search(r'\[([\w\.-]+)\]|\b([\w\.-]+):', filtered_message)
-                component = 'Unknown'
-                if component_match:
-                    if component_match.group(1):
-                        component = component_match.group(1)
-                    elif component_match.group(2):
-                        component = component_match.group(2)
-                    
-                    # Verify the component is not a timestamp
-                    if re.match(r'^\d{2}:\d{2}:\d{2}', component) or re.match(r'^\d{4}-\d{2}-\d{2}', component):
-                        component = 'Unknown'
-            
             # Extract the actual error message
             actual_message = message
+            component = extract_component(message)
             if component != 'Unknown':
                 # Try to extract just the error message by removing component prefix
-                msg_match = re.search(r'\[[^\]]+\]\s*(.+)|\b[\w\.-]+:\s*(.+)', message)
-                if msg_match:
-                    actual_message = msg_match.group(1) if msg_match.group(1) else msg_match.group(2)
+                if component == 'sshd' and re.search(r'\w+\[(\d+)\]:', message):
+                    # For OpenSSH logs, extract the message after the colon
+                    msg_match = re.search(r'\w+\[(\d+)\]:(.*)', message)
+                    if msg_match:
+                        actual_message = msg_match.group(2).strip()
+                else:
+                    # For other log formats
+                    msg_match = re.search(r'\[[^\]]+\]\s*(.+)|\b[\w\.-]+:\s*(.+)', message)
+                    if msg_match:
+                        if msg_match.group(1):
+                            actual_message = msg_match.group(1)
+                        elif msg_match.group(2):
+                            actual_message = msg_match.group(2)
             
             # If we have useful information, add the entry
             if timestamp or error_level not in ['INFO', 'DEBUG']:
@@ -446,6 +425,59 @@ def parse_log(log_content):
         sorted_entries = sorted(log_entries, key=lambda x: (0 if x['timestamp'] else 1, -x['severity'], x['line_number']))
     
     return sorted_entries
+
+def extract_component(line):
+    """Extract the component name from a log line"""
+    # Filter out timestamp patterns that might look like components
+    # Filter out timestamps in brackets like [2025-02-27T05:52:32/367Z]
+    filtered_message = re.sub(r'\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[^\]]*\]', '', line)
+    filtered_message = re.sub(r'\[\d{2}:\d{2}:\d{2}(?:\.\d+)?\]', '', filtered_message)  # Also remove [HH:MM:SS] timestamps
+    
+    # Handle Jenkins log format: [2023-05-15T10:30:45.123Z] [INFO] [jenkins.main] Starting Jenkins
+    jenkins_log_match = re.search(r'\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?\]\s+\[\w+\]\s+\[([\w\.-]+)\]', line)
+    if jenkins_log_match:
+        return jenkins_log_match.group(1)  # e.g., jenkins.main
+    
+    # Handle OpenSSH log format: Dec 10 06:55:46 LabSZ sshd[24200]: message
+    ssh_log_match = re.search(r'(\w+\s+\d+\s+\d{2}:\d{2}:\d{2})\s+(\w+)\s+(\w+)\[(\d+)\]:', line)
+    if ssh_log_match:
+        # Extract the component name without the PID
+        return ssh_log_match.group(3)  # e.g., sshd
+    
+    # Handle Jenkins-specific component patterns
+    jenkins_component_match = re.search(r'\b(\d+[mhsd])([\w\.-]+)\b', filtered_message)
+    if jenkins_component_match:
+        time_part = jenkins_component_match.group(1)  # e.g., 1m, 2h, 3d, 4s
+        component_part = jenkins_component_match.group(2)  # e.g., gitw
+        
+        # Only treat as a time+component if the component part looks like a valid component name
+        if re.match(r'^[a-zA-Z][\w\.-]*$', component_part):
+            return component_part
+    
+    # First check for process[pid] pattern (more general than the SSH pattern)
+    process_pid_match = re.search(r'(\w+)\[(\d+)\]', filtered_message)
+    if process_pid_match:
+        return process_pid_match.group(1)  # Extract process name without PID
+    
+    # Standard component extraction
+    component_match = re.search(r'\[([\w\.-]+)\]|\b([\w\.-]+):', filtered_message)
+    if component_match:
+        component = None
+        if component_match.group(1):
+            component = component_match.group(1)
+        elif component_match.group(2):
+            component = component_match.group(2)
+            # Remove trailing colon if it exists
+            if component.endswith(':'):
+                component = component[:-1]
+        
+        # Verify the component is not a timestamp or contains time indicators
+        if component and not (re.match(r'^\d{2}:\d{2}:\d{2}', component) or 
+                re.match(r'^\d{4}-\d{2}-\d{2}', component) or
+                re.match(r'^\d+[mhsd]', component)):
+            return component
+    
+    return 'Unknown'
 
 def analyze_log_entries(entries):
     """Analyze log entries to find patterns and root causes"""
@@ -522,17 +554,33 @@ def analyze_log_entries(entries):
         for entry in entries:
             if entry['timestamp'] and entry['level'] in ['ERROR', 'CRITICAL', 'FATAL', 'EXCEPTION', 'WARNING', 'WARN']:
                 # Handle different timestamp formats
-                if ' ' in entry['timestamp']:
-                    hour = entry['timestamp'].split(' ')[1].split(':')[0]
-                elif ':' in entry['timestamp']:
-                    hour = entry['timestamp'].split(':')[0]
-                else:
-                    continue
-                    
-                if hour not in time_distribution:
-                    time_distribution[hour] = 0
-                time_distribution[hour] += 1
-    except:
+                timestamp = entry['timestamp']
+                hour = None
+                
+                # Try different timestamp formats
+                if ' ' in timestamp:
+                    # Format: 2023-01-01 12:34:56 or similar
+                    hour = timestamp.split(' ')[1].split(':')[0]
+                elif 'T' in timestamp:
+                    # Format: 2023-01-01T12:34:56 (ISO format)
+                    hour = timestamp.split('T')[1].split(':')[0]
+                elif ':' in timestamp:
+                    # Format: 12:34:56 (time only)
+                    hour = timestamp.split(':')[0]
+                
+                # If we still couldn't parse the hour, try a more generic approach
+                if not hour and re.search(r'\d{2}:\d{2}', timestamp):
+                    # Extract the first occurrence of HH:MM
+                    match = re.search(r'(\d{2}):\d{2}', timestamp)
+                    if match:
+                        hour = match.group(1)
+                
+                if hour:
+                    if hour not in time_distribution:
+                        time_distribution[hour] = 0
+                    time_distribution[hour] += 1
+    except Exception as e:
+        logger.error(f"Error parsing timestamps for timeline: {str(e)}")
         # Fallback if timestamps can't be parsed
         time_distribution = {}
     

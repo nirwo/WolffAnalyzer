@@ -1,12 +1,15 @@
 {
   "error_occurrences": {
-    "Connection Error": 2
+    "Connection Error": 4
   },
   "common_patterns": {},
   "related_errors": {},
-  "total_logs_analyzed": 2,
+  "total_logs_analyzed": 4,
   "errors_by_date": {
     "2025-03-03": {
+      "Connection Error": 2
+    },
+    "2025-03-04": {
       "Connection Error": 2
     }
   }

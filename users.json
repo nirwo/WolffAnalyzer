@@ -26,6 +26,20 @@
           "original_filename": "sample_log.txt",
           "timestamp": "2025-03-03 09:22:37",
           "critical_issues": 7
+        },
+        {
+          "filename": "00000000-0000-0000-0000-000000000000_url_20250304091945_OpenSSH_2k.log",
+          "original_filename": "OpenSSH_2k.log",
+          "source_url": "https://raw.githubusercontent.com/logpai/loghub/refs/heads/master/OpenSSH/OpenSSH_2k.log",
+          "timestamp": "2025-03-04 09:19:45",
+          "critical_issues": 1164
+        },
+        {
+          "filename": "00000000-0000-0000-0000-000000000000_url_20250304092423_OpenSSH_2k.log",
+          "original_filename": "OpenSSH_2k.log",
+          "source_url": "https://raw.githubusercontent.com/logpai/loghub/refs/heads/master/OpenSSH/OpenSSH_2k.log",
+          "timestamp": "2025-03-04 09:24:24",
+          "critical_issues": 1164
         }
       ]
     }
