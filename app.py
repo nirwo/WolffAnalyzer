@@ -1746,6 +1746,18 @@ def analyze_url():
             import ssl
             import certifi
             
+            # Common system certificate paths in different distributions
+            system_cert_paths = [
+                "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem",  # Red Hat / CentOS
+                "/etc/pki/tls/certs/ca-bundle.crt",                   # Red Hat / CentOS alternative
+                "/etc/pki/CA/certs",                                  # Red Hat / CentOS directory
+                "/etc/ssl/certs/ca-certificates.crt",                 # Debian / Ubuntu
+                "/etc/ssl/certs",                                     # Debian / Ubuntu directory
+                "/etc/certificates",                                  # Generic path
+                "/usr/local/share/certs",                             # FreeBSD
+                "/usr/local/etc/ssl/certs",                           # OpenBSD
+            ]
+            
             # Log the certificates path being used
             default_certs = ssl.get_default_verify_paths()
             certifi_path = certifi.where()
@@ -1753,9 +1765,22 @@ def analyze_url():
             logger.info(f"System using cert paths: {default_certs}")
             logger.info(f"Certifi path: {certifi_path}")
             
-            # If certifi path exists but isn't being used, suggest it
-            if os.path.exists(certifi_path) and default_certs.cafile != certifi_path:
-                logger.info(f"Certifi available at {certifi_path} but not being used as default")
+            # Find existing system certificate paths
+            existing_paths = [path for path in system_cert_paths if os.path.exists(path)]
+            logger.info(f"Found system certificate paths: {existing_paths}")
+            
+            # If system paths exist but aren't being used, suggest them
+            if existing_paths:
+                first_path = existing_paths[0]
+                if os.path.isdir(first_path):
+                    logger.info(f"Found system certificate directory: {first_path}")
+                    flash(f"Info: If you have SSL issues, try using system certificates from: {first_path}", "info")
+                else:
+                    logger.info(f"Found system certificate bundle: {first_path}")
+                    flash(f"Info: If you have SSL issues, try setting custom CA bundle path to: {first_path}", "info")
+            # If no system paths but certifi exists, suggest it
+            elif os.path.exists(certifi_path):
+                logger.info(f"No system cert paths found, but certifi available at {certifi_path}")
                 flash(f"Info: Your system is using {default_certs.cafile or 'default certificates'}. " +
                       f"If you have SSL issues, try setting custom CA bundle path to: {certifi_path}", "info")
         except (ImportError, Exception) as cert_check_error:
@@ -1771,7 +1796,40 @@ def analyze_url():
     try:
         # Fetch the content from the URL with appropriate SSL settings
         if ca_bundle_path:
-            response = requests.get(log_url, timeout=30, verify=ca_bundle_path)
+            # Handle both file paths and directory paths
+            if os.path.isdir(ca_bundle_path):
+                # For directory paths like /etc/pki/CA/certs, try to use them with requests
+                # Some versions of requests can handle directory paths, some can't
+                try:
+                    response = requests.get(log_url, timeout=30, verify=ca_bundle_path)
+                except Exception as dir_err:
+                    # If directory path fails, try to find a bundle file in that directory
+                    logger.warning(f"Using directory path {ca_bundle_path} failed: {str(dir_err)}")
+                    
+                    # Look for common bundle filenames in the directory
+                    bundle_filenames = ['ca-bundle.crt', 'ca-certificates.crt', 'ca-roots.crt', 'cacert.pem']
+                    bundle_file = None
+                    
+                    for filename in bundle_filenames:
+                        potential_path = os.path.join(ca_bundle_path, filename)
+                        if os.path.exists(potential_path):
+                            bundle_file = potential_path
+                            break
+                    
+                    if bundle_file:
+                        logger.info(f"Found bundle file in directory: {bundle_file}")
+                        flash(f"Using certificate bundle: {bundle_file}", "info")
+                        response = requests.get(log_url, timeout=30, verify=bundle_file)
+                    else:
+                        # If no bundle file found, try with certifi as fallback
+                        import certifi
+                        certifi_path = certifi.where()
+                        logger.info(f"No bundle file found in {ca_bundle_path}, falling back to certifi: {certifi_path}")
+                        flash(f"No bundle file found in {ca_bundle_path}, using certifi instead", "warning")
+                        response = requests.get(log_url, timeout=30, verify=certifi_path)
+            else:
+                # Regular file path
+                response = requests.get(log_url, timeout=30, verify=ca_bundle_path)
         else:
             response = requests.get(log_url, timeout=30, verify=verify_ssl)
         

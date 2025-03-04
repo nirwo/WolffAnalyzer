@@ -66,14 +66,46 @@ def test_ssl_cert_options():
         
         print(f"\n  Certifi cafile: {certifi.where()}")
         
-        # Check if paths exist
+        # Check if system paths exist
+        system_cert_paths = [
+            "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem",  # Red Hat / CentOS
+            "/etc/pki/tls/certs/ca-bundle.crt",                   # Red Hat / CentOS alternative
+            "/etc/pki/CA/certs",                                  # Red Hat / CentOS directory
+            "/etc/ssl/certs/ca-certificates.crt",                 # Debian / Ubuntu
+            "/etc/ssl/certs",                                     # Debian / Ubuntu directory
+            "/etc/certificates",                                  # Generic path
+            "/usr/local/share/certs",                             # FreeBSD
+            "/usr/local/etc/ssl/certs",                           # OpenBSD
+        ]
+        
+        print("\n  Common system certificate paths:")
+        for path in system_cert_paths:
+            if os.path.exists(path):
+                print(f"  ✅ {path} - EXISTS")
+                # If it's a directory, count files
+                if os.path.isdir(path):
+                    try:
+                        cert_files = [f for f in os.listdir(path) if f.endswith('.pem') or f.endswith('.crt')]
+                        print(f"     Contains {len(cert_files)} certificate files")
+                    except Exception as dir_err:
+                        print(f"     Error reading directory: {str(dir_err)}")
+            else:
+                print(f"  ❌ {path} - NOT FOUND")
+        
+        # Check if default paths exist
+        print("\n  Status of default paths:")
         if default_verify.cafile and os.path.exists(default_verify.cafile):
-            print(f"  ✅ System cafile exists")
+            print(f"  ✅ System cafile exists: {default_verify.cafile}")
         else:
             print(f"  ❌ System cafile does not exist or is not set")
             
+        if default_verify.capath and os.path.exists(default_verify.capath):
+            print(f"  ✅ System capath exists: {default_verify.capath}")
+        else:
+            print(f"  ❌ System capath does not exist or is not set")
+            
         if certifi.where() and os.path.exists(certifi.where()):
-            print(f"  ✅ Certifi cafile exists")
+            print(f"  ✅ Certifi cafile exists: {certifi.where()}")
         else:
             print(f"  ❌ Certifi cafile does not exist")
     except Exception as e:

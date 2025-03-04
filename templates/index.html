@@ -99,6 +99,9 @@
                                     <label class="form-check-label" for="systemCerts">
                                         Use system certificates (default)
                                     </label>
+                                    <div class="form-text text-muted ms-4">
+                                        On Red Hat/CentOS systems, certificates are typically in /etc/pki/CA/certs or /etc/pki/tls/certs
+                                    </div>
                                 </div>
                                 
                                 <div class="form-check mb-2">
@@ -110,7 +113,13 @@
                                 
                                 <div class="mb-3 ms-4 custom-ca-path" style="display:none;">
                                     <label for="custom_ca_path" class="form-label">Custom CA bundle path:</label>
-                                    <input type="text" class="form-control" id="custom_ca_path" name="custom_ca_path" placeholder="/etc/ssl/certs/ca-certificates.crt">
+                                    <input type="text" class="form-control" id="custom_ca_path" name="custom_ca_path" placeholder="/etc/pki/CA/certs or /etc/pki/tls/certs/ca-bundle.crt">
+                                    <div class="form-text text-muted">
+                                        Common paths: 
+                                        <span class="badge bg-secondary">/etc/pki/CA/certs</span>
+                                        <span class="badge bg-secondary">/etc/pki/tls/certs/ca-bundle.crt</span>
+                                        <span class="badge bg-secondary">/etc/ssl/certs</span>
+                                    </div>
                                 </div>
                                 
                                 <div class="form-check">
