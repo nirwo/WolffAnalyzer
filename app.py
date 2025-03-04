@@ -1154,6 +1154,41 @@ def toggle_user_role(user_id):
     
     return redirect(url_for('admin_users'))
 
+@app.route('/admin/grant_admin', methods=['POST'])
+@admin_required
+def grant_admin():
+    try:
+        user_id = request.form.get('user_id')
+        
+        if not user_id:
+            flash('No user selected')
+            return redirect(url_for('admin_users'))
+            
+        with open(app.config['USERS_FILE'], 'r') as f:
+            users_data = json.load(f)
+        
+        # Find user and set role to admin
+        user_found = False
+        for user in users_data['users']:
+            if user['id'] == user_id:
+                user['role'] = ROLE_ADMIN
+                user_found = True
+                username = user['username']
+                break
+        
+        if not user_found:
+            flash('User not found')
+            return redirect(url_for('admin_users'))
+            
+        with open(app.config['USERS_FILE'], 'w') as f:
+            json.dump(users_data, f, indent=2)
+        
+        flash(f'Admin privileges granted to {username}')
+    except Exception as e:
+        flash(f'Error granting admin privileges: {str(e)}')
+    
+    return redirect(url_for('admin_users'))
+
 # Main route
 @app.route('/')
 def index():

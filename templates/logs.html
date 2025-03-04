@@ -94,6 +94,39 @@
             let confirmDeleteBtn = document.getElementById('confirmDelete');
             let currentLogToDelete = null;
             
+            // Helper function to show notifications
+            function showNotification(message, type = 'success') {
+                // Check if notification container exists, create if not
+                let notificationContainer = document.getElementById('notificationContainer');
+                if (!notificationContainer) {
+                    notificationContainer = document.createElement('div');
+                    notificationContainer.id = 'notificationContainer';
+                    notificationContainer.className = 'position-fixed top-0 start-50 translate-middle-x p-3';
+                    notificationContainer.style.zIndex = '1080';
+                    notificationContainer.style.marginTop = '60px';
+                    notificationContainer.style.width = '80%';
+                    notificationContainer.style.maxWidth = '500px';
+                    document.body.insertBefore(notificationContainer, document.body.firstChild);
+                }
+                
+                // Create alert element
+                const alertDiv = document.createElement('div');
+                alertDiv.classList.add('alert', `alert-${type}`, 'alert-dismissible', 'fade', 'show');
+                alertDiv.innerHTML = `
+                    <strong>${type === 'success' ? 'Success!' : 'Error!'}</strong> ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                `;
+                notificationContainer.appendChild(alertDiv);
+                
+                // Auto-dismiss after 5 seconds
+                setTimeout(() => {
+                    alertDiv.classList.remove('show');
+                    setTimeout(() => alertDiv.remove(), 150);
+                }, 5000);
+                
+                return alertDiv;
+            }
+            
             // Fetch previous log analyses
             fetch('/api/logs')
                 .then(response => response.json())
@@ -207,13 +240,7 @@
                     
                     if (data.success) {
                         // Show success message
-                        const alertDiv = document.createElement('div');
-                        alertDiv.classList.add('alert', 'alert-success', 'alert-dismissible', 'fade', 'show');
-                        alertDiv.innerHTML = `
-                            <strong>Success!</strong> ${data.message}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        `;
-                        document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.container').firstChild);
+                        showNotification(data.message, 'success');
                         
                         // Remove the row from the table
                         const rows = document.querySelectorAll('#logsTableBody tr');
@@ -230,13 +257,7 @@
                         }
                     } else {
                         // Show error message
-                        const alertDiv = document.createElement('div');
-                        alertDiv.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
-                        alertDiv.innerHTML = `
-                            <strong>Error!</strong> ${data.message}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        `;
-                        document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.container').firstChild);
+                        showNotification(data.message, 'danger');
                     }
                     
                     currentLogToDelete = null;
@@ -246,13 +267,7 @@
                     deleteModal.hide();
                     
                     // Show error message
-                    const alertDiv = document.createElement('div');
-                    alertDiv.classList.add('alert', 'alert-danger', 'alert-dismissible', 'fade', 'show');
-                    alertDiv.innerHTML = `
-                        <strong>Error!</strong> Failed to delete log analysis. Please try again.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    `;
-                    document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.container').firstChild);
+                    showNotification('Failed to delete log analysis. Please try again.', 'danger');
                     
                     currentLogToDelete = null;
                 });
