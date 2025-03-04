@@ -299,14 +299,16 @@ def update_error_kpi(error_type, log_source='unknown'):
         logger.warning(f"Failed to update KPI data: {str(e)}")
 
 def parse_log(log_content):
-    """Parse log content and extract information"""
+    """Parse log content and extract entries with timestamps, components, and error levels"""
+    entries = []
+    
     # Pre-process the content to remove HTML timestamp spans and other HTML tags
     # This will clean the actual content and prevent the span tags from appearing in the output
     log_content = re.sub(r'<span class="timestamp"><b>(\d{2}:\d{2}:\d{2})</b></span>', r'[\1]', log_content)
-    # Also match span tags without closing span
-    log_content = re.sub(r'<span class="timestamp"><b>(\d{2}:\d{2}:\d{2})</b>', r'[\1]', log_content)
-    # Clean up any other HTML tags that might interfere with parsing
-    log_content = re.sub(r'<[^>]+>', ' ', log_content)
+    log_content = re.sub(r'<[^>]+>', '', log_content)
+    
+    # Split the log content into lines
+    lines = log_content.strip().split('\n')
     
     # Common timestamp patterns in logs
     timestamp_patterns = [
@@ -323,84 +325,93 @@ def parse_log(log_content):
     # Error level patterns
     error_level_pattern = r'\b(ERROR|CRITICAL|FATAL|EXCEPTION|WARNING|WARN|INFO|DEBUG)\b'
     
-    log_entries = []
-    lines = log_content.splitlines()
-    
     for i, line in enumerate(lines):
-        timestamp = None
-        error_level = None
-        message = line
+        # Skip empty lines
+        if not line.strip():
+            continue
         
-        # Extract timestamp - only from start of line to avoid confusion
+        # Clean the line by removing ANSI color codes
+        clean_line = re.sub(r'\[\d+(?:;\d+)*m', '', line)
+        
+        # Extract timestamp if present
+        timestamp = None
         for pattern in timestamp_patterns:
-            match = re.search(pattern, line)
+            match = re.search(pattern, clean_line)
             if match:
                 timestamp = match.group(1)
-                # Remove timestamp from message to avoid it being counted as part of the message
-                message = line[len(timestamp):].strip()
                 break
+                
+        # Special handling for Jenkins ANSI logs with timestamps in brackets
+        if not timestamp:
+            jenkins_ansi_match = re.search(r'^\[(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?)\]', clean_line)
+            if jenkins_ansi_match:
+                timestamp = jenkins_ansi_match.group(1)
         
         # Extract error level
-        error_match = re.search(error_level_pattern, line, re.IGNORECASE)
+        error_level = None
+        error_match = re.search(error_level_pattern, clean_line, re.IGNORECASE)
         if error_match:
             error_level = error_match.group(1).upper()
         
-        # Only process lines that have either a timestamp or error level
-        if timestamp or error_level:
-            # Get context (lines before and after)
-            context_start = max(0, i - 2)
-            context_end = min(len(lines), i + 3)
-            context = lines[context_start:context_end]
-            
-            # If we don't have an error level but the line has common error indicators
-            if not error_level and any(err in line.lower() for err in ['error', 'exception', 'fail', 'crash', 'problem', 'build failure']):
-                error_level = 'ERROR'
-            
-            # Check for Jenkins specific patterns
-            if not error_level and any(pattern in line for pattern in ['FAILURE', 'BUILD FAILED', 'npm ERR!', 'FATAL:', 'ERROR:']):
-                error_level = 'ERROR'
-            
-            # Default to INFO if no error level found
-            error_level = error_level or 'INFO'
-            
-            # Extract the actual error message
-            actual_message = message
-            component = extract_component(message)
-            if component != 'Unknown':
-                # Try to extract just the error message by removing component prefix
-                if component == 'sshd' and re.search(r'\w+\[(\d+)\]:', message):
-                    # For OpenSSH logs, extract the message after the colon
-                    msg_match = re.search(r'\w+\[(\d+)\]:(.*)', message)
+        # Get context lines for better analysis
+        context_start = max(0, i - 2)
+        context_end = min(len(lines), i + 3)
+        context = lines[context_start:context_end]
+        
+        # If we don't have an error level but the line has common error indicators
+        if not error_level and any(err in clean_line.lower() for err in ['error', 'exception', 'fail', 'crash', 'problem', 'build failure']):
+            error_level = 'ERROR'
+        
+        # Default to INFO if no error level found
+        error_level = error_level or 'INFO'
+        
+        # Extract the actual error message
+        actual_message = clean_line
+        component = extract_component(clean_line)
+        if component != 'Unknown':
+            # Try to extract just the error message by removing component prefix
+            if component == 'sshd' and re.search(r'\w+\[(\d+)\]:', clean_line):
+                # For OpenSSH logs, extract the message after the colon
+                msg_match = re.search(r'\w+\[(\d+)\]:(.*)', clean_line)
+                if msg_match:
+                    actual_message = msg_match.group(2).strip()
+            elif re.search(r'^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?\]', clean_line):
+                # For Jenkins logs with timestamps in brackets
+                if re.search(r'^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?\]\s+\[\w+\]\s+\[[\w\.-]+\]\s+(.*)', clean_line):
+                    # Standard Jenkins log format: [timestamp] [level] [component] message
+                    msg_match = re.search(r'^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?\]\s+\[\w+\]\s+\[[\w\.-]+\]\s+(.*)', clean_line)
+                    actual_message = msg_match.group(1)
+                elif re.search(r'^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?\]\s+' + component + r':', clean_line):
+                    # Jenkins ANSI log format: [timestamp] component: message
+                    msg_match = re.search(r'^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?\]\s+' + component + r':(.*)', clean_line)
                     if msg_match:
-                        actual_message = msg_match.group(2).strip()
-                else:
-                    # For other log formats
-                    msg_match = re.search(r'\[[^\]]+\]\s*(.+)|\b[\w\.-]+:\s*(.+)', message)
-                    if msg_match:
-                        if msg_match.group(1):
-                            actual_message = msg_match.group(1)
-                        elif msg_match.group(2):
-                            actual_message = msg_match.group(2)
-            
-            # If we have useful information, add the entry
-            if timestamp or error_level not in ['INFO', 'DEBUG']:
-                # If timestamp is in component, fix it
-                if not timestamp and component and ':' in component and component[0].isdigit():
-                    # This might be a timestamp
-                    if re.match(r'\d{2}:\d{2}:\d{2}', component):
-                        timestamp = component
-                        component = 'Unknown'
-                
-                log_entries.append({
-                    'timestamp': timestamp,
-                    'level': error_level,
-                    'message': actual_message,
-                    'raw_message': line,
-                    'severity': ERROR_LEVELS.get(error_level, 1),
-                    'context': context,
-                    'component': component,
-                    'line_number': i + 1
-                })
+                        actual_message = component + ": " + msg_match.group(1).strip()
+            else:
+                # For other log formats
+                msg_match = re.search(r'\[[^\]]+\]\s*(.+)|\b[\w\.-]+:\s*(.+)', clean_line)
+                if msg_match:
+                    if msg_match.group(1):
+                        actual_message = msg_match.group(1)
+                    elif msg_match.group(2):
+                        actual_message = msg_match.group(2)
+        
+        # If we still have a timestamp in the component, fix it
+        if not timestamp and component and ':' in component and component[0].isdigit():
+            # This might be a timestamp
+            if re.match(r'\d{2}:\d{2}:\d{2}', component):
+                timestamp = component
+                component = 'Unknown'
+        
+        entries.append({
+            'timestamp': timestamp,
+            'level': error_level,
+            'message': actual_message,
+            'raw_message': line,
+            'severity': ERROR_LEVELS.get(error_level, 1),
+            'context': context,
+            'component': component,
+            'line_number': i + 1
+        })
     
     # Sort by timestamp if available, then by severity, then by line number
     def sort_key(entry):
@@ -419,65 +430,65 @@ def parse_log(log_content):
         return (has_timestamp, datetime.min, severity, entry['line_number'])
     
     try:
-        sorted_entries = sorted(log_entries, key=sort_key)
+        sorted_entries = sorted(entries, key=sort_key)
     except Exception as e:
         # Fallback sorting if there are issues with timestamp parsing
-        sorted_entries = sorted(log_entries, key=lambda x: (0 if x['timestamp'] else 1, -x['severity'], x['line_number']))
+        sorted_entries = sorted(entries, key=lambda x: (0 if x['timestamp'] else 1, -x['severity'], x['line_number']))
     
     return sorted_entries
 
 def extract_component(line):
     """Extract the component name from a log line"""
+    # First, strip ANSI color codes that might be present in Jenkins console logs
+    # Pattern for ANSI color codes like [2;31m[2;1m
+    clean_line = re.sub(r'\[\d+(?:;\d+)*m', '', line)
+    
     # Filter out timestamp patterns that might look like components
     # Filter out timestamps in brackets like [2025-02-27T05:52:32/367Z]
-    filtered_message = re.sub(r'\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[^\]]*\]', '', line)
+    filtered_message = re.sub(r'\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[^\]]*\]', '', clean_line)
     filtered_message = re.sub(r'\[\d{2}:\d{2}:\d{2}(?:\.\d+)?\]', '', filtered_message)  # Also remove [HH:MM:SS] timestamps
     
     # Handle Jenkins log format: [2023-05-15T10:30:45.123Z] [INFO] [jenkins.main] Starting Jenkins
-    jenkins_log_match = re.search(r'\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?\]\s+\[\w+\]\s+\[([\w\.-]+)\]', line)
+    jenkins_log_match = re.search(r'\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?\]\s+\[\w+\]\s+\[([\w\.-]+)\]', clean_line)
     if jenkins_log_match:
         return jenkins_log_match.group(1)  # e.g., jenkins.main
     
+    # Handle Jenkins console logs with ANSI color codes: [2025-03-03T03:03:41.029Z] [2;31m[2;1mgitw: Error: please make sure this are supported
+    jenkins_console_match = re.search(r'^\s*\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?\]\s+([\w\.-]+):', clean_line)
+    if jenkins_console_match:
+        return jenkins_console_match.group(1)  # e.g., gitw
+    
     # Handle OpenSSH log format: Dec 10 06:55:46 LabSZ sshd[24200]: message
-    ssh_log_match = re.search(r'(\w+\s+\d+\s+\d{2}:\d{2}:\d{2})\s+(\w+)\s+(\w+)\[(\d+)\]:', line)
+    ssh_log_match = re.search(r'(\w+\s+\d+\s+\d{2}:\d{2}:\d{2})\s+(\w+)\s+(\w+)\[(\d+)\]:', clean_line)
     if ssh_log_match:
         # Extract the component name without the PID
         return ssh_log_match.group(3)  # e.g., sshd
     
-    # Handle Jenkins-specific component patterns
-    jenkins_component_match = re.search(r'\b(\d+[mhsd])([\w\.-]+)\b', filtered_message)
-    if jenkins_component_match:
-        time_part = jenkins_component_match.group(1)  # e.g., 1m, 2h, 3d, 4s
-        component_part = jenkins_component_match.group(2)  # e.g., gitw
-        
-        # Only treat as a time+component if the component part looks like a valid component name
-        if re.match(r'^[a-zA-Z][\w\.-]*$', component_part):
-            return component_part
+    # Handle other common log formats
+    component_patterns = [
+        r'\[([a-zA-Z0-9\.-]+)\]',  # [component]
+        r'([a-zA-Z0-9\.-]+):',     # component:
+    ]
     
-    # First check for process[pid] pattern (more general than the SSH pattern)
-    process_pid_match = re.search(r'(\w+)\[(\d+)\]', filtered_message)
-    if process_pid_match:
-        return process_pid_match.group(1)  # Extract process name without PID
-    
-    # Standard component extraction
-    component_match = re.search(r'\[([\w\.-]+)\]|\b([\w\.-]+):', filtered_message)
-    if component_match:
-        component = None
-        if component_match.group(1):
-            component = component_match.group(1)
-        elif component_match.group(2):
-            component = component_match.group(2)
-            # Remove trailing colon if it exists
-            if component.endswith(':'):
-                component = component[:-1]
-        
-        # Verify the component is not a timestamp or contains time indicators
-        if component and not (re.match(r'^\d{2}:\d{2}:\d{2}', component) or 
-                re.match(r'^\d{4}-\d{2}-\d{2}', component) or
-                re.match(r'^\d+[mhsd]', component)):
+    for pattern in component_patterns:
+        match = re.search(pattern, filtered_message)
+        if match:
+            component = match.group(1)
+            # Skip if the component looks like a timestamp
+            if re.match(r'\d{2}:\d{2}:\d{2}', component):
+                continue
+            # Skip if the component is a common error level
+            if component.upper() in ['ERROR', 'INFO', 'WARNING', 'DEBUG', 'WARN', 'FATAL', 'CRITICAL']:
+                continue
+            # Skip if the component is a common log prefix
+            if component.upper() in ['LOG', 'LOGGER', 'LOGGING', 'SYSTEM', 'APP', 'APPLICATION']:
+                continue
+            # Remove trailing colon if present
+            component = component.rstrip(':')
             return component
     
-    return 'Unknown'
+    # If no component found
+    return "Unknown"
 
 def analyze_log_entries(entries):
     """Analyze log entries to find patterns and root causes"""
