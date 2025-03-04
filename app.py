@@ -440,7 +440,7 @@ def parse_log(log_content):
     
     return sorted_entries
 
-def extract_component(line):
+def extract_component(line, level=None):
     """Extract the component name from a log line"""
     # First, strip ANSI color codes that might be present in Jenkins console logs
     # Pattern for ANSI color codes like [2;31m[2;1m
@@ -2421,4 +2421,4 @@ def enhanced_extract_component(message, level=None):
     return original_component
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8081, debug=True)
+    app.run(host='0.0.0.0', port=8082, debug=True)
