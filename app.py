@@ -464,6 +464,35 @@ def extract_component(line):
         # Extract the component name without the PID
         return ssh_log_match.group(3)  # e.g., sshd
     
+    # Check for Windows paths and exclude them from component extraction
+    # This needs to be done before the general component patterns
+    windows_path_patterns = [
+        r'\b([A-Z]):\\',  # C:\, D:\, etc.
+        r'\b([A-Z]):(?![\\])',  # C:, D:, etc. (not followed by backslash)
+    ]
+    
+    for pattern in windows_path_patterns:
+        if re.search(pattern, filtered_message, re.IGNORECASE):
+            # If we find a Windows path, we need to be more careful with component extraction
+            # We'll only extract components that are in specific formats
+            
+            # Try to extract components in brackets
+            bracket_component = re.search(r'\[([\w\.-]+)\]', filtered_message)
+            if bracket_component:
+                component = bracket_component.group(1)
+                # Skip if the component is a common error level
+                if component.upper() in ['ERROR', 'INFO', 'WARNING', 'DEBUG', 'WARN', 'FATAL', 'CRITICAL']:
+                    continue
+                return component
+            
+            # If no bracketed component, look for components with dots (likely module paths)
+            module_component = re.search(r'\b([\w]+\.[\w\.]+):', filtered_message)
+            if module_component:
+                return module_component.group(1)
+                
+            # If we can't find a clear component, return Unknown
+            return "Unknown"
+    
     # Handle other common log formats
     component_patterns = [
         r'\[([a-zA-Z0-9\.-]+)\]',  # [component]
@@ -482,6 +511,12 @@ def extract_component(line):
                 continue
             # Skip if the component is a common log prefix
             if component.upper() in ['LOG', 'LOGGER', 'LOGGING', 'SYSTEM', 'APP', 'APPLICATION']:
+                continue
+            # Skip if the component looks like a Windows drive letter (e.g., C:, D:)
+            if re.match(r'^[A-Z]:$', component, re.IGNORECASE):
+                continue
+            # Skip if the component looks like the start of a Windows file path (e.g., C:\, D:\)
+            if re.match(r'^[A-Z]:\\', component, re.IGNORECASE):
                 continue
             # Remove trailing colon if present
             component = component.rstrip(':')
