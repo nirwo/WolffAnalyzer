@@ -1731,8 +1731,14 @@ def analyze_url():
     
     # Check for SSL verification settings
     verify_ssl = True
-    if 'verify_ssl' in request.form:
-        verify_ssl = request.form.get('verify_ssl') == 'on'
+    # Check if verify_ssl is in the form AND has value 'on' (checked)
+    # If the checkbox is unchecked, it won't be in the form data at all
+    verify_ssl = 'verify_ssl' in request.form and request.form.get('verify_ssl') == 'on'
+    
+    # Log the verification setting for debugging
+    logger.info(f"SSL verification setting: {'enabled' if verify_ssl else 'disabled'}")
+    if not verify_ssl:
+        logger.warning("SSL certificate verification has been disabled by user request")
     
     # If system certificates option is selected, set verify to True (default)
     # If custom CA bundle is provided, use that path
@@ -1798,40 +1804,90 @@ def analyze_url():
         if ca_bundle_path:
             # Handle both file paths and directory paths
             if os.path.isdir(ca_bundle_path):
-                # For directory paths like /etc/pki/CA/certs, try to use them with requests
-                # Some versions of requests can handle directory paths, some can't
+                logger.info(f"Certificate path is a directory: {ca_bundle_path}")
+                
+                # For Red Hat/CentOS, find individual .pem files in the directory
+                # and create a temporary CA bundle by concatenating them
                 try:
-                    response = requests.get(log_url, timeout=30, verify=ca_bundle_path)
-                except Exception as dir_err:
-                    # If directory path fails, try to find a bundle file in that directory
-                    logger.warning(f"Using directory path {ca_bundle_path} failed: {str(dir_err)}")
+                    # Find all .pem and .crt files in the directory
+                    cert_files = []
+                    for filename in os.listdir(ca_bundle_path):
+                        if filename.endswith('.pem') or filename.endswith('.crt'):
+                            cert_files.append(os.path.join(ca_bundle_path, filename))
                     
-                    # Look for common bundle filenames in the directory
-                    bundle_filenames = ['ca-bundle.crt', 'ca-certificates.crt', 'ca-roots.crt', 'cacert.pem']
-                    bundle_file = None
+                    logger.info(f"Found {len(cert_files)} certificate files in {ca_bundle_path}")
                     
-                    for filename in bundle_filenames:
-                        potential_path = os.path.join(ca_bundle_path, filename)
-                        if os.path.exists(potential_path):
-                            bundle_file = potential_path
-                            break
-                    
-                    if bundle_file:
-                        logger.info(f"Found bundle file in directory: {bundle_file}")
-                        flash(f"Using certificate bundle: {bundle_file}", "info")
-                        response = requests.get(log_url, timeout=30, verify=bundle_file)
+                    if cert_files:
+                        # Create a temporary bundle file by concatenating all certificate files
+                        temp_bundle_path = os.path.join(app.config['UPLOAD_FOLDER'], f"temp_ca_bundle_{datetime.now().strftime('%Y%m%d%H%M%S')}.pem")
+                        with open(temp_bundle_path, 'w') as temp_bundle:
+                            for cert_file in cert_files:
+                                try:
+                                    with open(cert_file, 'r') as cf:
+                                        temp_bundle.write(cf.read())
+                                        temp_bundle.write('\n')
+                                except Exception as read_err:
+                                    logger.warning(f"Error reading certificate file {cert_file}: {str(read_err)}")
+                        
+                        logger.info(f"Created temporary CA bundle at {temp_bundle_path} from {len(cert_files)} certificate files")
+                        flash(f"Using {len(cert_files)} certificates from {ca_bundle_path}", "info")
+                        response = requests.get(log_url, timeout=30, verify=temp_bundle_path)
                     else:
-                        # If no bundle file found, try with certifi as fallback
+                        # Look for common bundle filenames in the directory
+                        bundle_filenames = ['ca-bundle.crt', 'ca-certificates.crt', 'ca-roots.crt', 'cacert.pem']
+                        bundle_file = None
+                        
+                        for filename in bundle_filenames:
+                            potential_path = os.path.join(ca_bundle_path, filename)
+                            if os.path.exists(potential_path):
+                                bundle_file = potential_path
+                                break
+                        
+                        if bundle_file:
+                            logger.info(f"Found bundle file in directory: {bundle_file}")
+                            flash(f"Using certificate bundle: {bundle_file}", "info")
+                            response = requests.get(log_url, timeout=30, verify=bundle_file)
+                        elif verify_ssl:  # Only fall back if verification is required
+                            # If no certificate files found, try with certifi as fallback
+                            import certifi
+                            certifi_path = certifi.where()
+                            logger.info(f"No certificate files found in {ca_bundle_path}, falling back to certifi: {certifi_path}")
+                            flash(f"No certificate files found in {ca_bundle_path}, using certifi instead", "warning")
+                            response = requests.get(log_url, timeout=30, verify=certifi_path)
+                        else:
+                            # If verification is disabled, proceed without verification
+                            logger.warning(f"No certificate files found and verification is disabled, proceeding without verification")
+                            flash(f"No certificate files found in {ca_bundle_path}, proceeding without verification", "warning")
+                            response = requests.get(log_url, timeout=30, verify=False)
+                except Exception as dir_err:
+                    logger.warning(f"Error processing certificate directory {ca_bundle_path}: {str(dir_err)}")
+                    
+                    if verify_ssl:
+                        # Try with certifi as fallback if verification is required
                         import certifi
                         certifi_path = certifi.where()
-                        logger.info(f"No bundle file found in {ca_bundle_path}, falling back to certifi: {certifi_path}")
-                        flash(f"No bundle file found in {ca_bundle_path}, using certifi instead", "warning")
+                        logger.info(f"Falling back to certifi: {certifi_path}")
+                        flash(f"Error processing certificates in {ca_bundle_path}, using certifi instead", "warning")
                         response = requests.get(log_url, timeout=30, verify=certifi_path)
+                    else:
+                        # If verification is disabled, proceed without verification
+                        logger.warning(f"Error processing certificates and verification is disabled, proceeding without verification")
+                        flash(f"Error processing certificates, proceeding without verification", "warning")
+                        response = requests.get(log_url, timeout=30, verify=False)
             else:
-                # Regular file path
-                response = requests.get(log_url, timeout=30, verify=ca_bundle_path)
+                # Regular file path, but only verify if the verification flag is enabled
+                if verify_ssl:
+                    response = requests.get(log_url, timeout=30, verify=ca_bundle_path)
+                else:
+                    logger.warning(f"Using file path {ca_bundle_path} but verification is disabled, proceeding without verification")
+                    response = requests.get(log_url, timeout=30, verify=False)
         else:
-            response = requests.get(log_url, timeout=30, verify=verify_ssl)
+            # Use system certificates if verification is enabled, otherwise disable verification
+            if verify_ssl:
+                response = requests.get(log_url, timeout=30, verify=True)
+            else:
+                logger.warning("Proceeding without SSL certificate verification")
+                response = requests.get(log_url, timeout=30, verify=False)
         
         # Check if the request was successful
         if response.status_code != 200:

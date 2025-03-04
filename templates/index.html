@@ -122,12 +122,15 @@
                                     </div>
                                 </div>
                                 
-                                <div class="form-check">
+                                <div class="form-check border-top pt-3 mt-3">
                                     <input class="form-check-input" type="checkbox" id="verify_ssl" name="verify_ssl" checked>
-                                    <label class="form-check-label" for="verify_ssl">
+                                    <label class="form-check-label fw-bold text-warning" for="verify_ssl">
                                         Verify SSL certificates
                                     </label>
-                                    <div class="form-text text-muted">Uncheck only if you trust the source but have certificate issues</div>
+                                    <div class="form-text text-muted">
+                                        <strong>Important:</strong> Uncheck this box ONLY if you're experiencing SSL certificate errors AND
+                                        you fully trust the log source. Disabling verification bypasses security checks.
+                                    </div>
                                 </div>
                             </div>
                             
