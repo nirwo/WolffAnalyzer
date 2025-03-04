@@ -1887,6 +1887,67 @@ def api_analyze():
             'message': f'Server error: {str(e)}'
         }), 500
 
+@app.route('/api/logs/<filename>', methods=['DELETE'])
+@login_required
+def delete_log(filename):
+    """Delete a log analysis file and its associated raw log file"""
+    user_id = session['user_id']
+    role = session.get('role', ROLE_USER)
+    
+    try:
+        # Check if the user has permission to delete this log
+        if role != ROLE_ADMIN:
+            # For regular users, check if the log belongs to them
+            with open(app.config['USERS_FILE'], 'r') as f:
+                users_data = json.load(f)
+            
+            user = next((u for u in users_data['users'] if u['id'] == user_id), None)
+            if not user or 'logs' not in user:
+                return jsonify({'success': False, 'message': 'Permission denied'}), 403
+            
+            # Check if the log is in the user's logs
+            user_log = next((log for log in user['logs'] if log['filename'] == filename), None)
+            if not user_log:
+                return jsonify({'success': False, 'message': 'Log not found or permission denied'}), 404
+        
+        # Delete the analysis files
+        analysis_path = os.path.join(app.config['UPLOAD_FOLDER'], f"{filename}_analysis.json")
+        basic_analysis_path = os.path.join(app.config['UPLOAD_FOLDER'], f"{filename}_basic_analysis.json")
+        raw_log_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        
+        deleted_files = []
+        
+        if os.path.exists(analysis_path):
+            os.remove(analysis_path)
+            deleted_files.append(analysis_path)
+        
+        if os.path.exists(basic_analysis_path):
+            os.remove(basic_analysis_path)
+            deleted_files.append(basic_analysis_path)
+        
+        # Delete the raw log file if it exists
+        if os.path.exists(raw_log_path):
+            os.remove(raw_log_path)
+            deleted_files.append(raw_log_path)
+        
+        # If the user is not an admin, update their logs list
+        if role != ROLE_ADMIN and user and 'logs' in user:
+            user['logs'] = [log for log in user['logs'] if log['filename'] != filename]
+            
+            # Save the updated user data
+            with open(app.config['USERS_FILE'], 'w') as f:
+                json.dump(users_data, f, indent=2)
+        
+        return jsonify({
+            'success': True, 
+            'message': f'Log analysis deleted successfully', 
+            'deleted_files': deleted_files
+        })
+    
+    except Exception as e:
+        logger.error(f"Error deleting log {filename}: {str(e)}")
+        return jsonify({'success': False, 'message': f'Error deleting log: {str(e)}'}), 500
+
 @app.route('/change_password', methods=['GET', 'POST'])
 @login_required
 def change_password():
