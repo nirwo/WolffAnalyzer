@@ -316,6 +316,42 @@
                                                         <pre class="bg-dark text-light p-3 rounded border text-wrap">{{ entry.message }}</pre>
                                                     </div>
                                                     
+                                                    {% if entry.matched_pattern is defined and entry.matched_pattern %}
+                                                    <div class="mb-3 pattern-match-section">
+                                                        <h5><i class="bi bi-lightning-charge-fill text-warning"></i> Matched Pattern</h5>
+                                                        <div class="card border-warning">
+                                                            <div class="card-header d-flex justify-content-between align-items-center">
+                                                                <span><strong>{{ entry.matched_pattern.name }}</strong> ({{ entry.matched_pattern.severity }})</span>
+                                                                <button class="btn btn-sm btn-warning edit-pattern-btn" 
+                                                                        data-pattern-id="{{ entry.matched_pattern.id }}"
+                                                                        data-pattern-name="{{ entry.matched_pattern.name }}"
+                                                                        data-pattern-regex="{{ entry.matched_pattern.pattern }}"
+                                                                        data-bs-toggle="modal" 
+                                                                        data-bs-target="#fixPatternModal">
+                                                                    <i class="bi bi-pencil-square"></i> Fix Pattern
+                                                                </button>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <p class="mb-1"><strong>Pattern:</strong> <code>{{ entry.matched_pattern.pattern }}</code></p>
+                                                                <p class="mb-1"><strong>Description:</strong> {{ entry.matched_pattern.description }}</p>
+                                                                <p class="mb-0"><strong>Suggestion:</strong> {{ entry.matched_pattern.suggestion }}</p>
+                                                            </div>
+                                                            <div class="card-footer">
+                                                                <div class="small text-muted">
+                                                                    <span class="badge {% if entry.false_positive %}bg-danger{% else %}bg-success{% endif %}">
+                                                                        {{ "Potential False Positive" if entry.false_positive else "True Positive" }}
+                                                                    </span>
+                                                                    <button class="btn btn-sm btn-outline-danger ms-2 report-false-positive" 
+                                                                            data-entry-id="{{ loop.index }}"
+                                                                            data-pattern-id="{{ entry.matched_pattern.id }}">
+                                                                        Report False Positive
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    
                                                     {% if entry.raw_message is defined and entry.raw_message != entry.message %}
                                                     <div class="mb-3">
                                                         <h6>Raw Message</h6>
@@ -328,7 +364,15 @@
                                                         <div class="context-container">
                                                             <pre class="bg-dark text-light p-3 rounded border text-wrap" id="context-{{ loop.index }}">{% for context_line in entry.context %}{% if context_line == entry.raw_message %}<span class="error-line">{{ context_line }}</span>{% else %}{{ context_line }}{% endif %}
 {% endfor %}</pre>
-                                                            <div class="d-flex justify-content-end mt-2">
+                                                            <div class="d-flex justify-content-between mt-2">
+                                                                <button type="button" class="btn btn-sm btn-success create-pattern-btn"
+                                                                        data-message="{{ entry.message }}"
+                                                                        data-component="{{ entry.component }}"
+                                                                        data-level="{{ entry.level }}"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#createPatternModal">
+                                                                    <i class="bi bi-plus-circle"></i> Create Pattern from Log
+                                                                </button>
                                                                 <button type="button" class="btn btn-sm btn-outline-primary jump-to-error" data-error-line="{{ entry.line_number }}">
                                                                     <i class="bi bi-arrow-right-circle"></i> Jump to Line {{ entry.line_number }}
                                                                 </button>
@@ -357,6 +401,23 @@
                                                             <li class="list-group-item">Check the component logs for more details</li>
                                                         </ul>
                                                     </div>
+                                                    
+                                                    {% if entry.similar_errors is defined and entry.similar_errors|length > 0 %}
+                                                    <div class="mb-3">
+                                                        <h6>Similar Errors</h6>
+                                                        <div class="list-group">
+                                                            {% for similar in entry.similar_errors %}
+                                                            <div class="list-group-item list-group-item-action">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h6 class="mb-1">{{ similar.component }}</h6>
+                                                                    <small>{{ similar.timestamp }}</small>
+                                                                </div>
+                                                                <p class="mb-1 small">{{ similar.message|truncate(100) }}</p>
+                                                            </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-outline-primary copy-btn" 
@@ -423,6 +484,216 @@
             <p class="text-muted mb-0">Log Analyzer &copy; 2025</p>
         </div>
     </footer>
+
+    <!-- Fix Pattern Modal -->
+    <div class="modal fade" id="fixPatternModal" tabindex="-1" aria-labelledby="fixPatternModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="fixPatternModalLabel">Fix Error Pattern</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="fixPatternForm" action="{{ url_for('fix_pattern') }}" method="post">
+                        <input type="hidden" id="editPatternId" name="pattern_id">
+                        
+                        <div class="mb-3">
+                            <label for="editPatternName" class="form-label">Pattern Name</label>
+                            <input type="text" class="form-control" id="editPatternName" name="pattern_name" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="editPatternRegex" class="form-label">Pattern Regex</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control font-monospace" id="editPatternRegex" name="pattern_regex" required>
+                                <button class="btn btn-outline-primary" type="button" id="testRegexBtn">Test</button>
+                            </div>
+                            <div class="form-text">Use regular expressions to match log entries. Example: <code>Error:.*timeout</code></div>
+                        </div>
+                        
+                        <div class="mb-3 d-none" id="regexTestResult">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Pattern Test Results</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="matchResults" class="mb-2"></div>
+                                    <pre id="matchPreview" class="bg-dark text-light p-2 rounded"></pre>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="editPatternType" class="form-label">Pattern Type</label>
+                            <select class="form-select" id="editPatternType" name="pattern_type" required>
+                                <option value="jenkins">Jenkins-specific</option>
+                                <option value="system">System/General</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="editSeverity" class="form-label">Severity</label>
+                            <select class="form-select" id="editSeverity" name="severity" required>
+                                <option value="critical">Critical</option>
+                                <option value="error">Error</option>
+                                <option value="warning">Warning</option>
+                                <option value="info">Info</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="editDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="editDescription" name="description" rows="2" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="editSuggestion" class="form-label">Fix Suggestion</label>
+                            <textarea class="form-control" id="editSuggestion" name="suggestion" rows="2" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="excludePathsCheck" name="exclude_paths">
+                                <label class="form-check-label" for="excludePathsCheck">
+                                    Exclude Windows/Unix paths from matches
+                                </label>
+                                <div class="form-text">Helps avoid false positives when paths contain error-like keywords</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="excludeTimestampCheck" name="exclude_timestamp">
+                                <label class="form-check-label" for="excludeTimestampCheck">
+                                    Exclude timestamps from matches
+                                </label>
+                                <div class="form-text">Prevents matching datetime values as components or errors</div>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" id="currentLogId" name="log_id" value="{{ log_id if log_id is defined else '' }}">
+                        <input type="hidden" id="testType" name="test_type" value="fix">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-between w-100">
+                        <div>
+                            <button type="button" class="btn btn-outline-danger" id="deletePatternBtn">Delete Pattern</button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="savePatternBtn">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Pattern Modal -->
+    <div class="modal fade" id="createPatternModal" tabindex="-1" aria-labelledby="createPatternModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="createPatternModalLabel">Create New Pattern from Log</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createPatternForm" action="{{ url_for('add_pattern') }}" method="post">
+                        <div class="mb-3">
+                            <label for="newPatternName" class="form-label">Pattern Name</label>
+                            <input type="text" class="form-control" id="newPatternName" name="pattern_name" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="logMessage" class="form-label">Log Message</label>
+                            <div class="input-group">
+                                <textarea class="form-control font-monospace" id="logMessage" name="log_message" rows="3" readonly></textarea>
+                                <button class="btn btn-outline-secondary" type="button" id="editLogBtn">Edit</button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="generatedRegex" class="form-label">Generated Pattern</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control font-monospace" id="generatedRegex" name="pattern_regex" required>
+                                <button class="btn btn-outline-primary" type="button" id="newTestRegexBtn">Test</button>
+                                <button class="btn btn-outline-secondary" type="button" id="regenerateBtn">Regenerate</button>
+                            </div>
+                            <div class="form-text">Pattern is auto-generated from the log message. You can edit it to make it more specific or general.</div>
+                        </div>
+                        
+                        <div class="mb-3 d-none" id="newRegexTestResult">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Pattern Test Results</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="newMatchResults" class="mb-2"></div>
+                                    <pre id="newMatchPreview" class="bg-dark text-light p-2 rounded"></pre>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="newPatternType" class="form-label">Pattern Type</label>
+                            <select class="form-select" id="newPatternType" name="pattern_type" required>
+                                <option value="system" selected>System/General</option>
+                                <option value="jenkins">Jenkins-specific</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="newSeverity" class="form-label">Severity</label>
+                            <select class="form-select" id="newSeverity" name="severity" required>
+                                <option value="error" selected>Error</option>
+                                <option value="critical">Critical</option>
+                                <option value="warning">Warning</option>
+                                <option value="info">Info</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="newDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="newDescription" name="description" rows="2" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="newSuggestion" class="form-label">Fix Suggestion</label>
+                            <textarea class="form-control" id="newSuggestion" name="suggestion" rows="2" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="newExcludePathsCheck" name="exclude_paths" checked>
+                                <label class="form-check-label" for="newExcludePathsCheck">
+                                    Exclude Windows/Unix paths from matches
+                                </label>
+                                <div class="form-text">Helps avoid false positives when paths contain error-like keywords</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="newExcludeTimestampCheck" name="exclude_timestamp" checked>
+                                <label class="form-check-label" for="newExcludeTimestampCheck">
+                                    Exclude timestamps from matches
+                                </label>
+                                <div class="form-text">Prevents matching datetime values as components or errors</div>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" id="newCurrentLogId" name="log_id" value="{{ log_id if log_id is defined else '' }}">
+                        <input type="hidden" id="newTestType" name="test_type" value="new">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" id="createPatternBtn">Create Pattern</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
@@ -550,6 +821,272 @@
             const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
             tooltipTriggerList.map(function (tooltipTriggerEl) {
                 return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            // Edit pattern button event handlers
+            const editPatternButtons = document.querySelectorAll('.edit-pattern-btn');
+            editPatternButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const patternId = this.dataset.patternId;
+                    const patternName = this.dataset.patternName;
+                    const patternRegex = this.dataset.patternRegex;
+                    
+                    // Fill the form with pattern data
+                    document.getElementById('editPatternId').value = patternId;
+                    document.getElementById('editPatternName').value = patternName;
+                    document.getElementById('editPatternRegex').value = patternRegex;
+                    
+                    // Fetch the rest of the pattern data from the server
+                    fetch(`/api/pattern/${patternId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('editPatternType').value = data.type;
+                            document.getElementById('editSeverity').value = data.severity;
+                            document.getElementById('editDescription').value = data.description;
+                            document.getElementById('editSuggestion').value = data.suggestion;
+                            document.getElementById('excludePathsCheck').checked = data.exclude_paths || false;
+                            document.getElementById('excludeTimestampCheck').checked = data.exclude_timestamp || false;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching pattern details:', error);
+                        });
+                });
+            });
+            
+            // Create pattern from log button
+            const createPatternButtons = document.querySelectorAll('.create-pattern-btn');
+            createPatternButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const message = this.dataset.message;
+                    const component = this.dataset.component;
+                    const level = this.dataset.level;
+                    
+                    // Fill the form with log data
+                    document.getElementById('logMessage').value = message;
+                    
+                    // Generate a suggested regex pattern from the message
+                    const escapedMessage = message
+                        .replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') // Escape regex special chars
+                        .replace(/\d+/g, '\\d+') // Replace numbers with digit pattern
+                        .replace(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/g, '[a-fA-F0-9\\-]+'); // Replace UUIDs
+                    
+                    // Generate a name from the message or component
+                    let suggestedName = '';
+                    if (component && component !== 'Unknown') {
+                        suggestedName = `${component} ${level.toLowerCase()}`;
+                    } else {
+                        // Extract key words from the message
+                        const words = message.split(/\s+/).filter(word => word.length > 3);
+                        suggestedName = words.slice(0, 3).join(' ');
+                    }
+                    
+                    document.getElementById('newPatternName').value = suggestedName;
+                    document.getElementById('generatedRegex').value = escapedMessage;
+                    
+                    // Set default severity based on log level
+                    if (level === 'ERROR') {
+                        document.getElementById('newSeverity').value = 'error';
+                    } else if (level === 'WARNING' || level === 'WARN') {
+                        document.getElementById('newSeverity').value = 'warning';
+                    } else if (level === 'CRITICAL' || level === 'FATAL') {
+                        document.getElementById('newSeverity').value = 'critical';
+                    } else {
+                        document.getElementById('newSeverity').value = 'info';
+                    }
+                    
+                    // Generate description and suggestion
+                    document.getElementById('newDescription').value = `${component || 'System'} error: ${message.substring(0, 100)}`;
+                    document.getElementById('newSuggestion').value = 'Investigate the error in the affected component logs';
+                });
+            });
+            
+            // Test regex functionality
+            document.getElementById('testRegexBtn').addEventListener('click', function() {
+                const regex = document.getElementById('editPatternRegex').value;
+                const logId = document.getElementById('currentLogId').value;
+                
+                // Show testing UI
+                document.getElementById('regexTestResult').classList.remove('d-none');
+                document.getElementById('matchResults').innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div> Testing pattern...';
+                
+                // Test the regex against the current log
+                fetch(`/api/test_pattern?regex=${encodeURIComponent(regex)}&log_id=${logId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('matchResults').innerHTML = 
+                                `<div class="alert ${data.matches.length > 0 ? 'alert-success' : 'alert-warning'}">
+                                    <strong>${data.matches.length}</strong> matches found
+                                </div>`;
+                            
+                            if (data.matches.length > 0) {
+                                const preview = data.matches.slice(0, 5).map(match => {
+                                    return `<div class="match-line">${match}</div>`;
+                                }).join('\n');
+                                
+                                document.getElementById('matchPreview').innerHTML = preview;
+                                
+                                if (data.matches.length > 5) {
+                                    document.getElementById('matchPreview').innerHTML += `\n<div class="text-muted">...and ${data.matches.length - 5} more matches</div>`;
+                                }
+                            } else {
+                                document.getElementById('matchPreview').innerHTML = '<div class="text-muted">No matches found. Try adjusting your pattern.</div>';
+                            }
+                        } else {
+                            document.getElementById('matchResults').innerHTML = 
+                                `<div class="alert alert-danger">
+                                    Error testing pattern: ${data.error}
+                                </div>`;
+                            document.getElementById('matchPreview').innerHTML = '';
+                        }
+                    })
+                    .catch(error => {
+                        document.getElementById('matchResults').innerHTML = 
+                            `<div class="alert alert-danger">
+                                Network error while testing pattern
+                            </div>`;
+                        console.error('Error testing pattern:', error);
+                    });
+            });
+            
+            // New pattern test regex functionality
+            document.getElementById('newTestRegexBtn').addEventListener('click', function() {
+                const regex = document.getElementById('generatedRegex').value;
+                const logId = document.getElementById('newCurrentLogId').value;
+                
+                // Show testing UI
+                document.getElementById('newRegexTestResult').classList.remove('d-none');
+                document.getElementById('newMatchResults').innerHTML = '<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Loading...</span></div> Testing pattern...';
+                
+                // Test the regex against the current log
+                fetch(`/api/test_pattern?regex=${encodeURIComponent(regex)}&log_id=${logId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('newMatchResults').innerHTML = 
+                                `<div class="alert ${data.matches.length > 0 ? 'alert-success' : 'alert-warning'}">
+                                    <strong>${data.matches.length}</strong> matches found
+                                </div>`;
+                            
+                            if (data.matches.length > 0) {
+                                const preview = data.matches.slice(0, 5).map(match => {
+                                    return `<div class="match-line">${match}</div>`;
+                                }).join('\n');
+                                
+                                document.getElementById('newMatchPreview').innerHTML = preview;
+                                
+                                if (data.matches.length > 5) {
+                                    document.getElementById('newMatchPreview').innerHTML += `\n<div class="text-muted">...and ${data.matches.length - 5} more matches</div>`;
+                                }
+                            } else {
+                                document.getElementById('newMatchPreview').innerHTML = '<div class="text-muted">No matches found. Try adjusting your pattern.</div>';
+                            }
+                        } else {
+                            document.getElementById('newMatchResults').innerHTML = 
+                                `<div class="alert alert-danger">
+                                    Error testing pattern: ${data.error}
+                                </div>`;
+                            document.getElementById('newMatchPreview').innerHTML = '';
+                        }
+                    })
+                    .catch(error => {
+                        document.getElementById('newMatchResults').innerHTML = 
+                            `<div class="alert alert-danger">
+                                Network error while testing pattern
+                            </div>`;
+                        console.error('Error testing pattern:', error);
+                    });
+            });
+            
+            // Save pattern changes
+            document.getElementById('savePatternBtn').addEventListener('click', function() {
+                document.getElementById('fixPatternForm').submit();
+            });
+            
+            // Create new pattern
+            document.getElementById('createPatternBtn').addEventListener('click', function() {
+                document.getElementById('createPatternForm').submit();
+            });
+            
+            // Delete pattern
+            document.getElementById('deletePatternBtn').addEventListener('click', function() {
+                const patternId = document.getElementById('editPatternId').value;
+                if (confirm('Are you sure you want to delete this pattern?')) {
+                    window.location.href = `/delete_pattern/${patternId}`;
+                }
+            });
+            
+            // False positive reporting
+            const reportButtons = document.querySelectorAll('.report-false-positive');
+            reportButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const entryId = this.dataset.entryId;
+                    const patternId = this.dataset.patternId;
+                    
+                    fetch('/api/report_false_positive', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            entry_id: entryId,
+                            pattern_id: patternId,
+                            log_id: document.getElementById('currentLogId').value
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            this.innerHTML = '<i class="bi bi-check-circle"></i> Reported';
+                            this.disabled = true;
+                            alert('Thank you for your feedback. This will help improve pattern matching.');
+                        } else {
+                            alert('Error reporting false positive: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error reporting false positive:', error);
+                        alert('Network error while reporting false positive');
+                    });
+                });
+            });
+            
+            // Edit log message for pattern creation
+            document.getElementById('editLogBtn').addEventListener('click', function() {
+                const logMessage = document.getElementById('logMessage');
+                logMessage.readOnly = !logMessage.readOnly;
+                this.innerHTML = logMessage.readOnly ? 'Edit' : 'Lock';
+                
+                if (!logMessage.readOnly) {
+                    logMessage.focus();
+                } else {
+                    // Regenerate the regex when locking the message
+                    const message = logMessage.value;
+                    const escapedMessage = message
+                        .replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+                        .replace(/\d+/g, '\\d+')
+                        .replace(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/g, '[a-fA-F0-9\\-]+');
+                    
+                    document.getElementById('generatedRegex').value = escapedMessage;
+                }
+            });
+            
+            // Regenerate pattern button
+            document.getElementById('regenerateBtn').addEventListener('click', function() {
+                const message = document.getElementById('logMessage').value;
+                // More sophisticated pattern generation
+                let pattern = message;
+                
+                // Replace specific common patterns with regex alternatives
+                pattern = pattern
+                    .replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') // Escape regex special chars
+                    .replace(/\d+/g, '\\d+') // Numbers to digit pattern
+                    .replace(/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/g, '[a-fA-F0-9\\-]+') // UUIDs
+                    .replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '["\'](.*?)["\']') // Quoted strings
+                    .replace(/\b([a-zA-Z]:\\(?:[\w\s\-.]+\\)*[\w\s\-.]+)\b/g, '(?:\/|\\\\)[\w\s\-\.\\\\\/]+') // Windows paths
+                    .replace(/\b(\/[\w\s\-.\/]+)\b/g, '(?:\/|\\\\)[\w\s\-\.\\\\\/]+'); // Unix paths
+                
+                document.getElementById('generatedRegex').value = pattern;
             });
         });
     </script>

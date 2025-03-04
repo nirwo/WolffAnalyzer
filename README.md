@@ -13,6 +13,25 @@ A web application for analyzing system logs to identify errors, warnings, and cr
 - Troubleshooting recommendations
 - Save and view previous analyses
 
+## Advanced Features (NEW)
+
+### Adaptive Pattern Matching
+- **Real-time Pattern Adjustment**: Fix patterns directly from error entries with the "Fix Pattern" button
+- **Pattern Testing**: Test regex patterns against log content to ensure accuracy before saving
+- **Pattern Effectiveness Tracking**: Monitors pattern effectiveness and false positive rates
+- **False Positive Reporting**: Report false matches to continuously improve pattern recognition
+
+### Smart Component Extraction
+- **Enhanced Filtering**: Intelligently filters out false components like timestamps, paths, and common words
+- **Path Detection**: Avoids misclassifying Windows and Unix paths as components
+- **Unit Recognition**: Filters out numbers with units of measurement that are not actual components
+
+### Intuitive User Interface
+- **Interactive Pattern Management**: Edit patterns directly from error entries
+- **Pattern Match Highlighting**: Clearly shows which pattern matched each log entry
+- **Pattern Creation**: Generate new patterns directly from log entries with one click
+- **Error Clustering**: Groups similar errors to reduce noise and improve analysis
+
 ## Installation
 
 ### Prerequisites
@@ -102,6 +121,24 @@ To extend the analyzer with new capabilities:
 2. Add new analysis algorithms in `analyze_log_entries()`
 3. Extend recommendations in `generate_recommendations()`
 4. Update the UI templates accordingly
+
+### Pattern Management
+
+Patterns are the core of the analysis engine. To manage patterns:
+
+1. **View/edit existing patterns** in the Patterns page
+2. **Add new patterns** manually or generate them from log entries
+3. **Test patterns** against logs before saving
+4. **Report false positives** to improve pattern accuracy over time
+
+### Improving Component Detection
+
+To enhance component extraction for better log analysis:
+
+1. Update the `enhanced_extract_component()` function in `app.py`
+2. Add new filters for known false positives
+3. Implement domain-specific component recognition for your log types
+4. Verify improvements with the test suite
 
 ## License
 

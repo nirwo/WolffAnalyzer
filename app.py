@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 from werkzeug.utils import secure_filename
 import logging
 from functools import wraps
+from collections import defaultdict
+import difflib
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -367,8 +369,9 @@ def parse_log(log_content):
         
         # Extract the actual error message
         actual_message = clean_line
-        component = extract_component(clean_line)
-        if component != 'Unknown':
+        # Use the enhanced component extraction to avoid false positives
+        component = enhanced_extract_component(clean_line, error_level)
+        if component != 'Unknown' and component is not None:
             # Try to extract just the error message by removing component prefix
             if component == 'sshd' and re.search(r'\w+\[(\d+)\]:', clean_line):
                 # For OpenSSH logs, extract the message after the colon
@@ -1033,6 +1036,10 @@ def add_pattern():
         description = request.form['description']
         suggestion = request.form['suggestion']
         
+        # Additional parameters for improved pattern matching
+        exclude_paths = 'exclude_paths' in request.form
+        exclude_timestamp = 'exclude_timestamp' in request.form
+        
         # Load current patterns
         with open(app.config['PATTERNS_FILE'], 'r') as f:
             patterns = json.load(f)
@@ -1051,6 +1058,11 @@ def add_pattern():
             'severity': severity,
             'description': description,
             'suggestion': suggestion,
+            'exclude_paths': exclude_paths,
+            'exclude_timestamp': exclude_timestamp,
+            'effectiveness_score': 1.0,  # Initialize with perfect score
+            'false_positive_count': 0,
+            'match_count': 0,
             'created_by': session.get('username', 'Unknown'),
             'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
@@ -1065,6 +1077,12 @@ def add_pattern():
         with open(app.config['PATTERNS_FILE'], 'w') as f:
             json.dump(patterns, f, indent=2)
         
+        # If the pattern was created from a log analysis, redirect back to the analysis
+        log_id = request.form.get('log_id', '')
+        if log_id:
+            flash(f"Pattern '{pattern_name}' added successfully")
+            return redirect(url_for('view_analysis', analysis_id=log_id))
+            
         flash(f"Pattern '{pattern_name}' added successfully")
     except Exception as e:
         flash(f"Error adding pattern: {str(e)}")
@@ -1086,6 +1104,8 @@ def edit_pattern(pattern_id):
         severity = request.form['severity']
         description = request.form['description']
         suggestion = request.form['suggestion']
+        exclude_paths = 'exclude_paths' in request.form
+        exclude_timestamp = 'exclude_timestamp' in request.form
         
         # Load current patterns
         with open(app.config['PATTERNS_FILE'], 'r') as f:
@@ -1101,6 +1121,8 @@ def edit_pattern(pattern_id):
                     pattern['severity'] = severity
                     pattern['description'] = description
                     pattern['suggestion'] = suggestion
+                    pattern['exclude_paths'] = exclude_paths
+                    pattern['exclude_timestamp'] = exclude_timestamp
                     pattern['updated_by'] = session.get('username', 'Unknown')
                     pattern['updated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     pattern_found = True
@@ -1115,6 +1137,12 @@ def edit_pattern(pattern_id):
         # Save updated patterns
         with open(app.config['PATTERNS_FILE'], 'w') as f:
             json.dump(patterns, f, indent=2)
+        
+        # If the edit came from a log analysis, redirect back to the analysis
+        log_id = request.form.get('log_id', '')
+        if log_id:
+            flash(f"Pattern '{pattern_name}' updated successfully")
+            return redirect(url_for('view_analysis', analysis_id=log_id))
         
         flash(f"Pattern '{pattern_name}' updated successfully")
     except Exception as e:
@@ -2214,6 +2242,183 @@ def change_password():
             return render_template('change_password.html')
     
     return render_template('change_password.html')
+
+# API endpoints for pattern management and testing
+@app.route('/api/pattern/<int:pattern_id>', methods=['GET'])
+@login_required
+def get_pattern_api(pattern_id):
+    """Get pattern details via API"""
+    try:
+        # Load patterns
+        with open(app.config['PATTERNS_FILE'], 'r') as f:
+            patterns = json.load(f)
+        
+        # Search for pattern in both categories
+        for pattern_type in ['jenkins_patterns', 'system_patterns']:
+            for pattern in patterns[pattern_type]:
+                if pattern['id'] == pattern_id:
+                    pattern_data = {
+                        'id': pattern['id'],
+                        'name': pattern['name'],
+                        'pattern': pattern['pattern'],
+                        'severity': pattern['severity'],
+                        'description': pattern['description'],
+                        'suggestion': pattern['suggestion'],
+                        'type': 'jenkins' if pattern_type == 'jenkins_patterns' else 'system',
+                        'exclude_paths': pattern.get('exclude_paths', False),
+                        'exclude_timestamp': pattern.get('exclude_timestamp', False)
+                    }
+                    return jsonify(pattern_data)
+        
+        return jsonify({'error': 'Pattern not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/test_pattern', methods=['GET'])
+@login_required
+def test_pattern_api():
+    """Test a regex pattern against log content"""
+    try:
+        regex = request.args.get('regex', '')
+        log_id = request.args.get('log_id', '')
+        
+        if not regex:
+            return jsonify({'success': False, 'error': 'No regex pattern provided'})
+        
+        # Get log content to test against
+        if log_id:
+            log_files = [f for f in os.listdir(app.config['UPLOAD_FOLDER']) if f.endswith('.txt') or f.endswith('.log') or '_analysis.json' in f]
+            log_file = next((f for f in log_files if log_id in f), None)
+            
+            if not log_file:
+                return jsonify({'success': False, 'error': 'Log file not found'})
+                
+            log_path = os.path.join(app.config['UPLOAD_FOLDER'], log_file)
+            with open(log_path, 'r', errors='replace') as f:
+                content = f.read()
+        else:
+            # Use sample log as fallback
+            with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sample_log.txt'), 'r', errors='replace') as f:
+                content = f.read()
+        
+        # Test pattern against log content
+        try:
+            pattern = re.compile(regex)
+            matches = []
+            
+            # Check for matches in each line
+            for line in content.splitlines():
+                if pattern.search(line):
+                    matches.append(line)
+                    
+            return jsonify({
+                'success': True,
+                'matches': matches[:100],  # Limit to 100 matches to avoid huge responses
+                'match_count': len(matches)
+            })
+        except re.error as e:
+            return jsonify({'success': False, 'error': f'Invalid regex pattern: {str(e)}'})
+            
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
+@app.route('/api/report_false_positive', methods=['POST'])
+@login_required
+def report_false_positive():
+    """Report a false positive pattern match"""
+    try:
+        data = request.json
+        pattern_id = data.get('pattern_id')
+        entry_id = data.get('entry_id')
+        log_id = data.get('log_id', '')
+        
+        if not pattern_id:
+            return jsonify({'success': False, 'error': 'No pattern ID provided'})
+        
+        # Load patterns
+        with open(app.config['PATTERNS_FILE'], 'r') as f:
+            patterns = json.load(f)
+        
+        # Find pattern and update its false positive count
+        pattern_found = False
+        for pattern_type in ['jenkins_patterns', 'system_patterns']:
+            for pattern in patterns[pattern_type]:
+                if str(pattern['id']) == str(pattern_id):
+                    # Increment false positive count
+                    pattern['false_positive_count'] = pattern.get('false_positive_count', 0) + 1
+                    
+                    # Update effectiveness score
+                    total_matches = pattern.get('match_count', 1)  # Avoid division by zero
+                    false_positives = pattern.get('false_positive_count', 0)
+                    pattern['effectiveness_score'] = max(0.0, 1.0 - (false_positives / total_matches))
+                    
+                    pattern_found = True
+                    break
+            if pattern_found:
+                break
+        
+        if not pattern_found:
+            return jsonify({'success': False, 'error': 'Pattern not found'})
+        
+        # Save updated patterns
+        with open(app.config['PATTERNS_FILE'], 'w') as f:
+            json.dump(patterns, f, indent=2)
+        
+        # Track the false positive to potentially suggest pattern improvements
+        feedback_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pattern_feedback.json')
+        
+        try:
+            with open(feedback_file, 'r') as f:
+                feedback = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            feedback = {'false_positives': []}
+        
+        # Add feedback entry
+        feedback['false_positives'].append({
+            'pattern_id': pattern_id,
+            'log_id': log_id,
+            'entry_id': entry_id,
+            'reported_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'user_id': session.get('user_id', 'anonymous')
+        })
+        
+        # Save feedback
+        with open(feedback_file, 'w') as f:
+            json.dump(feedback, f, indent=2)
+        
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
+# Update the extract_component function to improve component detection
+def enhanced_extract_component(message, level=None):
+    """Enhanced version of extract_component with better filtering for common false positives"""
+    # Original component extraction logic
+    original_component = extract_component(message, level)
+    
+    # Additional filtering for false positives
+    if original_component:
+        # Filter out components that are likely timestamps or dates
+        timestamp_pattern = re.compile(r'^(\d{1,4}[-/\.]\d{1,2}[-/\.]\d{1,4}|\d{1,2}:\d{2}(:\d{2})?(\.\d+)?|\d{1,4}[-/\.]\d{1,2}[-/\.]\d{1,4}[T ]\d{1,2}:\d{2}(:\d{2})?)$')
+        if timestamp_pattern.match(original_component):
+            return None
+        
+        # Filter out Windows and Unix style paths as components
+        path_pattern = re.compile(r'^([A-Za-z]:\\|/)(\w+|[.-]|\\|/)+$')
+        if path_pattern.match(original_component):
+            return None
+        
+        # Filter out common words that aren't useful components
+        common_words = {'error', 'warning', 'info', 'exception', 'null', 'undefined', 'none'}
+        if original_component.lower() in common_words:
+            return None
+        
+        # Filter out components that are just numbers or units of measurement
+        number_pattern = re.compile(r'^\d+(\.\d+)?(kb|mb|gb|ms|s|m|h|%)?$', re.IGNORECASE)
+        if number_pattern.match(original_component):
+            return None
+    
+    return original_component
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8081, debug=True)
