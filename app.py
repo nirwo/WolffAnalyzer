@@ -493,6 +493,17 @@ def extract_component(line):
             # If we can't find a clear component, return Unknown
             return "Unknown"
     
+    # Try to extract components from common log prefixes first
+    prefixes = ['module', 'component', 'service', 'class', 'function', 'method']
+    for prefix in prefixes:
+        match = re.search(rf'\b{prefix}\s+["\']?([\w\.-]+)["\']?', filtered_message, re.IGNORECASE)
+        if match:
+            component = match.group(1)
+            # Skip if it's just a single letter or number
+            if len(component) <= 1 or component.isdigit():
+                continue
+            return component
+    
     # Handle other common log formats
     component_patterns = [
         r'\[([a-zA-Z0-9\.-]+)\]',  # [component]
@@ -518,9 +529,46 @@ def extract_component(line):
             # Skip if the component looks like the start of a Windows file path (e.g., C:\, D:\)
             if re.match(r'^[A-Z]:\\', component, re.IGNORECASE):
                 continue
+            
+            # Skip single letters and other low-quality components
+            if len(component) <= 1:
+                continue
+                
+            # Skip common units like 'ms', 's', 'KB', 'MB', etc.
+            if component.lower() in ['ms', 's', 'kb', 'mb', 'gb', 'tb', 'b']:
+                continue
+                
+            # Skip numeric-only components
+            if re.match(r'^\d+$', component):
+                continue
+                
+            # Skip components that are likely not actual components
+            # This includes common words that appear in logs but aren't components
+            common_words = [
+                'error', 'warning', 'info', 'debug', 'the', 'a', 'an', 'in', 'on', 'at', 'to', 'from', 
+                'with', 'by', 'for', 'and', 'or', 'not', 'is', 'was', 'be', 'been', 'being', 'am', 'are', 
+                'component', 'module', 'function', 'method', 'class', 'service', 'system'
+            ]
+            if component.lower() in common_words:
+                continue
+                
             # Remove trailing colon if present
             component = component.rstrip(':')
+            
+            # Skip components that are too short and don't contain dots (likely not meaningful)
+            if len(component) < 3 and '.' not in component:
+                continue
+                
             return component
+    
+    # Look for components after "Component" or similar words in the text
+    component_prefix_match = re.search(r'(?:component|module|service)\s+([A-Za-z][A-Za-z0-9\._-]+)', filtered_message, re.IGNORECASE)
+    if component_prefix_match:
+        component = component_prefix_match.group(1)
+        # Skip if it's just a single letter or number
+        if len(component) <= 1 or component.isdigit():
+            return "Unknown"
+        return component
     
     # If no component found
     return "Unknown"
@@ -541,13 +589,31 @@ def analyze_log_entries(entries):
     
     # Group errors by component
     components = {}
+    unknown_count = 0
+    
     for entry in entries:
-        if entry['component'] not in components:
-            components[entry['component']] = 0
-        components[entry['component']] += 1
+        component = entry['component']
+        # Count unknown components separately
+        if component == "Unknown":
+            unknown_count += 1
+            continue
+            
+        if component not in components:
+            components[component] = 0
+        components[component] += 1
     
     # Find the most problematic components - don't limit
-    problematic_components = sorted(components.items(), key=lambda x: x[1], reverse=True)
+    # Only include components with at least 2 occurrences to filter out noise
+    problematic_components = [(comp, count) for comp, count in sorted(components.items(), key=lambda x: x[1], reverse=True) if count >= 2]
+    
+    # If we have too few components after filtering, include some with single occurrences
+    if len(problematic_components) < 5:
+        additional_components = [(comp, count) for comp, count in sorted(components.items(), key=lambda x: x[1], reverse=True) if count == 1]
+        problematic_components.extend(additional_components[:5 - len(problematic_components)])
+    
+    # Add Unknown as a component if there are any unknown entries
+    if unknown_count > 0:
+        problematic_components.append(("Unknown", unknown_count))
     
     # Identify critical issues and categorize by level
     critical_issues = [e for e in entries if e['severity'] >= 3]
