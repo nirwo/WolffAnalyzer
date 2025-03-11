@@ -10,5 +10,37 @@
     "session_lifetime": 24,
     "enable_url_analysis": true,
     "enable_guest_access": false
-  }
+  },
+  "jenkins": {
+    "base_url": "",
+    "api_token": "",
+    "username": "",
+    "auto_fetch_logs": true,
+    "ssl_verify": true,
+    "poll_interval": 15,
+    "import_builds": {
+      "limit": 50,
+      "days": 30,
+      "include_successful": true
+    },
+    "api_keys": ["jenkins-monitor-key", "jenkins-analyzer-api-key"]
+  },
+  "jenkins_servers": [
+    {
+      "id": "default",
+      "name": "Default Jenkins Server",
+      "base_url": "",
+      "username": "",
+      "api_token": "",
+      "ssl_verify": true,
+      "enabled": true,
+      "poll_interval": 15,
+      "auto_fetch_logs": true,
+      "import_builds": {
+        "limit": 50,
+        "days": 30,
+        "include_successful": true
+      }
+    }
+  ]}
 }

@@ -19,7 +19,7 @@
                     <a class="nav-link {% if request.path == url_for('show_kpi') %}active{% endif %}" href="{{ url_for('show_kpi') }}">Error KPIs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == url_for('jenkins_dashboard') %}active{% endif %}" href="{{ url_for('jenkins_dashboard') }}">
+                    <a class="nav-link {% if request.path == url_for('jenkins_dashboard_view') %}active{% endif %}" href="{{ url_for('jenkins_dashboard_view') }}">
                         <i class="bi bi-diagram-3 me-1"></i>Jenkins Dashboard
                     </a>
                 </li>
@@ -34,6 +34,9 @@
                         </a></li>
                         <li><a class="dropdown-item {% if request.path == url_for('admin_settings') %}active{% endif %}" href="{{ url_for('admin_settings') }}">
                             <i class="bi bi-gear me-2"></i>System Settings
+                        </a></li>
+                        <li><a class="dropdown-item {% if request.path == url_for('jenkins_servers') %}active{% endif %}" href="{{ url_for('jenkins_servers') }}">
+                            <i class="bi bi-server me-2"></i>Jenkins Servers
                         </a></li>
                     </ul>
                 </li>

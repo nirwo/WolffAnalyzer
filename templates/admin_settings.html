@@ -40,6 +40,11 @@
                                     General Settings
                                 </button>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="jenkins-tab" data-bs-toggle="tab" data-bs-target="#jenkins-tab-pane" type="button" role="tab" aria-controls="jenkins-tab-pane" aria-selected="false">
+                                    Jenkins Integration
+                                </button>
+                            </li>
                         </ul>
                         <div class="tab-content" id="settingsTabsContent">
                             <div class="tab-pane fade show active" id="ssl-tab-pane" role="tabpanel" aria-labelledby="ssl-tab" tabindex="0">
@@ -180,6 +185,160 @@
                                     <button type="submit" class="btn btn-primary">Save General Settings</button>
                                 </form>
                             </div>
+                            
+                            <div class="tab-pane fade" id="jenkins-tab-pane" role="tabpanel" aria-labelledby="jenkins-tab" tabindex="0">
+                                <h5 class="mb-3">Jenkins Integration Settings</h5>
+                                
+                                <form action="{{ url_for('save_jenkins_settings') }}" method="post">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card mb-3">
+                                                <div class="card-header bg-secondary">
+                                                    <h6 class="mb-0">Jenkins Server Connection</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label for="jenkins_base_url" class="form-label">Jenkins Base URL</label>
+                                                        <input type="url" class="form-control" id="jenkins_base_url" name="jenkins_base_url" 
+                                                               placeholder="https://jenkins.example.com/" 
+                                                               value="{{ jenkins_settings.base_url|default('') }}">
+                                                        <div class="form-text">
+                                                            The URL of your Jenkins server (without "/job" or other path components)
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="jenkins_username" class="form-label">Jenkins Username</label>
+                                                        <input type="text" class="form-control" id="jenkins_username" name="jenkins_username" 
+                                                               value="{{ jenkins_settings.username|default('') }}">
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="jenkins_api_token" class="form-label">Jenkins API Token</label>
+                                                        <input type="password" class="form-control" id="jenkins_api_token" name="jenkins_api_token" 
+                                                               value="{{ jenkins_settings.api_token|default('') }}">
+                                                        <div class="form-text">
+                                                            API token or password for Jenkins authentication
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="jenkins_ssl_verify" name="jenkins_ssl_verify" 
+                                                               {% if jenkins_settings.ssl_verify|default(true) %}checked{% endif %}>
+                                                        <label class="form-check-label" for="jenkins_ssl_verify">
+                                                            Verify SSL certificates
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="card mb-3">
+                                                <div class="card-header bg-secondary">
+                                                    <h6 class="mb-0">Jenkins Integration Options</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="jenkins_auto_fetch" name="jenkins_auto_fetch" 
+                                                               {% if jenkins_settings.auto_fetch_logs|default(true) %}checked{% endif %}>
+                                                        <label class="form-check-label" for="jenkins_auto_fetch">
+                                                            Automatically fetch build logs
+                                                        </label>
+                                                        <div class="form-text">
+                                                            Automatically retrieve logs when a Jenkins build URL is detected
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <label for="jenkins_poll_interval" class="form-label">Poll Interval (minutes)</label>
+                                                        <input type="number" class="form-control" id="jenkins_poll_interval" name="jenkins_poll_interval" 
+                                                               value="{{ jenkins_settings.poll_interval|default(15) }}">
+                                                        <div class="form-text">
+                                                            How often to check for new Jenkins builds (0 to disable)
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="card mb-3">
+                                                        <div class="card-header bg-light">
+                                                            <h6 class="mb-0">Build Import Settings</h6>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="mb-3">
+                                                                <label for="jenkins_import_limit" class="form-label">Maximum builds to import</label>
+                                                                <input type="number" class="form-control" id="jenkins_import_limit" name="jenkins_import_limit" 
+                                                                       value="{{ jenkins_settings.import_builds.limit|default(50) }}">
+                                                            </div>
+                                                            
+                                                            <div class="mb-3">
+                                                                <label for="jenkins_import_days" class="form-label">Import builds from last X days</label>
+                                                                <input type="number" class="form-control" id="jenkins_import_days" name="jenkins_import_days" 
+                                                                       value="{{ jenkins_settings.import_builds.days|default(30) }}">
+                                                            </div>
+                                                            
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="jenkins_import_successful" name="jenkins_import_successful" 
+                                                                       {% if jenkins_settings.import_builds.include_successful|default(true) %}checked{% endif %}>
+                                                                <label class="form-check-label" for="jenkins_import_successful">
+                                                                    Include successful builds
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header bg-secondary">
+                                                    <h6 class="mb-0">API Integration</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">API Keys</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="new_api_key" placeholder="Add new API key">
+                                                            <button type="button" class="btn btn-outline-secondary" id="add_api_key_btn">Add</button>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="table-responsive">
+                                                        <table class="table table-sm table-hover" id="api_keys_table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>API Key</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {% for key in jenkins_settings.api_keys|default([]) %}
+                                                                <tr>
+                                                                    <td>{{ key }}</td>
+                                                                    <td>
+                                                                        <button type="button" class="btn btn-sm btn-danger remove-api-key" data-key="{{ key }}">
+                                                                            <i class="bi bi-trash"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <input type="hidden" id="jenkins_api_keys" name="jenkins_api_keys" value="{{ jenkins_settings.api_keys|default([])|tojson }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="btn btn-primary">Save Jenkins Settings</button>
+                                        <button type="button" class="btn btn-outline-secondary" id="testJenkinsConnectionBtn">Test Connection</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -208,7 +367,7 @@
                 }
             });
             
-            // Test connection button
+            // Test SSL connection button
             const testConnectionBtn = document.getElementById('testConnectionBtn');
             if (testConnectionBtn) {
                 testConnectionBtn.addEventListener('click', function() {
@@ -246,6 +405,153 @@
                         this.disabled = false;
                         
                         alert('Error testing connection: ' + error);
+                    });
+                });
+            }
+            
+            // Test Jenkins connection button
+            const testJenkinsConnectionBtn = document.getElementById('testJenkinsConnectionBtn');
+            if (testJenkinsConnectionBtn) {
+                testJenkinsConnectionBtn.addEventListener('click', function() {
+                    const url = document.getElementById('jenkins_base_url').value;
+                    const username = document.getElementById('jenkins_username').value;
+                    const apiToken = document.getElementById('jenkins_api_token').value;
+                    const verify = document.getElementById('jenkins_ssl_verify').checked;
+                    
+                    if (!url) {
+                        alert('Please enter a Jenkins URL');
+                        return;
+                    }
+                    
+                    // Show loading state
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Testing...';
+                    this.disabled = true;
+                    
+                    // Send test request
+                    fetch('/admin/test_jenkins_connection', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            url: url,
+                            username: username,
+                            api_token: apiToken,
+                            verify_ssl: verify
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Restore button
+                        this.innerHTML = originalText;
+                        this.disabled = false;
+                        
+                        // Show result
+                        if (data.success) {
+                            alert('Jenkins connection successful!\nVersion: ' + data.version + '\nJobs: ' + data.jobs_count);
+                        } else {
+                            alert('Jenkins connection failed: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        // Restore button
+                        this.innerHTML = originalText;
+                        this.disabled = false;
+                        
+                        alert('Error testing Jenkins connection: ' + error);
+                    });
+                });
+            }
+            
+            // API Key Management
+            const apiKeysTable = document.getElementById('api_keys_table');
+            const apiKeysHiddenInput = document.getElementById('jenkins_api_keys');
+            const newApiKeyInput = document.getElementById('new_api_key');
+            const addApiKeyBtn = document.getElementById('add_api_key_btn');
+            
+            if (apiKeysTable && apiKeysHiddenInput && addApiKeyBtn) {
+                // Load existing API keys
+                let apiKeys = [];
+                try {
+                    apiKeys = JSON.parse(apiKeysHiddenInput.value);
+                } catch (e) {
+                    apiKeys = [];
+                }
+                
+                // Function to update the hidden input with current API keys
+                function updateApiKeysInput() {
+                    apiKeysHiddenInput.value = JSON.stringify(apiKeys);
+                }
+                
+                // Function to add a new API key
+                function addApiKey(key) {
+                    if (!key || apiKeys.includes(key)) {
+                        return false;
+                    }
+                    
+                    apiKeys.push(key);
+                    updateApiKeysInput();
+                    
+                    // Add row to table
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${key}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-danger remove-api-key" data-key="${key}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    
+                    // Add event listener to the remove button
+                    const removeBtn = row.querySelector('.remove-api-key');
+                    removeBtn.addEventListener('click', function() {
+                        removeApiKey(key);
+                        row.remove();
+                    });
+                    
+                    apiKeysTable.querySelector('tbody').appendChild(row);
+                    return true;
+                }
+                
+                // Function to remove an API key
+                function removeApiKey(key) {
+                    const index = apiKeys.indexOf(key);
+                    if (index !== -1) {
+                        apiKeys.splice(index, 1);
+                        updateApiKeysInput();
+                        return true;
+                    }
+                    return false;
+                }
+                
+                // Add button event listener
+                addApiKeyBtn.addEventListener('click', function() {
+                    const key = newApiKeyInput.value.trim();
+                    if (key) {
+                        if (addApiKey(key)) {
+                            newApiKeyInput.value = '';
+                        } else {
+                            alert('Key already exists or is invalid');
+                        }
+                    }
+                });
+                
+                // Enter key in input field
+                newApiKeyInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addApiKeyBtn.click();
+                    }
+                });
+                
+                // Set up remove buttons for existing keys
+                document.querySelectorAll('.remove-api-key').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const key = this.getAttribute('data-key');
+                        removeApiKey(key);
+                        this.closest('tr').remove();
                     });
                 });
             }
