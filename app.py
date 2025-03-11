@@ -1401,6 +1401,26 @@ def index():
         return render_template('index.html', user=session)
     return redirect(url_for('login'))
 
+@app.route('/jenkins_dashboard')
+@login_required
+def jenkins_dashboard():
+    """
+    Jenkins CI/CD Monitoring Dashboard with advanced analytics and AI insights
+    """
+    # Sample metrics data - in a real app, this would come from a database or API
+    metrics = {
+        'build_success_rate': '87%',
+        'build_success_trend': 2.3,
+        'avg_build_duration': '11:35',
+        'build_duration_trend': -0.8,
+        'failed_builds': 15,
+        'failed_builds_trend': -3,
+        'deployment_success_rate': '94%',
+        'deployment_success_trend': 0.7
+    }
+    
+    return render_template('jenkins_dashboard.html', metrics=metrics, user=session)
+
 @app.route('/upload', methods=['POST'])
 @login_required
 def upload_file():

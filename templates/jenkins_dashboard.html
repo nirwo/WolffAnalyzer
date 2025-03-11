@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenkins CI/CD Monitoring Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container-fluid mt-4">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Jenkins CI/CD Monitoring Dashboard</h2>
+            <div class="d-flex gap-3">
+                <select id="timeRangeSelector" class="form-select form-select-sm">
+                    <option value="1">Last 24 Hours</option>
+                    <option value="7" selected>Last 7 Days</option>
+                    <option value="30">Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                </select>
+                <button id="refreshBtn" class="btn btn-sm btn-primary">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh
+                </button>
+            </div>
+        </div>
+        
+        <!-- Key Metrics Row -->
+        <div class="row mb-4">
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="metric-card glow-container">
+                    <div class="metric-label">Build Success Rate</div>
+                    <div id="buildSuccessRate" class="metric-value">{{ metrics.build_success_rate|default('85%') }}</div>
+                    <div class="metric-change metric-change-{{ 'positive' if metrics.build_success_trend|default(1) > 0 else 'negative' }}">
+                        <i class="bi bi-{{ 'arrow-up' if metrics.build_success_trend|default(1) > 0 else 'arrow-down' }}"></i>
+                        {{ metrics.build_success_trend|default('2.5%') }}
+                    </div>
+                    <div class="progress progress-slim mt-2">
+                        <div class="progress-bar {{ 'bg-success' if metrics.build_success_rate|default(85)|int >= 80 else 'bg-warning' if metrics.build_success_rate|default(85)|int >= 60 else 'bg-danger' }}" role="progressbar" style="width: {{ metrics.build_success_rate|default('85%') }}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-label">Average Build Duration</div>
+                    <div id="avgBuildDuration" class="metric-value">{{ metrics.avg_build_duration|default('12:45') }}</div>
+                    <div class="metric-change metric-change-{{ 'positive' if metrics.build_duration_trend|default(-1) < 0 else 'negative' }}">
+                        <i class="bi bi-{{ 'arrow-down' if metrics.build_duration_trend|default(-1) < 0 else 'arrow-up' }}"></i>
+                        {{ metrics.build_duration_trend|default('1:20') }}
+                    </div>
+                    <div class="small text-muted">minutes:seconds</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-label">Failed Builds</div>
+                    <div id="failedBuilds" class="metric-value">{{ metrics.failed_builds|default('17') }}</div>
+                    <div class="metric-change metric-change-{{ 'positive' if metrics.failed_builds_trend|default(-2) < 0 else 'negative' }}">
+                        <i class="bi bi-{{ 'arrow-down' if metrics.failed_builds_trend|default(-2) < 0 else 'arrow-up' }}"></i>
+                        {{ metrics.failed_builds_trend|default('2') }}
+                    </div>
+                    <div class="small text-muted">in selected period</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-label">Deployment Success Rate</div>
+                    <div id="deploymentSuccessRate" class="metric-value">{{ metrics.deployment_success_rate|default('92%') }}</div>
+                    <div class="metric-change metric-change-{{ 'positive' if metrics.deployment_success_trend|default(0.5) > 0 else 'negative' }}">
+                        <i class="bi bi-{{ 'arrow-up' if metrics.deployment_success_trend|default(0.5) > 0 else 'arrow-down' }}"></i>
+                        {{ metrics.deployment_success_trend|default('0.5%') }}
+                    </div>
+                    <div class="progress progress-slim mt-2">
+                        <div class="progress-bar {{ 'bg-success' if metrics.deployment_success_rate|default(92)|int >= 90 else 'bg-warning' if metrics.deployment_success_rate|default(92)|int >= 75 else 'bg-danger' }}" role="progressbar" style="width: {{ metrics.deployment_success_rate|default('92%') }}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Charts Row -->
+        <div class="row mb-4">
+            <!-- Build Success/Failure Trend Chart -->
+            <div class="col-lg-8 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Build Success/Failure Trends</h5>
+                    </div>
+                    <div class="card-body" style="height: 400px; max-height: 400px; overflow: hidden;">
+                        <canvas id="buildTrendsChart" style="max-height: 350px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Build Error Distribution -->
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Build Errors by Type</h5>
+                    </div>
+                    <div class="card-body" style="height: 400px; max-height: 400px; overflow: hidden;">
+                        <canvas id="errorDistributionChart" style="max-height: 350px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pipeline Analysis Row -->
+        <div class="row mb-4">
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Pipeline Stage Analysis</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <canvas id="stageSuccessRateChart" style="max-height: 250px;"></canvas>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h6 class="mb-3">Common Failure Points</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Pipeline Stage</th>
+                                            <th>Failure Count</th>
+                                            <th>Most Common Error</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% set pipeline_failures = [
+                                            {
+                                                'stage': 'Build',
+                                                'count': 10,
+                                                'error': 'Maven Compilation Error'
+                                            },
+                                            {
+                                                'stage': 'Test',
+                                                'count': 7,
+                                                'error': 'Integration Test Failure'
+                                            },
+                                            {
+                                                'stage': 'Deploy',
+                                                'count': 3,
+                                                'error': 'Missing Credentials'
+                                            },
+                                            {
+                                                'stage': 'Lint',
+                                                'count': 3,
+                                                'error': 'ESLint Error'
+                                            },
+                                            {
+                                                'stage': 'SonarQube',
+                                                'count': 2,
+                                                'error': 'Quality Gate Failed'
+                                            }
+                                        ] %}
+                                        
+                                        {% for failure in pipeline_failures %}
+                                        <tr>
+                                            <td>{{ failure.stage }}</td>
+                                            <td>{{ failure.count }}</td>
+                                            <td>{{ failure.error }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Pipeline Performance</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="pipelinePerformanceChart" style="max-height: 250px;">
+                            <canvas id="stageDurationChart"></canvas>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h6 class="mb-3">Build Duration Breakdown</h6>
+                            
+                            {% set pipeline_stages = [
+                                {
+                                    'stage': 'Checkout',
+                                    'avg_duration': '0:42',
+                                    'percent': 6
+                                },
+                                {
+                                    'stage': 'Build',
+                                    'avg_duration': '5:12',
+                                    'percent': 38
+                                },
+                                {
+                                    'stage': 'Unit Tests',
+                                    'avg_duration': '3:15',
+                                    'percent': 24
+                                },
+                                {
+                                    'stage': 'Integration Tests',
+                                    'avg_duration': '2:55',
+                                    'percent': 21
+                                },
+                                {
+                                    'stage': 'Deploy',
+                                    'avg_duration': '1:30',
+                                    'percent': 11
+                                }
+                            ] %}
+                            
+                            {% for stage in pipeline_stages %}
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <div>{{ stage.stage }}</div>
+                                    <div>{{ stage.avg_duration }}</div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: {{ stage.percent }}%" aria-valuenow="{{ stage.percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Insights Row -->
+        <div class="row mb-4">
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">AI-Powered Insights</h5>
+                            <span class="badge bg-light text-dark">Self-Learning</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="network-node me-2">AI</div>
+                                <h6 class="mb-0">Pattern Recognition Insights</h6>
+                            </div>
+                            
+                            <div class="ai-insights-container">
+                                <div class="alert alert-info">
+                                    <i class="bi bi-lightbulb-fill me-2"></i>
+                                    <strong>Detected Pattern:</strong> Build failures are 3.5x more frequent on Mondays between 9-11 AM.
+                                </div>
+                                
+                                <div class="alert alert-warning">
+                                    <i class="bi bi-graph-up me-2"></i>
+                                    <strong>Performance Insight:</strong> Checkout stage duration has increased by 35% in the last week.
+                                </div>
+                                
+                                <div class="alert alert-success">
+                                    <i class="bi bi-search me-2"></i>
+                                    <strong>Root Cause Analysis:</strong> 80% of test failures are related to database timeouts during peak hours.
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6 class="mb-2">Action Recommendations</h6>
+                                <ol class="list-group list-group-numbered">
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div>Increase Jenkins agent resources during peak hours</div>
+                                            <div class="text-muted small">Will reduce build time by an estimated 22%</div>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">High</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div>Fix database connection pooling in integration tests</div>
+                                            <div class="text-muted small">Addresses 80% of test failures</div>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">High</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div>Add caching for NPM dependencies</div>
+                                            <div class="text-muted small">Will improve build time by ~15%</div>
+                                        </div>
+                                        <span class="badge bg-secondary rounded-pill">Medium</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Pipeline Health Timeline</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="heatmap-container mb-2">
+                                {% for i in range(42) %}
+                                <div class="heatmap-cell heatmap-level-{{ range(0, 6)|random }}" 
+                                     data-bs-toggle="tooltip" 
+                                     data-bs-placement="top" 
+                                     title="2025-{{ range(1, 3)|random }}-{{ range(1, 28)|random }}: {{ range(0, 10)|random }} failures"></div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-between small text-muted">
+                                <span>Less</span>
+                                <span>More</span>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline">
+                            <div class="timeline-item error">
+                                <div class="timeline-time">Today, 10:35 AM</div>
+                                <div class="timeline-content">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>Build #1245 Failed</strong>
+                                        <span class="badge bg-danger">Critical</span>
+                                    </div>
+                                    <p class="mb-1">Maven compilation failed with 3 errors</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item success">
+                                <div class="timeline-time">Today, 09:15 AM</div>
+                                <div class="timeline-content">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>Build #1244 Deployed Successfully</strong>
+                                        <span class="badge bg-success">Success</span>
+                                    </div>
+                                    <p class="mb-1">Deployment completed in 3:45 minutes</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item warning">
+                                <div class="timeline-time">Yesterday, 16:22 PM</div>
+                                <div class="timeline-content">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>Performance Degradation Detected</strong>
+                                        <span class="badge bg-warning text-dark">Warning</span>
+                                    </div>
+                                    <p class="mb-1">Test stage taking 40% longer than usual</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">View Analysis</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Build Activity Row -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Recent Build Activity</h5>
+                            <div class="d-flex gap-2">
+                                <select id="buildsFilterSelect" class="form-select form-select-sm">
+                                    <option value="all">All Builds</option>
+                                    <option value="success">Successful</option>
+                                    <option value="failed">Failed</option>
+                                    <option value="aborted">Aborted</option>
+                                </select>
+                                <button class="btn btn-sm btn-light">View All</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Build #</th>
+                                        <th>Job Name</th>
+                                        <th>Status</th>
+                                        <th>Duration</th>
+                                        <th>Triggered By</th>
+                                        <th>Started</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% set build_statuses = ['Success', 'Failed', 'Success', 'Success', 'Aborted', 'Failed', 'Success', 'Failed', 'Success', 'Success'] %}
+                                    {% set job_names = ['frontend-build', 'backend-deploy', 'integration-tests', 'frontend-build', 'database-migration', 'backend-build', 'android-build', 'ios-build', 'release-build', 'performance-tests'] %}
+                                    {% set triggered_by = ['Scheduler', 'John Doe', 'Mary Smith', 'Code Push', 'Admin', 'Jane Wilson', 'Scheduler', 'Robert Johnson', 'Release Manager', 'DevOps Team'] %}
+                                    
+                                    {% for i in range(10) %}
+                                    <tr>
+                                        <td>#{{ 1245 - i }}</td>
+                                        <td>{{ job_names[i] }}</td>
+                                        <td>
+                                            <span class="badge {{ 'bg-success' if build_statuses[i] == 'Success' else 'bg-danger' if build_statuses[i] == 'Failed' else 'bg-warning text-dark' }}">
+                                                {{ build_statuses[i] }}
+                                            </span>
+                                        </td>
+                                        <td>{{ range(1, 15)|random }}:{{ range(10, 59)|random }}</td>
+                                        <td>{{ triggered_by[i] }}</td>
+                                        <td>{{ (10 - i) // 2 }} hours ago</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="#" class="btn btn-outline-primary">View</a>
+                                                {% if build_statuses[i] == 'Failed' %}
+                                                <a href="#" class="btn btn-outline-success">Rebuild</a>
+                                                <a href="#" class="btn btn-outline-info">Analyze</a>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark py-3 mt-5">
+        <div class="container-fluid text-center">
+            <p class="text-muted mb-0">Jenkins CI/CD Monitoring System &copy; 2025</p>
+        </div>
+    </footer>
+
+    <a href="#" class="floating-action-btn" data-bs-toggle="modal" data-bs-target="#newAnalysisModal">
+        <i class="bi bi-plus-lg"></i>
+    </a>
+
+    <!-- New Analysis Modal -->
+    <div class="modal fade" id="newAnalysisModal" tabindex="-1" aria-labelledby="newAnalysisModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="newAnalysisModalLabel">Analyze Jenkins Log</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs mb-3" id="analysisTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="upload-tab" data-bs-toggle="tab" data-bs-target="#upload-tab-pane" type="button" role="tab" aria-controls="upload-tab-pane" aria-selected="true">Upload Log</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="url-tab" data-bs-toggle="tab" data-bs-target="#url-tab-pane" type="button" role="tab" aria-controls="url-tab-pane" aria-selected="false">Jenkins URL</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="paste-tab" data-bs-toggle="tab" data-bs-target="#paste-tab-pane" type="button" role="tab" aria-controls="paste-tab-pane" aria-selected="false">Paste Log</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="analysisTabContent">
+                        <div class="tab-pane fade show active" id="upload-tab-pane" role="tabpanel" aria-labelledby="upload-tab" tabindex="0">
+                            <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="logfile" class="form-label">Select Jenkins log file</label>
+                                    <input class="form-control" type="file" id="logfile" name="logfile" required>
+                                    <div class="form-text">Supported formats: .log, .txt (Max 16MB)</div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Analyze Log</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="url-tab-pane" role="tabpanel" aria-labelledby="url-tab" tabindex="0">
+                            <form action="{{ url_for('analyze_url') }}" method="post">
+                                <div class="mb-3">
+                                    <label for="logurl" class="form-label">Jenkins Build URL</label>
+                                    <input type="url" class="form-control" id="logurl" name="logurl" placeholder="https://jenkins.example.com/job/project/123/console" required>
+                                    <div class="form-text">Paste the full URL to a Jenkins build or console output</div>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="verify_ssl" name="verify_ssl" checked>
+                                    <label class="form-check-label" for="verify_ssl">Verify SSL certificates</label>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Analyze URL</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="paste-tab-pane" role="tabpanel" aria-labelledby="paste-tab" tabindex="0">
+                            <form action="{{ url_for('analyze_text') }}" method="post">
+                                <div class="mb-3">
+                                    <label for="logtext" class="form-label">Paste Jenkins log content</label>
+                                    <textarea class="form-control font-monospace" id="logtext" name="logtext" rows="10" placeholder="Paste Jenkins log content here..." required></textarea>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Analyze Content</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // Build Success/Failure Trends Chart
+            const buildTrendsCtx = document.getElementById('buildTrendsChart').getContext('2d');
+            const buildTrendsChart = new Chart(buildTrendsCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 14}, (_, i) => {
+                        const date = new Date();
+                        date.setDate(date.getDate() - (13 - i));
+                        return date.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+                    }),
+                    datasets: [
+                        {
+                            label: 'Successful Builds',
+                            data: [15, 18, 14, 22, 25, 20, 18, 16, 21, 19, 23, 20, 24, 22],
+                            borderColor: '#198754',
+                            backgroundColor: 'rgba(25, 135, 84, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Failed Builds',
+                            data: [3, 2, 4, 1, 2, 3, 5, 2, 1, 3, 2, 1, 3, 2],
+                            borderColor: '#dc3545',
+                            backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                afterTitle: function(context) {
+                                    const successData = context[0].dataset.data;
+                                    const failData = context[1]?.dataset.data || [];
+                                    const index = context[0].dataIndex;
+                                    
+                                    const successValue = successData[index] || 0;
+                                    const failValue = failData[index] || 0;
+                                    const total = successValue + failValue;
+                                    
+                                    const successRate = total > 0 ? Math.round((successValue / total) * 100) : 0;
+                                    
+                                    return `Success Rate: ${successRate}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            stacked: false,
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Builds'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Build Error Distribution Chart
+            const errorDistributionCtx = document.getElementById('errorDistributionChart').getContext('2d');
+            const errorDistributionChart = new Chart(errorDistributionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Compilation Error', 'Test Failure', 'Dependency Issue', 'Timeout', 'Permission Error', 'Other'],
+                    datasets: [{
+                        data: [35, 25, 15, 10, 8, 7],
+                        backgroundColor: [
+                            '#dc3545',
+                            '#fd7e14',
+                            '#ffc107',
+                            '#0dcaf0',
+                            '#6c757d',
+                            '#6610f2'
+                        ],
+                        hoverOffset: 4,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.formattedValue;
+                                    const total = context.dataset.data.reduce((acc, data) => acc + data, 0);
+                                    const percentage = Math.round((context.raw / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Pipeline Stage Success Rate Chart
+            const stageSuccessRateCtx = document.getElementById('stageSuccessRateChart').getContext('2d');
+            const stageSuccessRateChart = new Chart(stageSuccessRateCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Checkout', 'Build', 'Unit Tests', 'Integration Tests', 'Deploy'],
+                    datasets: [{
+                        label: 'Success Rate (%)',
+                        data: [98, 88, 92, 85, 96],
+                        backgroundColor: [
+                            'rgba(25, 135, 84, 0.7)',
+                            'rgba(25, 135, 84, 0.7)',
+                            'rgba(25, 135, 84, 0.7)',
+                            'rgba(25, 135, 84, 0.7)',
+                            'rgba(25, 135, 84, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgb(25, 135, 84)',
+                            'rgb(25, 135, 84)',
+                            'rgb(25, 135, 84)',
+                            'rgb(25, 135, 84)',
+                            'rgb(25, 135, 84)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Success Rate (%)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Update bar colors based on values
+            stageSuccessRateChart.data.datasets[0].backgroundColor = stageSuccessRateChart.data.datasets[0].data.map(value => 
+                value >= 95 ? 'rgba(25, 135, 84, 0.7)' : 
+                value >= 85 ? 'rgba(255, 193, 7, 0.7)' : 
+                'rgba(220, 53, 69, 0.7)'
+            );
+            stageSuccessRateChart.data.datasets[0].borderColor = stageSuccessRateChart.data.datasets[0].data.map(value => 
+                value >= 95 ? 'rgb(25, 135, 84)' : 
+                value >= 85 ? 'rgb(255, 193, 7)' : 
+                'rgb(220, 53, 69)'
+            );
+            stageSuccessRateChart.update();
+
+            // Pipeline Stage Duration Chart
+            const stageDurationCtx = document.getElementById('stageDurationChart').getContext('2d');
+            const stageDurationChart = new Chart(stageDurationCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Checkout', 'Build', 'Unit Tests', 'Integration Tests', 'Deploy'],
+                    datasets: [{
+                        label: 'Average Duration (minutes)',
+                        data: [0.7, 5.2, 3.25, 2.9, 1.5],
+                        backgroundColor: 'rgba(13, 110, 253, 0.7)',
+                        borderColor: 'rgb(13, 110, 253)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Duration (minutes)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Refresh button functionality
+            document.getElementById('refreshBtn').addEventListener('click', function() {
+                // Show loading overlay
+                const loadingOverlay = document.createElement('div');
+                loadingOverlay.className = 'loading-overlay';
+                loadingOverlay.innerHTML = `
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Refreshing Dashboard Data...</div>
+                `;
+                document.body.appendChild(loadingOverlay);
+                
+                // Simulate refresh delay
+                setTimeout(function() {
+                    // Remove loading overlay
+                    document.body.removeChild(loadingOverlay);
+                    
+                    // Update data randomly (for demo purposes)
+                    const successRate = Math.floor(Math.random() * 11) + 80; // 80-90%
+                    document.getElementById('buildSuccessRate').textContent = `${successRate}%`;
+                    
+                    const minutes = Math.floor(Math.random() * 15) + 5;
+                    const seconds = Math.floor(Math.random() * 60);
+                    document.getElementById('avgBuildDuration').textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                    
+                    const failedBuilds = Math.floor(Math.random() * 10) + 10;
+                    document.getElementById('failedBuilds').textContent = failedBuilds;
+                    
+                    const deploySuccessRate = Math.floor(Math.random() * 6) + 90; // 90-95%
+                    document.getElementById('deploymentSuccessRate').textContent = `${deploySuccessRate}%`;
+                    
+                    // Show notification
+                    const notification = document.createElement('div');
+                    notification.className = 'alert alert-success position-fixed top-0 end-0 m-3';
+                    notification.style.zIndex = '9999';
+                    notification.innerHTML = `
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        Dashboard data refreshed successfully!
+                    `;
+                    document.body.appendChild(notification);
+                    
+                    // Remove notification after 3 seconds
+                    setTimeout(function() {
+                        document.body.removeChild(notification);
+                    }, 3000);
+                    
+                }, 1500);
+            });
+            
+            // Time range selector functionality
+            document.getElementById('timeRangeSelector').addEventListener('change', function() {
+                const days = parseInt(this.value);
+                
+                // Update chart data based on selected time range
+                // For demo purposes, we'll just update the x-axis labels
+                buildTrendsChart.data.labels = Array.from({length: days}, (_, i) => {
+                    const date = new Date();
+                    date.setDate(date.getDate() - (days - i - 1));
+                    return date.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+                });
+                
+                // Generate random data for the selected time range
+                buildTrendsChart.data.datasets[0].data = Array.from({length: days}, () => Math.floor(Math.random() * 15) + 10);
+                buildTrendsChart.data.datasets[1].data = Array.from({length: days}, () => Math.floor(Math.random() * 5) + 1);
+                
+                buildTrendsChart.update();
+            });
+            
+            // Builds filter functionality
+            document.getElementById('buildsFilterSelect').addEventListener('change', function() {
+                const filter = this.value;
+                const rows = document.querySelectorAll('tbody tr');
+                
+                rows.forEach(row => {
+                    const status = row.querySelector('td:nth-child(3) .badge').textContent.trim();
+                    
+                    if (filter === 'all') {
+                        row.style.display = '';
+                    } else if (filter === 'success' && status !== 'Success') {
+                        row.style.display = 'none';
+                    } else if (filter === 'failed' && status !== 'Failed') {
+                        row.style.display = 'none';
+                    } else if (filter === 'aborted' && status !== 'Aborted') {
+                        row.style.display = 'none';
+                    } else {
+                        row.style.display = '';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

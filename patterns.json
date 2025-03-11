@@ -3,60 +3,367 @@
     {
       "id": 1,
       "name": "Maven Build Error",
-      "pattern": "BUILD FAILURE|Failed to execute goal",
+      "pattern": "BUILD FAILURE|Failed to execute goal|^\\[ERROR\\] Failed to execute goal",
       "severity": "critical",
       "description": "Maven build process failed",
-      "suggestion": "Check for compilation errors, dependency issues, or test failures"
+      "suggestion": "Check for compilation errors, dependency issues, or test failures",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
     },
     {
       "id": 2,
       "name": "NPM Error",
-      "pattern": "npm ERR!",
+      "pattern": "npm ERR!|npm WARN|ERROR in|err!",
       "severity": "critical",
       "description": "NPM package or build error",
-      "suggestion": "Verify package.json, dependencies, or build scripts"
+      "suggestion": "Verify package.json, dependencies, or build scripts",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
     },
     {
       "id": 3,
       "name": "Missing Dependency",
-      "pattern": "Cannot find module|Could not find|No such file or directory",
+      "pattern": "Cannot find module|Could not find|No such file or directory|not found in the registry|Failed to resolve",
       "severity": "error",
       "description": "Required dependency or file is missing",
-      "suggestion": "Install missing dependencies or check file paths"
+      "suggestion": "Install missing dependencies or check file paths",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
     },
     {
       "id": 4,
       "name": "Permission Error",
-      "pattern": "Permission denied|EACCES",
+      "pattern": "Permission denied|EACCES|insufficient privileges|Access is denied",
       "severity": "error",
       "description": "Insufficient permissions to access a resource",
-      "suggestion": "Check file/directory permissions or use sudo/admin privileges"
+      "suggestion": "Check file/directory permissions or use sudo/admin privileges",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
     },
     {
       "id": 5,
       "name": "Test Failure",
-      "pattern": "Tests failed|Test failures|FAILED TEST",
+      "pattern": "Tests failed|Test failures|FAILED TEST|\\d+ test\\(s\\) failed|Failing tests|junit.framework.AssertionFailedError",
       "severity": "warning",
       "description": "One or more tests are failing",
-      "suggestion": "Check test output and fix failing tests"
+      "suggestion": "Check test output and fix failing tests",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 8,
+      "name": "Compilation Error",
+      "pattern": "Compilation failed|compiler error|compilation error|error: \\[|javac|cannot find symbol|class not found|undefined symbol",
+      "severity": "critical",
+      "description": "Java compilation error",
+      "suggestion": "Check for syntax errors, missing imports, or incorrect code",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 9,
+      "name": "Gradle Error",
+      "pattern": "FAILURE: Build failed with an exception|Execution failed for task|Gradle build daemon disappeared",
+      "severity": "critical",
+      "description": "Gradle build process failed",
+      "suggestion": "Check build.gradle files and task configuration",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 10,
+      "name": "Docker Build Failure",
+      "pattern": "docker build.*failed|The command.*returned a non-zero code|returned non-zero exit status",
+      "severity": "critical",
+      "description": "Docker image build failed",
+      "suggestion": "Check Dockerfile syntax and build commands",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 11,
+      "name": "Linting Error",
+      "pattern": "ESLint|lint task|checkstyle|pylint|rubocop|formatting error|style violation",
+      "severity": "warning",
+      "description": "Code style or linting errors",
+      "suggestion": "Fix code style issues according to project standards",
+      "effectiveness_score": 0.85,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 12,
+      "name": "Missing Credentials",
+      "pattern": "authentication failed|credentials.*not found|no credentials|not authorized|permission denied|Authentication unsuccessful",
+      "severity": "error",
+      "description": "Missing or invalid credentials",
+      "suggestion": "Check Jenkins credentials configuration or secrets management",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 18,
+      "name": "Pipeline Stage Failure",
+      "pattern": "Stage \".*\" failed|pipeline failed|Failed in branch|exited with non-zero status code|stage failed",
+      "severity": "critical",
+      "description": "A stage in the Jenkins pipeline has failed",
+      "suggestion": "Check the specific stage logs for error details and fix the failing step",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 19,
+      "name": "SCM Checkout Error",
+      "pattern": "checkout failed|git checkout failed|fatal: could not read|Could not checkout|Repository not found|cannot checkout branch",
+      "severity": "critical",
+      "description": "Failed to check out source code from repository",
+      "suggestion": "Verify repository access, credentials, and branch/tag names",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 20,
+      "name": "Node Offline",
+      "pattern": "node offline|agent offline|slave offline|No online nodes|no agents available|waiting for node|workspace offline",
+      "severity": "critical",
+      "description": "Jenkins node/agent is offline or unavailable",
+      "suggestion": "Check node status in Jenkins, verify network connectivity, and ensure agent is properly configured",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 21,
+      "name": "Job Aborted",
+      "pattern": "job aborted|Build was aborted|Aborted by|User aborted|manually interrupted|ABORT",
+      "severity": "warning",
+      "description": "Job was manually aborted or timed out",
+      "suggestion": "Check if the job was intentionally stopped or if it exceeded timeout limits",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 22,
+      "name": "Workspace Cleanup Issue",
+      "pattern": "Cannot delete workspace|Failed to delete|Unable to wipe out workspace|Workspace cleanup failed",
+      "severity": "warning",
+      "description": "Failed to clean up the workspace before or after a build",
+      "suggestion": "Check workspace permissions and ensure no processes are locking files",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 23,
+      "name": "Dependency Resolution Error",
+      "pattern": "Could not resolve dependencies|Dependency resolution failed|Unable to resolve artifact|unresolved dependency|unsatisfied dependency|Required dependency",
+      "severity": "error",
+      "description": "Failed to resolve or download dependencies",
+      "suggestion": "Check repository configuration, network connectivity, and dependency versions",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 24,
+      "name": "Plugin Error",
+      "pattern": "Plugin failed|Exception in plugin|Plugin execution failed|Plugin encountered an error",
+      "severity": "error",
+      "description": "A Jenkins plugin encountered an error",
+      "suggestion": "Check plugin configuration, update to the latest version, or report issue to plugin maintainers",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 25,
+      "name": "SonarQube Analysis Error",
+      "pattern": "SonarQube analysis failed|WARN: SonarQube|ERROR: SonarQube|sonar:sonar.*failed|Sonar reported an error",
+      "severity": "warning",
+      "description": "SonarQube code analysis encountered an error",
+      "suggestion": "Check SonarQube configuration, access permissions, and quality gates",
+      "effectiveness_score": 0.85,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 26,
+      "name": "Deployment Error",
+      "pattern": "Deploy failed|Deployment failed|Failed to deploy|Error uploading|failed to publish|Upload failed",
+      "severity": "critical",
+      "description": "Error during artifact deployment or publishing",
+      "suggestion": "Check deployment configuration, credentials, and target environment status",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 27,
+      "name": "Integration Test Failure",
+      "pattern": "Integration test failed|E2E test failed|Functional test failed|Selenium test failed|Cypress test failed|UI test failed",
+      "severity": "error",
+      "description": "Integration or end-to-end tests are failing",
+      "suggestion": "Inspect test logs, check if environment is properly configured, and verify application state",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
     }
   ],
   "system_patterns": [
     {
       "id": 6,
       "name": "Out of Memory",
-      "pattern": "OutOfMemoryError|MemoryError|out of memory|insufficient memory",
+      "pattern": "OutOfMemoryError|MemoryError|out of memory|insufficient memory|Java heap space|GC overhead limit exceeded|Allocation failed - JavaScript heap",
       "severity": "critical",
       "description": "Process ran out of memory",
-      "suggestion": "Increase memory allocation or optimize memory usage"
+      "suggestion": "Increase memory allocation or optimize memory usage",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
     },
     {
       "id": 7,
       "name": "Connection Error",
-      "pattern": "Connection refused|Connection reset|Connection timeout",
+      "pattern": "Connection refused|Connection reset|Connection timeout|connect: Network is unreachable|connection closed|unable to connect|connection error",
       "severity": "error",
       "description": "Network connection problem",
-      "suggestion": "Check network connectivity, firewall rules, or service availability"
+      "suggestion": "Check network connectivity, firewall rules, or service availability",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 13,
+      "name": "Disk Space Error",
+      "pattern": "No space left on device|disk full|insufficient disk|not enough space|out of disk space|File system is full",
+      "severity": "critical",
+      "description": "Disk space is exhausted",
+      "suggestion": "Clean up disk space or increase storage allocation",
+      "effectiveness_score": 0.95,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 14,
+      "name": "Timeout Error",
+      "pattern": "timed out|timeout|time limit exceeded|took too long|process killed after timeout|execute timed out",
+      "severity": "error",
+      "description": "Operation exceeded the time limit",
+      "suggestion": "Increase timeout thresholds or optimize the operation",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 15,
+      "name": "Version Mismatch",
+      "pattern": "version mismatch|incompatible version|requires version|expected version|wrong version|version conflict",
+      "severity": "error",
+      "description": "Incompatible software versions",
+      "suggestion": "Align software versions or update dependencies",
+      "effectiveness_score": 0.85,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 16,
+      "name": "Database Error",
+      "pattern": "database error|sql error|database connection|sql exception|deadlock|lock wait timeout|constraint violation|query failed",
+      "severity": "critical",
+      "description": "Database-related error",
+      "suggestion": "Check database configuration, queries, or connection parameters",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 17,
+      "name": "SSL/TLS Error",
+      "pattern": "SSL handshake|certificate verify|certificate error|untrusted certificate|SSL certificate problem|unable to get local issuer certificate",
+      "severity": "error",
+      "description": "SSL/TLS connection issues",
+      "suggestion": "Check certificates, TLS version, or security configuration",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 28,
+      "name": "System Resource Limit",
+      "pattern": "resource temporarily unavailable|too many open files|cannot allocate memory|resource exhausted|process limit reached|max user processes|queue overflow",
+      "severity": "critical",
+      "description": "System resource limits reached or exceeded",
+      "suggestion": "Check and increase system limits (ulimit), reduce resource consumption, or optimize processes",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 29,
+      "name": "File Access Error",
+      "pattern": "file not found|cannot open file|failed to access file|unable to access|cannot read file|path does not exist|failed to read",
+      "severity": "error",
+      "description": "Unable to access or read a file",
+      "suggestion": "Check file paths, permissions, and ensure files exist at expected locations",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 30,
+      "name": "Invalid Configuration",
+      "pattern": "invalid configuration|configuration error|missing configuration|invalid option|invalid parameter|config error|unknown option",
+      "severity": "error",
+      "description": "Configuration error or invalid settings",
+      "suggestion": "Review configuration files, check syntax, and ensure required parameters are provided",
+      "effectiveness_score": 0.85,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 31,
+      "name": "Performance Degradation",
+      "pattern": "performance warning|slow query|performance bottleneck|execution took longer than|taking too long|performance critical|slow execution",
+      "severity": "warning",
+      "description": "Performance issues or degradation detected",
+      "suggestion": "Profile the code, optimize queries or algorithms, and check for resource contention",
+      "effectiveness_score": 0.8,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 32,
+      "name": "API Error",
+      "pattern": "API error|HTTP [45]\\d\\d|API request failed|Bad response|Invalid response|request failed|API failure",
+      "severity": "error",
+      "description": "API request failed or returned an error",
+      "suggestion": "Check API endpoint, authentication, request parameters, and API service status",
+      "effectiveness_score": 0.85,
+      "match_count": 0,
+      "false_positive_count": 0
+    },
+    {
+      "id": 33,
+      "name": "Concurrency Issue",
+      "pattern": "deadlock detected|race condition|concurrent modification|optimistic lock|concurrent access|conflict detected|ConcurrentModificationException",
+      "severity": "error",
+      "description": "Concurrency or parallel execution issue",
+      "suggestion": "Review thread synchronization, locking strategy, or use appropriate concurrency controls",
+      "effectiveness_score": 0.9,
+      "match_count": 0,
+      "false_positive_count": 0
     }
   ]
 }
